@@ -1,3 +1,11 @@
+;
+;  testcalls.asm
+;  V30MZ cpu timing tester for WonderSwan.
+;
+;  Created by Robert Peip on 2021.
+;  Additions by Fredrik Ahlström on 2022-12-13.
+;
+
 %macro testgroup 1
    mov al,[es:pageCounter]
    cmp al,%1
@@ -153,7 +161,7 @@ test7end:
 
 testgroup 8
 execute  1, 70, teststringx75, test_op75
-execute  2, 90, teststring17, test_tripplejump
+execute  2, 101, teststring17, test_tripplejump
 test8end:
 
 testgroup 9

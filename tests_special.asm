@@ -1,3 +1,11 @@
+;
+;  tests_special.asm
+;  V30MZ cpu timing tester for WonderSwan.
+;
+;  Created by Robert Peip on 2021.
+;  Additions by Fredrik Ahlström on 2022-12-13.
+;
+
 test_jumponly:
    mov cx,1000
 align 2
@@ -89,11 +97,15 @@ test_tripplejump:
 align 2
 repeat_tripplejump:
    fill_prefetch
-   jnz tj1
+   jnz tj2
 align 2
 tj1:
-   db 0x6B
-   dw 0x2AC0 ; mul ax <= ax,42
+   jnz tj3
+align 2
+tj2:
+   jnz tj1
+align 2
+tj3:
    dec cx
    jnz repeat_tripplejump
    ret

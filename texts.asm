@@ -1,3 +1,11 @@
+;
+;  texts.asm
+;  V30MZ cpu timing tester for WonderSwan.
+;
+;  Created by Robert Peip on 2021.
+;  Additions by Fredrik Ahlström on 2022-12-13.
+;
+
 titleinfo     : db "Test     Correct Actual Pass:", 0
 teststring1   : db "Base loop:", 0
 teststring2   : db "Unaligned:", 0

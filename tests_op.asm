@@ -1,3 +1,11 @@
+;
+;  tests_op.asm
+;  V30MZ cpu timing tester for WonderSwan.
+;
+;  Created by Robert Peip on 2021.
+;  Additions by Fredrik Ahlström on 2022-12-13.
+;
+
 ;#################################################################
 ;############ Group 0x0
 ;#################################################################
