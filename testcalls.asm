@@ -148,15 +148,20 @@ test6end:
 testgroup 7
 execute  1, 93, teststringx60, test_op60
 execute  2,101, teststringx61, test_op61
-execute  3, 58, teststringx63, test_op63
-execute  4, 58, teststringx64, test_op64
-execute  5, 58, teststringx65, test_op65
-execute  6, 58, teststringx66, test_op66
-execute  7, 58, teststringx67, test_op67
-execute  8, 62, teststringx68, test_op68
-execute  9, 66, teststringx69, test_op69
-execute  10, 62, teststringx6A, test_op6A
-execute  11, 66, teststringx6B, test_op6B
+execute  3,109, teststringx62, test_op62
+execute  4, 58, teststringx63, test_op63
+execute  5, 58, teststringx64, test_op64
+execute  6, 58, teststringx65, test_op65
+execute  7, 58, teststringx66, test_op66
+execute  8, 58, teststringx67, test_op67
+execute  9, 62, teststringx68, test_op68
+execute 10, 66, teststringx69, test_op69
+execute 11, 62, teststringx6A, test_op6A
+execute 12, 66, teststringx6B, test_op6B
+execute 13, 74, teststringx6C, test_op6C
+execute 14, 74, teststringx6D, test_op6D
+execute 15, 74, teststringx6E, test_op6E
+execute 16, 74, teststringx6F, test_op6F
 test7end:
 
 testgroup 8

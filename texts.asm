@@ -129,15 +129,20 @@ teststringx5F : db "5F POP di:", 0
 
 teststringx60 : db "60 PUSHAL:", 0
 teststringx61 : db "61 POPALL:", 0
+teststringx62 : db "62 BOUND :", 0
 teststringx63 : db "63 UNDEF :", 0
 teststringx64 : db "64 UNDEF :", 0
 teststringx65 : db "65 UNDEF :", 0
 teststringx66 : db "66 UNDEF :", 0
 teststringx67 : db "67 UNDEF :", 0
-teststringx68 : db "68 PUSH W:", 0, 0
+teststringx68 : db "68 PUSH W:", 0
 teststringx69 : db "69 MUL  W:", 0
 teststringx6A : db "6A PUSH B:", 0
 teststringx6B : db "6B MUL  B:", 0
+teststringx6C : db "6C INSB  :", 0
+teststringx6D : db "6D INSW  :", 0
+teststringx6E : db "6E OUTSB :", 0
+teststringx6F : db "6F OUTSW :", 0
 
 teststringx70 : db "70 JO    :", 0
 teststringx71 : db "71 JNO   :", 0
@@ -192,7 +197,7 @@ teststringx9F : db "9F F2ACC :", 0
 teststringxA0 : db "A0 MOV AM:", 0
 teststringxA1 : db "A1 MOV AM:", 0
 teststringxA2 : db "A2 MOV MA:", 0
-teststringxA3 : db "A3 MOV MA:", 0, 0
+teststringxA3 : db "A3 MOV MA:", 0
 teststringxA4 : db "A4 MOV  S:", 0
 teststringxA5 : db "A5 MOV  S:", 0
 teststringxA6 : db "A6 CMP  S:", 0

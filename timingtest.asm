@@ -16,16 +16,16 @@ SECTION .data
 	MYSEGMENT equ 0xF000
 	backgroundMap equ WS_TILE_BANK - MAP_SIZE
 	spriteTable equ backgroundMap - SPR_TABLE_SIZE
-	
+
 	COLLISION_RADIUS equ 6
-	
+
 SECTION .text
 	;PADDING 15
-	
+
 initialize:
 	cli
 	cld
-	
+
 ;-----------------------------------------------------------------------------
 ; initialize registers and RAM
 ;-----------------------------------------------------------------------------
@@ -79,7 +79,7 @@ initialize:
 	mov byte [es:workbyte], 0
 	mov word [es:workword], 0
 	mov byte [es:pageCounter], 0
-   
+
 ;-----------------------------------------------------------------------------
 ; register our vblank interrupt handler
 ;-----------------------------------------------------------------------------
@@ -94,6 +94,10 @@ initialize:
 
 	mov di, 0*4		; Division error vector
 	mov word [es:di], divisionErrorHandler
+	mov word [es:di + 2], MYSEGMENT
+
+	mov di, 5*4		; Bound error vector
+	mov word [es:di], boundErrorHandler
 	mov word [es:di + 2], MYSEGMENT
 
 	; clear HBL & Timer
@@ -122,11 +126,11 @@ initialize:
 	mov di, WS_TILE_BANK
 	mov cx, BackgroundTileDataEnd - BackgroundTileData
 	rep movsb
-	
+
 ;-----------------------------------------------------------------------------
 ;  palette
 ;-----------------------------------------------------------------------------
-	
+
 	; setup the 8 colours supported by WonderSwan Mono
 	mov al, 00100000b
 	out 0x1C, al
@@ -136,31 +140,31 @@ initialize:
 	out 0x1E, al
 	mov al, 11111100b
 	out 0x1F, al
-	
+
 	; setup palette 0
 	mov al, 00001111b ; colours 0 and 1
 	out 0x20, al
 	mov al, 00000000b ; colours 2 and 3
 	out 0x21, al
-   
+
 ;-----------------------------------------------------------------------------
 
 	; turn on display
 	mov al, BG_ON
 	out IO_DISPLAY_CTRL, al
-   
+
    mov al, 50
    out IO_FG_WIN_X0, al
-   
+
    mov al, 100
    out IO_FG_WIN_X1, al
-   
+
    mov al, 20
    out IO_FG_WIN_Y0, al
-   
+
    mov al, 60
    out IO_FG_WIN_Y1, al
-   
+
 ;-----------------------------------------------------------------------------
 
    jmp tests
@@ -171,6 +175,7 @@ initialize:
 ; that is, every time the screen is fully drawn
 ;-----------------------------------------------------------------------------
 divisionErrorHandler:
+boundErrorHandler:
 vblankInterruptHandler:
 	iret
 
@@ -180,7 +185,7 @@ waitLine:
    cmp al,bl
    jnz waitLine
    ret
-   
+
 ;-----------------------------------------------------------------------------
 
 clearscreen:
@@ -189,9 +194,9 @@ clearscreen:
 	mov cx, MAP_TWIDTH * MAP_THEIGHT
 	rep stosw
    ret
-   
+
 ;-----------------------------------------------------------------------------
-   
+
 printstring:
    sal bx, 6
    mov si, dx
@@ -205,13 +210,13 @@ stringloop:
 
 stringend:
    ret
-   
+
 ;-----------------------------------------------------------------------------
-   
+
 okfail:
    sal bx, 6
    add bx, 48
-   
+
    cmp cl,dl
    jnz fail
    mov byte [es:backgroundMap+bx], 111
@@ -219,12 +224,12 @@ okfail:
 fail:
    mov byte [es:backgroundMap+bx], 120
    ret
-   
+
 ;-----------------------------------------------------------------------------
 printnumber:
    sal bx, 6
    add bx, cx
-   
+
    mov dl, 10
 divrepeat:
    div dl
@@ -307,7 +312,7 @@ test_op%3:
 %include "tests_special.asm"
 
 %include "tests_op.asm"
-   
+
 ;-----------------------------------------------------------------------------
 ; Test procedure
 ;-----------------------------------------------------------------------------
@@ -319,24 +324,24 @@ test_op%3:
    mov bx, %1
    sub bx,[es:scrollCounter]
    call printstring
-   
+
    ; print correct value
    mov al, %2
    mov bx, %1
    mov cx, 28
    sub bx,[es:scrollCounter]
    call printnumber
-   
+
    ;set up timer test
    mov al, 0
    out IO_TIMER_CTRL, al
    mov ax, 250
    out IOw_HBLANK_FREQ, ax
-   
+
    ;wait until line zero
    mov bl,0
    call waitLine
-   
+
    ; run test
    mov al, HBLANK_TIMER_ON
    out IO_TIMER_CTRL, al
@@ -345,34 +350,34 @@ test_op%3:
    mov bl, 250
    sub bl, al
    mov al, bl
-   
+
    ; print ok/fail
    mov bx, %1
    mov cl, %2
    mov dl, al
    sub bx,[es:scrollCounter]
    call okfail 
-   
+
    ; print result
    mov bx, %1
    mov cx, 40
    sub bx,[es:scrollCounter]
    call printnumber
-   
+
 %endmacro
 
 tests:
    call clearscreen
-   
+
    mov dx, titleinfo
    mov bx, 0
    sub bx,[es:scrollCounter]
    call printstring
-      
+
 %include "testcalls.asm"
 
 	jmp main_loop
-   
+
 ;-----------------------------------------------------------------------------
 main_loop:
 
@@ -392,7 +397,7 @@ main_loop:
    call waitLine
    mov bl,137
    call waitLine
-   
+
    ; x buttons
 	mov al, KEYPAD_READ_ARROWS_H
 	out IO_KEYPAD, al
@@ -401,21 +406,21 @@ main_loop:
 	nop
 	nop
 	in al, IO_KEYPAD
-	
+
 	test al, PAD_RIGHT
 	jnz x_right
-	
+
 	test al, PAD_LEFT
 	jnz x_left
 
 	test al, PAD_UP
 	jnz x_up
-	
+
 	test al, PAD_DOWN
 	jnz x_down
-   
+
    jmp main_loop
-   
+
 ;-----------------------------------------------------------------------------
    ; x buttons
 
@@ -440,12 +445,12 @@ x_right:
 
 	BackgroundTileData: incbin "ascii.gfx"
 	BackgroundTileDataEnd:
-	
+	boundData: dw 1234, 1236
 	author   : db "Written by Robert Peip, 2021"
    testinfo : db "1000 OPs advance CurLine by:"
-   
+
 %include "texts.asm"
-	
+
 	ROM_HEADER initialize, MYSEGMENT, RH_WS_MONO, RH_ROM_8MBITS, RH_NO_SRAM, RH_HORIZONTAL
 
 SECTION .bss start=0x0100 ; Keep space for Int Vectors
@@ -453,4 +458,5 @@ SECTION .bss start=0x0100 ; Keep space for Int Vectors
 	workbyte: resb 1
 	workword: resw 2
    pageCounter: resb 1
-	
+   padding0: resb 1
+	scratchspace: resb 2048 ; Used for opcodes that write to memory.

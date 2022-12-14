@@ -333,7 +333,7 @@ POPTEST  di, 5F
 ;#################################################################
 
 test_op60:
-   dotest2 db 0x60, {add sp, 16}, op60
+   dotest2 pusha, {add sp, 16}, op60
    ret
 
 test_op61:
@@ -342,11 +342,19 @@ align 2
 repeat_op61:
    fill_prefetch
    push cx
-   db 0x61
+   popa
    sub sp, 16
    pop cx 
    dec cx
    jnz repeat_op61
+   ret
+
+test_op62:
+	mov ax, MYSEGMENT
+	mov ds, ax
+   mov bx, boundData
+   mov dx, 1235
+   dotest {bound dx, [bx]}, op62
    ret
 
 SIMPLETEST db 0x63, 63
@@ -362,15 +370,35 @@ SIMPLETEST db 0x67, 67
 PUSHTEST 1234, 68
 
 test_op69:
-   and si, 0xFFFE
    dotest dd 0x04D2C069, op69 ; mul ax <= ax,1234
    ret
 
 PUSHTEST 42, 6A
 
 test_op6B:
-   and si, 0xFFFE
    dotest2 db 0x6B, dw 0x2AC0, op6B ; mul ax <= ax, 42
+   ret
+
+test_op6C:
+  	mov di, scratchspace
+   dotest insb, op6C
+   ret
+
+test_op6D:
+  	mov di, scratchspace
+   dotest insw, op6D
+   ret
+
+test_op6E:
+   mov dx, 44
+  	mov si, scratchspace
+   dotest outsb, op6E
+   ret
+
+test_op6F:
+   mov dx, 44
+  	mov si, scratchspace
+   dotest outsw, op6F
    ret
 
 ;#################################################################
