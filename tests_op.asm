@@ -337,7 +337,7 @@ test_op60:
    ret
 
 test_op61:
-   mov cx,1000
+   mov cx,TESTCOUNT
 align 2
 repeat_op61:
    fill_prefetch
@@ -405,8 +405,70 @@ test_op6F:
 ;############ Group 0x7
 ;#################################################################
 
+test_op70:
+   mov al, 64
+   add al, al ; Set oVerflow
+   mov cx, TESTCOUNT
+align 2
+repeat_op70:
+   fill_prefetch
+   jo dest_op70
+align 2
+dest_op70:
+   loop repeat_op70
+   ret
+
+test_op71:
+   add al, al ; Clear oVerflow
+   mov cx, TESTCOUNT
+align 2
+repeat_op71:
+   fill_prefetch
+   jno dest_op71
+align 2
+dest_op71:
+   loop repeat_op71
+   ret
+
+test_op72:
+   stc ; Set Carry
+   mov cx, TESTCOUNT
+align 2
+repeat_op72:
+   fill_prefetch
+   jc dest_op72
+align 2
+dest_op72:
+   loop repeat_op72
+   ret
+
+test_op73:
+   clc ; Clear Carry
+   mov cx, TESTCOUNT
+align 2
+repeat_op73:
+   fill_prefetch
+   jnc dest_op73
+align 2
+dest_op73:
+   loop repeat_op73
+   ret
+
+test_op74:
+   mov cx, TESTCOUNT
+   cmp cx, TESTCOUNT ; Set Zero
+align 2
+repeat_op74:
+   fill_prefetch
+   jz dest_op74
+align 2
+dest_op74:
+   loop repeat_op74
+   ret
+
 test_op75:
-   mov cx,1000
+   mov cx, TESTCOUNT
+   cmp cx, 0 ; Clear Zero
 align 2
 repeat_op75:
    fill_prefetch
@@ -415,6 +477,134 @@ align 2
 dest_op75:
    dec cx
    jnz repeat_op75
+   ret
+
+test_op76:
+   mov al, 128
+   add al, al ; Set Carry & Zero
+   mov cx, TESTCOUNT
+align 2
+repeat_op76:
+   fill_prefetch
+   jbe dest_op76
+align 2
+dest_op76:
+   loop repeat_op76
+   ret
+
+test_op77:
+   mov al, 32
+   add al, al ; Clear Carry & Zero
+   mov cx, TESTCOUNT
+align 2
+repeat_op77:
+   fill_prefetch
+   jnbe dest_op77
+align 2
+dest_op77:
+   loop repeat_op77
+   ret
+
+test_op78:
+   mov al, 64
+   add al, al ; Set Sign
+   mov cx, TESTCOUNT
+align 2
+repeat_op78:
+   fill_prefetch
+   js dest_op78
+align 2
+dest_op78:
+   loop repeat_op78
+   ret
+
+test_op79:
+   mov al, 32
+   add al, al ; Clear Sign
+   mov cx, TESTCOUNT
+align 2
+repeat_op79:
+   fill_prefetch
+   jns dest_op79
+align 2
+dest_op79:
+   loop repeat_op79
+   ret
+
+test_op7A:
+   and al, 0 ; Set Parity
+   mov cx, TESTCOUNT
+align 2
+repeat_op7A:
+   fill_prefetch
+   jp dest_op7A
+align 2
+dest_op7A:
+   loop repeat_op7A
+   ret
+
+test_op7B:
+   or al, 1 ; Clear Parity
+   mov cx, TESTCOUNT
+align 2
+repeat_op7B:
+   fill_prefetch
+   jnp dest_op7B
+align 2
+dest_op7B:
+   loop repeat_op7B
+   ret
+
+test_op7C:
+   mov al, 130
+   add al, 2 ; Set Sign != oVerflow
+   mov cx, TESTCOUNT
+align 2
+repeat_op7C:
+   fill_prefetch
+   jl dest_op7C
+align 2
+dest_op7C:
+   loop repeat_op7C
+   ret
+
+test_op7D:
+   mov al, 65
+   add al, al ; Set Sign == oVerflow
+   mov cx, TESTCOUNT
+align 2
+repeat_op7D:
+   fill_prefetch
+   jnl dest_op7D
+align 2
+dest_op7D:
+   loop repeat_op7D
+   ret
+
+test_op7E:
+   mov al, 130
+   add al, 2 ; Set Sign != oVerflow
+   mov cx, TESTCOUNT
+align 2
+repeat_op7E:
+   fill_prefetch
+   jle dest_op7E
+align 2
+dest_op7E:
+   loop repeat_op7E
+   ret
+
+test_op7F:
+   mov al, 65
+   add al, al ; Set Sign == oVerflow
+   mov cx, TESTCOUNT
+align 2
+repeat_op7F:
+   fill_prefetch
+   jnle dest_op7F
+align 2
+dest_op7F:
+   loop repeat_op7F
    ret
 
 ;#################################################################
@@ -790,7 +980,7 @@ test_opE7:
    ret
 
 test_opE9:
-   mov cx,1000
+   mov cx,TESTCOUNT
 align 2
 repeat_opE9:
    fill_prefetch
@@ -803,7 +993,7 @@ align 2
    ret
 
 test_opEA:
-   mov cx,1000
+   mov cx,TESTCOUNT
 align 2
 .loop:
    fill_prefetch
@@ -815,7 +1005,7 @@ align 2
    ret
 
 test_opEB:
-   mov cx,1000
+   mov cx,TESTCOUNT
 align 2
 .loop:
    fill_prefetch

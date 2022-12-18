@@ -165,8 +165,23 @@ execute 16, 74, teststringx6F, test_op6F
 test7end:
 
 testgroup 8
-execute  1, 70, teststringx75, test_op75
-execute  2, 101, teststring17, test_tripplejump
+execute  1, 70, teststringx70, test_op70
+execute  2, 70, teststringx71, test_op71
+execute  3, 70, teststringx72, test_op72
+execute  4, 70, teststringx73, test_op73
+execute  5, 70, teststringx74, test_op74
+execute  6, 70, teststringx75, test_op75
+execute  7, 70, teststringx76, test_op76
+execute  8, 70, teststringx77, test_op77
+execute  9, 70, teststringx78, test_op78
+execute 10, 70, teststringx79, test_op79
+execute 11, 70, teststringx7A, test_op7A
+execute 12, 70, teststringx7B, test_op7B
+execute 13, 70, teststringx7C, test_op7C
+execute 14, 70, teststringx7D, test_op7D
+execute 15, 70, teststringx7E, test_op7E
+execute 16, 70, teststringx7F, test_op7F
+execute 17, 101, teststring17, test_tripplejump
 test8end:
 
 testgroup 9

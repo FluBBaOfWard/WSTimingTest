@@ -14,6 +14,7 @@ SECTION .data
 	%include "WonderSwan.inc"
 
 	MYSEGMENT equ 0xF000
+	TESTCOUNT equ 1000
 	backgroundMap equ WS_TILE_BANK - MAP_SIZE
 	spriteTable equ backgroundMap - SPR_TABLE_SIZE
 
@@ -254,7 +255,7 @@ divrepeat:
 %endmacro
 
 %macro dotest 2 
-   mov cx,1000
+   mov cx,TESTCOUNT
 align 2
 repeat_%2:
    fill_prefetch
@@ -264,7 +265,7 @@ repeat_%2:
 %endmacro
 
 %macro dotest2 3 
-   mov cx,1000
+   mov cx,TESTCOUNT
 align 2
 repeat_%3:
    fill_prefetch
