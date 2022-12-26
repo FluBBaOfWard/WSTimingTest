@@ -262,10 +262,20 @@ test12end:
 testgroup 13
 execute  1, 74, teststringxC0, test_opC0
 execute  2, 74, teststringxC1, test_opC1
-execute  3, 78, teststringxC4, test_opC4
-execute  4, 78, teststringxC5, test_opC5
-execute  5, 58, teststringxC6, test_opC6
-execute  6, 58, teststringxC7, test_opC7
+execute  3, 78, teststringxC2, test_opC2
+execute  4, 86, teststringxC3, test_opC3
+execute  5, 78, teststringxC4, test_opC4
+execute  6, 78, teststringxC5, test_opC5
+execute  7, 58, teststringxC6, test_opC6
+execute  8, 58, teststringxC7, test_opC7
+execute  9, 86, teststringxC8, test_opC8
+execute 10, 66, teststringxC9, test_opC9
+execute 11, 90, teststringxCA, test_opCA
+execute 12, 93, teststringxCB, test_opCB
+execute 13, 254, teststringxCC, test_opCC
+execute 14, 257, teststringxCD, test_opCD
+execute 15, 277, teststringxCE, test_opCE
+execute 16,101, teststringxCF, test_opCF
 test13end:
 
 testgroup 14

@@ -230,10 +230,20 @@ teststringxBF : db "BF MI  di:", 0
 
 teststringxC0 : db "C0 MEMIM2:", 0
 teststringxC1 : db "C1 MEMIM2:", 0
+teststringxC2 : db "C2 RET 16:", 0
+teststringxC3 : db "C3 RET   :", 0
 teststringxC4 : db "C4 LD S M:", 0
 teststringxC5 : db "C5 LD S M:", 0
 teststringxC6 : db "C6 MOV MI:", 0
 teststringxC7 : db "C7 MOV MI:", 0
+teststringxC8 : db "C8 ENTER :", 0
+teststringxC9 : db "C9 LEAVE :", 0
+teststringxCA : db "CA RETF16:", 0
+teststringxCB : db "CB RETF  :", 0
+teststringxCC : db "CC INT 3 :", 0
+teststringxCD : db "CD INT XX:", 0
+teststringxCE : db "CE BRKV  :", 0
+teststringxCF : db "CF IRET  :", 0
 
 teststringxD0 : db "D0 MEMIM2:", 0
 teststringxD1 : db "D1 MEMIM2:", 0

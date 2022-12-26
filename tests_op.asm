@@ -902,6 +902,37 @@ test_opC1:
    dotest {ror word [workword], 2}, opC1
    ret
 
+test_opC2:
+   mov ax, dest_opC2
+   push ax
+   mov cx, TESTCOUNT
+align 2
+repeat_opC2:
+   fill_prefetch
+   ret -2
+align 2
+dest_opC2:
+   dec cx
+   jnz repeat_opC2
+   add sp, 2
+   ret
+
+test_opC3:
+   mov ax, dest_opC3
+   push ax
+   mov cx, TESTCOUNT
+align 2
+repeat_opC3:
+   fill_prefetch
+   ret
+align 2
+dest_opC3:
+   sub sp, 2
+   dec cx
+   jnz repeat_opC3
+   add sp, 2
+   ret
+
 test_opC4:
    push es
    dotest {les ax, [workword]}, opC4
@@ -922,6 +953,93 @@ test_opC7:
    dotest {mov word [workword], 1234}, opC7
    ret
 
+test_opC8:
+   dotest {enter -2, 0}, opC8
+   ret
+
+test_opC9:
+   mov bp, sp
+   sub bp, 2
+   push bp
+   dotest leave, opC9
+   ret
+
+test_opCA:
+   mov ax, dest_opCA
+   push cs
+   push ax
+   mov cx, TESTCOUNT
+align 2
+repeat_opCA:
+   fill_prefetch
+   retf -4
+align 2
+dest_opCA:
+   dec cx
+   jnz repeat_opCA
+   add sp, 4
+   ret
+
+test_opCB:
+   mov ax, dest_opCB
+   push cs
+   push ax
+   mov cx, TESTCOUNT
+align 2
+repeat_opCB:
+   fill_prefetch
+   retf
+align 2
+dest_opCB:
+   sub sp, 4
+   dec cx
+   jnz repeat_opCB
+   add sp, 4
+   ret
+
+test_opCC:
+   mov cx, TESTCOUNT
+align 2
+repeat_opCC:
+   fill_prefetch
+   dec cx
+   int3
+   jnz repeat_opCC
+   ret
+
+test_opCD:
+   dotest {int 4}, opCD
+   ret
+
+test_opCE:
+   mov al, 64
+   add al, al ; Set oVerflow
+   mov cx, TESTCOUNT
+align 2
+repeat_opCE:
+   fill_prefetch
+   nop
+   into
+   loop repeat_opCE
+   ret
+
+test_opCF:
+   mov ax, dest_opCF
+   pushf
+   push cs
+   push ax
+   mov cx, TESTCOUNT
+align 2
+repeat_opCF:
+   fill_prefetch
+   iret
+align 2
+dest_opCF:
+   sub sp, 6
+   dec cx
+   jnz repeat_opCF
+   add sp, 6
+   ret
 
 ;#################################################################
 ;############ Group 0xD

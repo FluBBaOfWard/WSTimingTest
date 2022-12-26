@@ -18,8 +18,6 @@ SECTION .data
 	backgroundMap equ WS_TILE_BANK - MAP_SIZE
 	spriteTable equ backgroundMap - SPR_TABLE_SIZE
 
-	COLLISION_RADIUS equ 6
-
 SECTION .text
 	;PADDING 15
 
@@ -95,6 +93,14 @@ initialize:
 
 	mov di, 0*4		; Division error vector
 	mov word [es:di], divisionErrorHandler
+	mov word [es:di + 2], MYSEGMENT
+
+	mov di, 3*4		; int 3 vector
+	mov word [es:di], int3Handler
+	mov word [es:di + 2], MYSEGMENT
+
+	mov di, 4*4		; brkv vector
+	mov word [es:di], brkvHandler
 	mov word [es:di + 2], MYSEGMENT
 
 	mov di, 5*4		; Bound error vector
@@ -175,7 +181,10 @@ initialize:
 ; it is called automatically whenever the vblank interrupt occurs, 
 ; that is, every time the screen is fully drawn
 ;-----------------------------------------------------------------------------
+align 2
 divisionErrorHandler:
+int3Handler:
+brkvHandler:
 boundErrorHandler:
 vblankInterruptHandler:
 	iret
@@ -218,7 +227,7 @@ okfail:
    sal bx, 6
    add bx, 48
 
-   cmp cl,dl
+   cmp cx,dx
    jnz fail
    mov byte [es:backgroundMap+bx], 111
    ret
@@ -327,7 +336,7 @@ test_op%3:
    call printstring
 
    ; print correct value
-   mov al, %2
+   mov ax, %2
    mov bx, %1
    mov cx, 28
    sub bx,[es:scrollCounter]
@@ -336,7 +345,7 @@ test_op%3:
    ;set up timer test
    mov al, 0
    out IO_TIMER_CTRL, al
-   mov ax, 250
+   mov ax, 300
    out IOw_HBLANK_FREQ, ax
 
    ;wait until line zero
@@ -348,14 +357,13 @@ test_op%3:
    out IO_TIMER_CTRL, al
    call %4
    in ax, IO_HBLANK_CNT1
-   mov bl, 250
-   sub bl, al
-   mov al, bl
+   mov dx, 300
+   sub dx, ax
+   mov ax, dx
 
    ; print ok/fail
    mov bx, %1
-   mov cl, %2
-   mov dl, al
+   mov cx, %2
    sub bx,[es:scrollCounter]
    call okfail 
 
