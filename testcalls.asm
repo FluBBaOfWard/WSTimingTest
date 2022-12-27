@@ -15,20 +15,21 @@
 testgroup 0
 execute  1, 54, teststring1  , test_jumponly
 execute  2, 58, teststring2  , test_jumponlyUnaligned
-execute  3, 58, teststring3  , test_nop
-execute  4, 62, teststring4  , test_nop2x
-execute  5, 58, teststring5  , test_incbl
-execute  6, 58, teststring6  , test_incbx
-execute  7, 62, teststring7  , test_incbx2x
-execute  8, 70, teststring8  , test_cli
-execute  9, 82, teststring9  , test_in_al
-execute 10, 74, teststring10 , test_in_aldx
-execute 11, 58, teststring11 , test_sp_add2
-execute 12, 58, teststring12 , test_sp_sub2
-execute 13, 62, teststring13 , test_push
-execute 14, 62, teststring14 , test_pop
-execute 15, 58, teststring15 , test_movaxmem
-execute 16, 58, teststring16 , test_movaxmemes
+execute  3, 54, teststring3  , test_looponly
+execute  4, 58, teststring4  , test_nop
+execute  5, 62, teststring5  , test_nop2x
+execute  6, 58, teststring6  , test_incbl
+execute  7, 58, teststring7  , test_incbx
+execute  8, 62, teststring8  , test_incbx2x
+execute  9, 70, teststring9  , test_cli
+execute 10, 82, teststring10 , test_in_al
+execute 11, 74, teststring11 , test_in_aldx
+execute 12, 58, teststring12 , test_sp_add2
+execute 13, 58, teststring13 , test_sp_sub2
+execute 14, 62, teststring14 , test_push
+execute 15, 62, teststring15 , test_pop
+execute 16, 58, teststring16 , test_movaxmem
+execute 17, 58, teststring17 , test_movaxmemes
 test0end:
 
 testgroup 1
@@ -47,7 +48,7 @@ execute 12, 62, teststringx0B, test_op0B
 execute 13, 58, teststringx0C, test_op0C
 execute 14, 58, teststringx0D, test_op0D
 execute 15, 66, teststringx0E, test_op0E
-execute 16, 58, teststringx0F, test_op0F
+;execute 16, 58, teststringx0F, test_op0F
 test1end:
 
 testgroup 2
@@ -109,18 +110,18 @@ test4end:
 
 testgroup 5
 execute  1, 58, teststringx40, test_op40
-execute  2,  0, teststringx41, test_op41
+execute  2, 58, teststringx41, test_op41
 execute  3, 58, teststringx42, test_op42
 execute  4, 58, teststringx43, test_op43
-execute  5,  0, teststringx44, test_op44
+execute  5, 58, teststringx44, test_op44
 execute  6, 58, teststringx45, test_op45
 execute  7, 58, teststringx46, test_op46
 execute  8, 58, teststringx47, test_op47
 execute  9, 58, teststringx48, test_op48
-execute 10,  0, teststringx49, test_op49
+execute 10, 58, teststringx49, test_op49
 execute 11, 58, teststringx4A, test_op4A
 execute 12, 58, teststringx4B, test_op4B
-execute 13,  0, teststringx4C, test_op4C
+execute 13, 58, teststringx4C, test_op4C
 execute 14, 58, teststringx4D, test_op4D
 execute 15, 58, teststringx4E, test_op4E
 execute 16, 58, teststringx4F, test_op4F
@@ -136,10 +137,10 @@ execute  6, 62, teststringx55, test_op55
 execute  7, 62, teststringx56, test_op56
 execute  8, 62, teststringx57, test_op57
 execute  9, 62, teststringx58, test_op58
-execute 10,  0, teststringx59, test_op59
+execute 10, 62, teststringx59, test_op59
 execute 11, 62, teststringx5A, test_op5A
 execute 12, 62, teststringx5B, test_op5B
-execute 13,  0, teststringx5C, test_op5C
+execute 13, 58, teststringx5C, test_op5C
 execute 14, 62, teststringx5D, test_op5D
 execute 15, 62, teststringx5E, test_op5E
 execute 16, 62, teststringx5F, test_op5F
@@ -165,23 +166,23 @@ execute 16, 74, teststringx6F, test_op6F
 test7end:
 
 testgroup 8
-execute  1, 74, teststringx70, test_op70
-execute  2, 74, teststringx71, test_op71
-execute  3, 74, teststringx72, test_op72
-execute  4, 74, teststringx73, test_op73
+execute  1, 78, teststringx70, test_op70
+execute  2, 70, teststringx71, test_op71
+execute  3, 86, teststringx72, test_op72
+execute  4, 86, teststringx73, test_op73
 execute  5, 74, teststringx74, test_op74
 execute  6, 70, teststringx75, test_op75
-execute  7, 74, teststringx76, test_op76
-execute  8, 74, teststringx77, test_op77
-execute  9, 74, teststringx78, test_op78
-execute 10, 74, teststringx79, test_op79
+execute  7, 78, teststringx76, test_op76
+execute  8, 78, teststringx77, test_op77
+execute  9, 78, teststringx78, test_op78
+execute 10, 78, teststringx79, test_op79
 execute 11, 74, teststringx7A, test_op7A
 execute 12, 74, teststringx7B, test_op7B
-execute 13, 74, teststringx7C, test_op7C
-execute 14, 74, teststringx7D, test_op7D
-execute 15, 74, teststringx7E, test_op7E
-execute 16, 74, teststringx7F, test_op7F
-execute 17, 101, teststring17, test_tripplejump
+execute 13, 78, teststringx7C, test_op7C
+execute 14, 78, teststringx7D, test_op7D
+execute 15, 78, teststringx7E, test_op7E
+execute 16, 78, teststringx7F, test_op7F
+execute 17,101, teststringx7X, test_tripplejump
 test8end:
 
 testgroup 9
@@ -242,15 +243,15 @@ test11end:
 
 testgroup 12
 execute  1, 58, teststringxB0, test_opB0
-execute  2,  0, teststringxB1, test_opB1
+execute  2, 58, teststringxB1, test_opB1
 execute  3, 58, teststringxB2, test_opB2
 execute  4, 58, teststringxB3, test_opB3
 execute  5, 58, teststringxB4, test_opB4
-execute  6,  0, teststringxB5, test_opB5
+execute  6, 58, teststringxB5, test_opB5
 execute  7, 58, teststringxB6, test_opB6
 execute  8, 58, teststringxB7, test_opB7
 execute  9, 58, teststringxB8, test_opB8
-execute 10,  0, teststringxB9, test_opB9
+execute 10, 58, teststringxB9, test_opB9
 execute 11, 58, teststringxBA, test_opBA
 execute 12, 58, teststringxBB, test_opBB
 execute 13, 58, teststringxBC, test_opBC
@@ -263,7 +264,7 @@ testgroup 13
 execute  1, 74, teststringxC0, test_opC0
 execute  2, 74, teststringxC1, test_opC1
 execute  3, 78, teststringxC2, test_opC2
-execute  4, 86, teststringxC3, test_opC3
+execute  4, 82, teststringxC3, test_opC3
 execute  5, 78, teststringxC4, test_opC4
 execute  6, 78, teststringxC5, test_opC5
 execute  7, 58, teststringxC6, test_opC6
@@ -271,11 +272,12 @@ execute  8, 58, teststringxC7, test_opC7
 execute  9, 86, teststringxC8, test_opC8
 execute 10, 66, teststringxC9, test_opC9
 execute 11, 90, teststringxCA, test_opCA
-execute 12, 93, teststringxCB, test_opCB
-execute 13, 254, teststringxCC, test_opCC
-execute 14, 257, teststringxCD, test_opCD
-execute 15, 277, teststringxCE, test_opCE
-execute 16,101, teststringxCF, test_opCF
+execute 12, 97, teststringxCB, test_opCB
+execute 13,254, teststringxCC, test_opCC
+execute 14,257, teststringxCD, test_opCD
+execute 15, 78, teststringxCE0,test_opCE0
+execute 16,281, teststringxCE1,test_opCE1
+execute 17,113, teststringxCF, test_opCF
 test13end:
 
 testgroup 14
@@ -288,37 +290,47 @@ execute  6, 78, teststringxD5, test_opD5
 execute  7, 86, teststringxD6, test_opD6
 execute  8, 74, teststringxD7, test_opD7
 execute  9, 58, teststringxD8, test_opD8
-execute  10, 58, teststringxD9, test_opD9
-execute  11, 58, teststringxDA, test_opDA
-execute  12, 58, teststringxDB, test_opDB
-execute  13, 58, teststringxDC, test_opDC
-execute  14, 58, teststringxDD, test_opDD
-execute  15, 58, teststringxDE, test_opDE
-execute  16, 58, teststringxDF, test_opDF
+execute 10, 58, teststringxD9, test_opD9
+execute 11, 58, teststringxDA, test_opDA
+execute 12, 58, teststringxDB, test_opDB
+execute 13, 58, teststringxDC, test_opDC
+execute 14, 58, teststringxDD, test_opDD
+execute 15, 58, teststringxDE, test_opDE
+execute 16, 58, teststringxDF, test_opDF
 test14end:
 
 testgroup 15
-execute  1, 82, teststringxE4, test_opE4
-execute  2, 82, teststringxE5, test_opE5
-execute  3, 82, teststringxE6, test_opE6
-execute  4, 82, teststringxE7, test_opE7
-execute  5, 70, teststringxE9, test_opE9
-execute  6, 82, teststringxEA, test_opEA
-execute  7, 70, teststringxEB, test_opEB
-execute  8, 74, teststringxEC, test_opEC
-execute  9, 74, teststringxED, test_opED
-execute 10, 74, teststringxEE, test_opEE
-execute 11, 74, teststringxEF, test_opEF
+execute  1, 82, teststringxE0, test_opE0
+execute  2, 86, teststringxE1, test_opE1
+execute  3, 78, teststringxE2, test_opE2
+execute  4, 70, teststringxE3, test_opE3
+execute  5, 82, teststringxE4, test_opE4
+execute  6, 82, teststringxE5, test_opE5
+execute  7, 82, teststringxE6, test_opE6
+execute  8, 82, teststringxE7, test_opE7
+execute  9, 78, teststringxE8, test_opE8
+execute 10, 70, teststringxE9, test_opE9
+execute 11, 82, teststringxEA, test_opEA
+execute 12, 70, teststringxEB, test_opEB
+execute 13, 74, teststringxEC, test_opEC
+execute 14, 74, teststringxED, test_opED
+execute 15, 74, teststringxEE, test_opEE
+execute 16, 74, teststringxEF, test_opEF
 test15end:
 
 testgroup 16
-execute  1, 58, teststringxF3, test_opF3
-execute  2, 70, teststringxF8, test_opF8
-execute  3, 70, teststringxF9, test_opF9
-execute  4, 70, teststringxFA, test_opFA
-execute  5,  0, teststringxFB, test_opFB
-execute  6, 70, teststringxFC, test_opFC
-execute  7,  0, teststringxFD, test_opFD
+execute  1, 58, teststringxF0, test_opF0
+execute  2,  0, teststringxF1, test_opF1
+execute  3, 58, teststringxF2, test_opF2
+execute  4, 58, teststringxF3, test_opF3
+execute  5,  0, teststringxF4, test_opF4
+execute  6, 70, teststringxF5, test_opF5
+execute  7, 70, teststringxF8, test_opF8
+execute  8, 70, teststringxF9, test_opF9
+execute  9, 70, teststringxFA, test_opFA
+execute 10,  0, teststringxFB, test_opFB
+execute 11, 70, teststringxFC, test_opFC
+execute 12, 70, teststringxFD, test_opFD
 test16end:
 
 testgroup 17

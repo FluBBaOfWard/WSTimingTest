@@ -9,21 +9,21 @@
 titleinfo     : db "Test     Correct Actual Pass:", 0
 teststring1   : db "Base loop:", 0
 teststring2   : db "Unaligned:", 0
-teststring3   : db "NOP      :", 0
-teststring4   : db "NOP 2X   :", 0
-teststring5   : db "INC BL   :", 0
-teststring6   : db "INC BX   :", 0
-teststring7   : db "INC BX 2X:", 0
-teststring8   : db "CLI      :", 0
-teststring9   : db "IN AL    :", 0
-teststring10  : db "IN AL, DX:", 0
-teststring11  : db "ADD SP,2 :", 0
-teststring12  : db "SUB SP,2 :", 0
-teststring13  : db "Push SP+2:", 0
-teststring14  : db "POP  SP-2:", 0
-teststring15  : db "AX<-MEM  :", 0
-teststring16  : db "AX<MEM ES:", 0
-teststring17  : db "TRIPLE_JP:", 0
+teststring3   : db "LOOP opco:", 0
+teststring4   : db "NOP      :", 0
+teststring5   : db "NOP 2X   :", 0
+teststring6   : db "INC BL   :", 0
+teststring7   : db "INC BX   :", 0
+teststring8   : db "INC BX 2X:", 0
+teststring9   : db "CLI      :", 0
+teststring10  : db "IN AL    :", 0
+teststring11  : db "IN AL, DX:", 0
+teststring12  : db "ADD SP,2 :", 0
+teststring13  : db "SUB SP,2 :", 0
+teststring14  : db "Push SP+2:", 0
+teststring15  : db "POP  SP-2:", 0
+teststring16  : db "AX<-MEM  :", 0
+teststring17  : db "AX<MEM ES:", 0
 
 teststringx00 : db "00 ADD   :", 0
 teststringx01 : db "01 ADD   :", 0
@@ -94,18 +94,18 @@ teststringx3E : db "3E PRE DS:", 0
 teststringx3F : db "3F AAS   :", 0
 
 teststringx40 : db "40 INC ax:", 0
-teststringx41 : db "41 NONE  :", 0
+teststringx41 : db "41 INC cx:", 0
 teststringx42 : db "42 INC dx:", 0
 teststringx43 : db "43 INC bx:", 0
-teststringx44 : db "44 NONE  :", 0
+teststringx44 : db "44 INC sp:", 0
 teststringx45 : db "45 INC bp:", 0
 teststringx46 : db "46 INC si:", 0
 teststringx47 : db "47 INC di:", 0
 teststringx48 : db "48 DEC ax:", 0
-teststringx49 : db "49 NONE  :", 0
+teststringx49 : db "49 DEC cx:", 0
 teststringx4A : db "4A DEC dx:", 0
 teststringx4B : db "4B DEC bx:", 0
-teststringx4C : db "4C NONE  :", 0
+teststringx4C : db "4C DEC sp:", 0
 teststringx4D : db "4D DEC bp:", 0
 teststringx4E : db "4E DEC si:", 0
 teststringx4F : db "4F DEC di:", 0
@@ -119,10 +119,10 @@ teststringx55 : db "55 PUSHbp:", 0
 teststringx56 : db "56 PUSHsi:", 0
 teststringx57 : db "57 PUSHdi:", 0
 teststringx58 : db "58 POP ax:", 0
-teststringx59 : db "59 NONE  :", 0
+teststringx59 : db "59 POP cx:", 0
 teststringx5A : db "5A POP dx:", 0
 teststringx5B : db "5B POP bx:", 0
-teststringx5C : db "5C NONE  :", 0
+teststringx5C : db "5C POP sp:", 0
 teststringx5D : db "5D POP bp:", 0
 teststringx5E : db "5E POP si:", 0
 teststringx5F : db "5F POP di:", 0
@@ -160,6 +160,7 @@ teststringx7C : db "7C JL    :", 0
 teststringx7D : db "7D JNL   :", 0
 teststringx7E : db "7E JLE   :", 0
 teststringx7F : db "7F JNLE  :", 0
+teststringx7X : db "TRIPLE_JP:", 0
 
 teststringx80 : db "80 MEMIM1:", 0
 teststringx81 : db "81 MEMIM1:", 0
@@ -212,15 +213,15 @@ teststringxAE : db "AE SCAN S:", 0
 teststringxAF : db "AF SCAN S:", 0
 
 teststringxB0 : db "B0 MI  al:", 0
-teststringxB1 : db "B1 NONE  :", 0
+teststringxB1 : db "B1 MI  cl:", 0
 teststringxB2 : db "B2 MI  dl:", 0
 teststringxB3 : db "B3 MI  bl:", 0
 teststringxB4 : db "B4 MI  ah:", 0
-teststringxB5 : db "B5 NONE  :", 0
+teststringxB5 : db "B5 MI  ch:", 0
 teststringxB6 : db "B6 MI  dh:", 0
 teststringxB7 : db "B7 MI  bh:", 0
 teststringxB8 : db "B8 MI  ax:", 0
-teststringxB9 : db "B9 NONE  :", 0
+teststringxB9 : db "B9 MI  cx:", 0
 teststringxBA : db "BA MI  dx:", 0
 teststringxBB : db "BB MI  bx:", 0
 teststringxBC : db "BC MI  sp:", 0
@@ -242,7 +243,8 @@ teststringxCA : db "CA RETF16:", 0
 teststringxCB : db "CB RETF  :", 0
 teststringxCC : db "CC INT 3 :", 0
 teststringxCD : db "CD INT XX:", 0
-teststringxCE : db "CE BRKV  :", 0
+teststringxCE0: db "CE BRKV 0:", 0
+teststringxCE1: db "CE BRKV 1:", 0
 teststringxCF : db "CF IRET  :", 0
 
 teststringxD0 : db "D0 MEMIM2:", 0
@@ -262,10 +264,15 @@ teststringxDD : db "DD UNDEF :", 0
 teststringxDE : db "DE UNDEF :", 0
 teststringxDF : db "DF UNDEF :", 0
 
+teststringxE0 : db "E0 LOOPNE:", 0
+teststringxE1 : db "E1 LOOPE :", 0
+teststringxE2 : db "E2 LOOP  :", 0
+teststringxE3 : db "E3 JCXZ  :", 0
 teststringxE4 : db "E4 OPIN B:", 0
 teststringxE5 : db "E5 OPIN W:", 0
 teststringxE6 : db "E6 OPOU B:", 0
 teststringxE7 : db "E7 OPOU W:", 0
+teststringxE8 : db "E8 CALL16:", 0
 teststringxE9 : db "E9 JMP 16:", 0
 teststringxEA : db "EA JMP FA:", 0
 teststringxEB : db "EB JMP R8:", 0
@@ -274,13 +281,18 @@ teststringxED : db "ED OPIN W:", 0
 teststringxEE : db "EE OPOU B:", 0
 teststringxEF : db "EF OPOU W:", 0
 
+teststringxF0 : db "F0 LOCK :", 0
+teststringxF1 : db "F1 NONE :", 0
+teststringxF2 : db "F2 R NOP:", 0
 teststringxF3 : db "F3 R NOP:", 0
+teststringxF4 : db "F4 NONE :", 0
+teststringxF5 : db "F5 CMC  :", 0
 teststringxF8 : db "F8 F C 0:", 0
 teststringxF9 : db "F9 F C 1:", 0
 teststringxFA : db "FA F I 0:", 0
 teststringxFB : db "FB NONE :", 0
 teststringxFC : db "FC F D 0:", 0
-teststringxFD : db "FD NONE :", 0
+teststringxFD : db "FD F D 1:", 0
 
 teststringI30 : db "F6 0 TST:", 0
 teststringI31 : db "F6 1 UND:", 0

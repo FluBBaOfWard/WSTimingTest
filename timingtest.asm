@@ -264,7 +264,7 @@ divrepeat:
 %endmacro
 
 %macro dotest 2 
-   mov cx,TESTCOUNT
+   mov cx, TESTCOUNT
 align 2
 repeat_%2:
    fill_prefetch
@@ -274,7 +274,7 @@ repeat_%2:
 %endmacro
 
 %macro dotest2 3 
-   mov cx,TESTCOUNT
+   mov cx, TESTCOUNT
 align 2
 repeat_%3:
    fill_prefetch

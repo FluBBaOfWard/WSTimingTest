@@ -29,6 +29,16 @@ repeat_jumponlyUnaligned:
 
 ;-----------------------------------------------------------------------------
 
+test_looponly:
+   mov cx,TESTCOUNT
+align 2
+repeat_looponly:
+   fill_prefetch
+   loop repeat_looponly
+   ret
+
+;-----------------------------------------------------------------------------
+
 test_nop:
    dotest nop, nop
    ret

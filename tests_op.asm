@@ -290,18 +290,50 @@ test_op3F:
 ;#################################################################
 
 SIMPLETEST inc ax, 40
-NOTEST 41 ;cx used as countdown
+
+test_op41:
+   mov bx,TESTCOUNT
+align 2
+repeat_op41:
+   fill_prefetch
+   inc cx
+   dec bx
+   jnz repeat_op41
+   ret
+
 SIMPLETEST inc dx, 42
 SIMPLETEST inc bx, 43
-NOTEST 44 ;sp modification 
+
+test_op44:
+   mov bx,sp
+   dotest inc sp, op44
+   mov sp,bx
+   ret
+
 SIMPLETEST inc bp, 45
 SIMPLETEST inc si, 46
 SIMPLETEST inc di, 47
 SIMPLETEST dec ax, 48
-NOTEST 49 ;cx used as countdown
+
+test_op49:
+   mov bx,TESTCOUNT
+align 2
+repeat_op49:
+   fill_prefetch
+   dec cx
+   dec bx
+   jnz repeat_op49
+   ret
+
 SIMPLETEST dec dx, 4A
 SIMPLETEST dec bx, 4B
-NOTEST 4C ;sp modification  
+
+test_op4C:
+   mov bx,sp
+   dotest inc sp, op4C
+   mov sp,bx
+   ret
+
 SIMPLETEST dec bp, 4D
 SIMPLETEST dec si, 4E
 SIMPLETEST dec di, 4F
@@ -320,10 +352,27 @@ PUSHTEST bp, 55
 PUSHTEST si, 56
 PUSHTEST di, 57
 POPTEST  ax, 58
-NOTEST       59 ; cx used as countdown
+
+test_op59:
+   mov bx,TESTCOUNT
+align 2
+repeat_op59:
+   fill_prefetch
+   pop cx
+   sub sp, 2
+   dec bx
+   jnz repeat_op59
+   ret
+
 POPTEST  dx, 5A
 POPTEST  bx, 5B
-NOTEST       5C ; crashes on WS, why?
+
+test_op5C:
+   push sp
+   dotest pop sp, op5C
+   add sp, 2
+   ret
+
 POPTEST  bp, 5D
 POPTEST  si, 5E
 POPTEST  di, 5F
@@ -380,12 +429,12 @@ test_op6B:
    ret
 
 test_op6C:
-  	mov di, scratchspace
+   mov di, scratchspace
    dotest insb, op6C
    ret
 
 test_op6D:
-  	mov di, scratchspace
+   mov di, scratchspace
    dotest insw, op6D
    ret
 
@@ -397,7 +446,7 @@ test_op6E:
 
 test_op6F:
    mov dx, 44
-  	mov si, scratchspace
+   mov si, scratchspace
    dotest outsw, op6F
    ret
 
@@ -406,19 +455,21 @@ test_op6F:
 ;#################################################################
 
 test_op70:
-   mov al, 64
-   add al, al ; Set oVerflow
    mov cx, TESTCOUNT
 align 2
 repeat_op70:
    fill_prefetch
+   mov al, 64
+   add al, al ; Set oVerflow
    jo dest_op70
 align 2
 dest_op70:
-   loop repeat_op70
+   dec cx
+   jnz repeat_op70
    ret
 
 test_op71:
+   mov al, 32
    add al, al ; Clear oVerflow
    mov cx, TESTCOUNT
 align 2
@@ -427,43 +478,47 @@ repeat_op71:
    jno dest_op71
 align 2
 dest_op71:
-   loop repeat_op71
+   dec cx ; No Overflow
+   jnz repeat_op71
    ret
 
 test_op72:
-   stc ; Set Carry
    mov cx, TESTCOUNT
 align 2
 repeat_op72:
    fill_prefetch
+   stc ; Set Carry
    jc dest_op72
 align 2
 dest_op72:
-   loop repeat_op72
+   dec cx
+   jnz repeat_op72
    ret
 
 test_op73:
-   clc ; Clear Carry
    mov cx, TESTCOUNT
 align 2
 repeat_op73:
    fill_prefetch
+   clc ; Clear Carry
    jnc dest_op73
 align 2
 dest_op73:
-   loop repeat_op73
+   dec cx
+   jnz repeat_op73
    ret
 
 test_op74:
    mov cx, TESTCOUNT
-   cmp cx, TESTCOUNT ; Set Zero
 align 2
 repeat_op74:
    fill_prefetch
+   xor al, al
    jz dest_op74
 align 2
 dest_op74:
-   loop repeat_op74
+   dec cx
+   jnz repeat_op74
    ret
 
 test_op75:
@@ -480,131 +535,142 @@ dest_op75:
    ret
 
 test_op76:
-   mov al, 128
-   add al, al ; Set Carry & Zero
    mov cx, TESTCOUNT
 align 2
 repeat_op76:
    fill_prefetch
+   mov al, 128
+   add al, al ; Set Carry & Zero
    jbe dest_op76
 align 2
 dest_op76:
-   loop repeat_op76
+   dec cx
+   jnz repeat_op76
    ret
 
 test_op77:
-   mov al, 32
-   add al, al ; Clear Carry & Zero
    mov cx, TESTCOUNT
 align 2
 repeat_op77:
    fill_prefetch
+   mov al, 32
+   add al, al ; Clear Carry & Zero
    jnbe dest_op77
 align 2
 dest_op77:
-   loop repeat_op77
+   dec cx
+   jnz repeat_op77
    ret
 
 test_op78:
-   mov al, 64
-   add al, al ; Set Sign
    mov cx, TESTCOUNT
 align 2
 repeat_op78:
    fill_prefetch
+   mov al, 64
+   add al, al ; Set Sign
    js dest_op78
 align 2
 dest_op78:
-   loop repeat_op78
+   dec cx
+   jnz repeat_op78
    ret
 
 test_op79:
-   mov al, 32
-   add al, al ; Clear Sign
    mov cx, TESTCOUNT
 align 2
 repeat_op79:
    fill_prefetch
+   mov al, 32
+   add al, al ; Clear Sign
    jns dest_op79
 align 2
 dest_op79:
-   loop repeat_op79
+   dec cx
+   jnz repeat_op79
    ret
 
 test_op7A:
-   and al, 0 ; Set Parity
    mov cx, TESTCOUNT
 align 2
 repeat_op7A:
    fill_prefetch
+   and al, 0 ; Set Parity
    jp dest_op7A
 align 2
 dest_op7A:
-   loop repeat_op7A
+   dec cx
+   jnz repeat_op7A
    ret
 
 test_op7B:
-   or al, 1 ; Clear Parity
+   mov bl, 0
    mov cx, TESTCOUNT
 align 2
 repeat_op7B:
    fill_prefetch
+   or bl, 1 ; Clear Parity
    jnp dest_op7B
 align 2
 dest_op7B:
-   loop repeat_op7B
+   dec cx
+   jnz repeat_op7B
    ret
 
 test_op7C:
-   mov al, 130
-   add al, 2 ; Set Sign != oVerflow
    mov cx, TESTCOUNT
 align 2
 repeat_op7C:
    fill_prefetch
+   mov al, 130
+   add al, 2 ; Set Sign != oVerflow
    jl dest_op7C
 align 2
 dest_op7C:
-   loop repeat_op7C
+   dec cx
+   jnz repeat_op7C
    ret
 
 test_op7D:
-   mov al, 65
-   add al, al ; Set Sign == oVerflow
    mov cx, TESTCOUNT
 align 2
 repeat_op7D:
    fill_prefetch
+   mov al, 65
+   add al, al ; Set Sign == oVerflow
    jnl dest_op7D
 align 2
 dest_op7D:
-   loop repeat_op7D
+   dec cx
+   jnz repeat_op7D
    ret
 
 test_op7E:
-   mov al, 130
-   add al, 2 ; Set Sign != oVerflow
    mov cx, TESTCOUNT
 align 2
 repeat_op7E:
    fill_prefetch
+   mov al, 130
+   add al, 2 ; Set Sign != oVerflow
    jle dest_op7E
 align 2
 dest_op7E:
-   loop repeat_op7E
+   dec cx
+   jnz repeat_op7E
    ret
 
 test_op7F:
-   mov al, 65
-   add al, al ; Set Sign == oVerflow
    mov cx, TESTCOUNT
 align 2
 repeat_op7F:
    fill_prefetch
+   mov al, 65
+   add al, al ; Set Sign == oVerflow
    jnle dest_op7F
 align 2
 dest_op7F:
-   loop repeat_op7F
+   dec cx
+   jnz repeat_op7F
    ret
 
 ;#################################################################
@@ -714,7 +780,7 @@ test_op97:
    ret
 
 SIMPLETEST db 0x98, 98 ; sign extend byte
-SIMPLETEST db 0x99, 99 ; sign extend word 
+SIMPLETEST db 0x99, 99 ; sign extend word
 SIMPLETEST db 0x9B, 9B ; POLL
 
 test_op9C:
@@ -768,7 +834,7 @@ test_opA5:
    push es
    and si,0xFFFE
    and di,0xFFFE
-   mov ax,0xF000 
+   mov ax,0xF000
    mov es,ax
    dotest movsw, opA5
    pop es
@@ -805,7 +871,7 @@ test_opA9:
 test_opAA:
    push di
    push es
-   mov ax,0xF000 
+   mov ax,0xF000
    mov es,ax
    dotest stosb, opAA
    pop es
@@ -816,7 +882,7 @@ test_opAB:
    push di
    push es
    and di,0xFFFE
-   mov ax,0xF000 
+   mov ax,0xF000
    mov es,ax
    dotest stosw, opAB
    pop es
@@ -854,15 +920,45 @@ test_opAF:
 ;#################################################################
 
 LOADIMMIDIATE al,   42, B0
-NOTEST B1 ;cx used as countdown
+
+test_opB1:
+   mov bx, TESTCOUNT
+align 2
+repeat_opB1:
+   fill_prefetch
+   mov cl, 42
+   dec bx
+   jnz repeat_opB1
+   ret
+
 LOADIMMIDIATE dl,   42, B2
 LOADIMMIDIATE bl,   42, B3
 LOADIMMIDIATE ah,   42, B4
-NOTEST B5 ;cx used as countdown
+
+test_opB5:
+   mov bx, TESTCOUNT
+align 2
+repeat_opB5:
+   fill_prefetch
+   mov ch, 42
+   dec bx
+   jnz repeat_opB5
+   ret
+
 LOADIMMIDIATE dh,   42, B6
 LOADIMMIDIATE bh,   42, B7
 LOADIMMIDIATE ax, 1234, B8
-NOTEST B9 ;cx used as countdown
+
+test_opB9:
+   mov bx, TESTCOUNT
+align 2
+repeat_opB9:
+   fill_prefetch
+   mov cx, 1234
+   dec bx
+   jnz repeat_opB9
+   ret
+
 LOADIMMIDIATE dx, 1234, BA
 LOADIMMIDIATE bx, 1234, BB
 
@@ -918,19 +1014,17 @@ dest_opC2:
    ret
 
 test_opC3:
-   mov ax, dest_opC3
-   push ax
+   mov bx, dest_opC3
    mov cx, TESTCOUNT
 align 2
 repeat_opC3:
    fill_prefetch
+   push bx
    ret
 align 2
 dest_opC3:
-   sub sp, 2
    dec cx
    jnz repeat_opC3
-   add sp, 2
    ret
 
 test_opC4:
@@ -981,20 +1075,18 @@ dest_opCA:
    ret
 
 test_opCB:
-   mov ax, dest_opCB
-   push cs
-   push ax
+   mov bx, dest_opCB
    mov cx, TESTCOUNT
 align 2
 repeat_opCB:
    fill_prefetch
+   push cs
+   push bx
    retf
 align 2
 dest_opCB:
-   sub sp, 4
    dec cx
    jnz repeat_opCB
-   add sp, 4
    ret
 
 test_opCC:
@@ -1011,39 +1103,48 @@ test_opCD:
    dotest {int 4}, opCD
    ret
 
-test_opCE:
-   mov al, 64
-   add al, al ; Set oVerflow
+test_opCE0:
    mov cx, TESTCOUNT
 align 2
-repeat_opCE:
+repeat_opCE0:
    fill_prefetch
+   dec cx      ; No Overflow
+   into
+   jnz repeat_opCE0
+   ret
+
+test_opCE1:
+   mov cx, TESTCOUNT
+align 2
+repeat_opCE1:
+   fill_prefetch
+   mov al, 64
+   add al, al ; Set oVerflow
    nop
    into
-   loop repeat_opCE
+   dec cx
+   jnz repeat_opCE1
    ret
 
 test_opCF:
-   mov ax, dest_opCF
-   pushf
-   push cs
-   push ax
+   mov bx, dest_opCF
    mov cx, TESTCOUNT
 align 2
 repeat_opCF:
    fill_prefetch
+   pushf
+   push cs
+   push bx
    iret
 align 2
 dest_opCF:
-   sub sp, 6
    dec cx
    jnz repeat_opCF
-   add sp, 6
    ret
 
 ;#################################################################
 ;############ Group 0xD
-;#################################################################   
+;#################################################################
 
 test_opD0:
    dotest {ror byte [workword], 1}, opD0
@@ -1079,7 +1180,60 @@ SIMPLETEST dw 0x00DF, DF
 
 ;#################################################################
 ;############ Group 0xE
-;#################################################################      
+;#################################################################
+
+test_opE0:
+   mov cx, TESTCOUNT
+align 2
+repeat_opE0:
+   fill_prefetch
+   inc cx
+   loopne dest_opE0
+align 2
+dest_opE0:
+   dec cx
+   jnz repeat_opE0
+   ret
+
+test_opE1:
+   mov cx, TESTCOUNT
+align 2
+repeat_opE1:
+   fill_prefetch
+   inc cx
+   xor al, al
+   loope dest_opE1
+align 2
+dest_opE1:
+   dec cx
+   jnz repeat_opE1
+   ret
+
+test_opE2:
+   mov cx, TESTCOUNT
+align 2
+repeat_opE2:
+   fill_prefetch
+   inc cx
+   loop dest_opE2
+align 2
+dest_opE2:
+   dec cx
+   jnz repeat_opE2
+   ret
+
+test_opE3:
+   mov cx, 0
+   mov bx, TESTCOUNT
+align 2
+repeat_opE3:
+   fill_prefetch
+   jcxz dest_opE3
+align 2
+dest_opE3:
+   dec bx
+   jnz repeat_opE3
+   ret
 
 test_opE4:
    dotest {in al, 0}, opE4
@@ -1095,6 +1249,19 @@ test_opE6:
 
 test_opE7:
    dotest {out 44, ax}, opE7
+   ret
+
+test_opE8:
+   mov cx, TESTCOUNT
+align 2
+repeat_opE8:
+   fill_prefetch
+   call dest_opE8
+align 2
+dest_opE8:
+   pop ax
+   dec cx
+   jnz repeat_opE8
    ret
 
 test_opE9:
@@ -1156,23 +1323,38 @@ test_opEF:
 
 ;#################################################################
 ;############ Group 0xF
-;#################################################################       
+;#################################################################
+
+test_opF0:
+   dotest2 lock, nop, opF0
+   ret
+
+NOTEST F1 ; crash
+
+test_opF2:
+   dotest2 repne, nop, opF2
+   ret
 
 test_opF3:
    dotest2 rep, nop, opF3
    ret
 
-
-SIMPLETEST clc, F8   
-SIMPLETEST stc, F9   
-SIMPLETEST cli, FA   
+NOTEST F4 ; halt
+SIMPLETEST cmc, F5
+SIMPLETEST clc, F8
+SIMPLETEST stc, F9
+SIMPLETEST cli, FA
 NOTEST FB ; cannot activate interrupts
 SIMPLETEST cld, FC   
-NOTEST FD ; cannot activate direction
+
+test_opFD:
+   dotest std, FD
+   cld
+   ret
 
 ;#################################################################
-;############ Group mem imm 3  
-;#################################################################      
+;############ Group mem imm 3
+;#################################################################
 
 test_I30:
    dotest {test byte [workword], 42}, opI30
@@ -1249,7 +1431,7 @@ test_I3F:
 
 ;#################################################################
 ;############ Group mem imm 4
-;#################################################################     
+;#################################################################
 
 test_I40:
    dotest {inc byte [workword]}, opI40
@@ -1270,5 +1452,3 @@ test_I49:
 test_I4E:
    dotest2 {push word [workword]}, {add sp, 2}, opI46
    ret
-
-
