@@ -1483,3 +1483,138 @@ test_I49:
 test_I4E:
    dotest2 {push word [workword]}, {add sp, 2}, opI46
    ret
+
+;#################################################################
+;############ Group Effective Address
+;#################################################################
+
+test_A00:
+   and bx,0xFFFE
+   and si,0xFFFE
+   dotest {mov al, [bx + si]}, opA00
+   ret
+
+test_A01:
+   and bx,0xFFFE
+   and di,0xFFFE
+   dotest {mov al, [bx + di]}, opA01
+   ret
+
+test_A02:
+   and bp,0xFFFE
+   and si,0xFFFE
+   dotest {mov al, [bp + si]}, opA02
+   ret
+
+test_A03:
+   and bp,0xFFFE
+   and di,0xFFFE
+   dotest {mov al, [bp + di]}, opA03
+   ret
+
+test_A04:
+   and si,0xFFFE
+   dotest {mov al, [si]}, opA04
+   ret
+
+test_A05:
+   and di,0xFFFE
+   dotest {mov al, [di]}, opA05
+   ret
+
+test_A06:
+   dotest {db 0x8A, 0x06, 0x00, 0x00}, opA06
+   ret
+
+test_A07:
+   and bx,0xFFFE
+   dotest {mov al, [bx]}, opA07
+   ret
+
+test_A40:
+   and bx,0xFFFE
+   and si,0xFFFE
+   dotest {mov al, [bx + si + 2]}, opA40
+   ret
+
+test_A41:
+   and bx,0xFFFE
+   and di,0xFFFE
+   dotest {mov al, [bx + di + 2]}, opA41
+   ret
+
+test_A42:
+   and bp,0xFFFE
+   and si,0xFFFE
+   dotest {mov al, [bp + si + 2]}, opA42
+   ret
+
+test_A43:
+   and bp,0xFFFE
+   and di,0xFFFE
+   dotest {mov al, [bp + di + 2]}, opA43
+   ret
+
+test_A44:
+   and si,0xFFFE
+   dotest {mov al, [si + 2]}, opA44
+   ret
+
+test_A45:
+   and di,0xFFFE
+   dotest {mov al, [di + 2]}, opA45
+   ret
+
+test_A46:
+   and bp,0xFFFE
+   dotest {mov al, [bp + 2]}, opA46
+   ret
+
+test_A47:
+   and bx,0xFFFE
+   dotest {mov al, [bx + 2]}, opA47
+   ret
+
+test_A80:
+   and bx,0xFFFE
+   and si,0xFFFE
+   dotest {mov al, [bx + si + 1234]}, opA80
+   ret
+
+test_A81:
+   and bx,0xFFFE
+   and di,0xFFFE
+   dotest {mov al, [bx + di + 1234]}, opA81
+   ret
+
+test_A82:
+   and bp,0xFFFE
+   and si,0xFFFE
+   dotest {mov al, [bp + si + 1234]}, opA82
+   ret
+
+test_A83:
+   and bp,0xFFFE
+   and di,0xFFFE
+   dotest {mov al, [bp + di + 1234]}, opA83
+   ret
+
+test_A84:
+   and si,0xFFFE
+   dotest {mov al, [si + 1234]}, opA84
+   ret
+
+test_A85:
+   and di,0xFFFE
+   dotest {mov al, [di + 1234]}, opA85
+   ret
+
+test_A86:
+   and bp,0xFFFE
+   dotest {mov al, [bp + 1234]}, opA86
+   ret
+
+test_A87:
+   and bx,0xFFFE
+   dotest {mov al, [bx + 1234]}, opA87
+   ret

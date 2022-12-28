@@ -361,3 +361,32 @@ execute  4, 66, teststringI49, test_I49
 execute  5, 66, teststringI4E, test_I4E
 test18end:
 
+testgroup 19
+execute  1, 66, teststringA00, test_A00
+execute  2, 66, teststringA01, test_A01
+execute  3, 66, teststringA02, test_A02
+execute  4, 66, teststringA03, test_A03
+execute  5, 58, teststringA04, test_A04
+execute  6, 58, teststringA05, test_A05
+execute  7, 58, teststringA06, test_A06
+execute  8, 58, teststringA07, test_A07
+execute  9, 66, teststringA40, test_A40
+execute 10, 66, teststringA41, test_A41
+execute 11, 66, teststringA42, test_A42
+execute 12, 66, teststringA43, test_A43
+execute 13, 58, teststringA44, test_A44
+execute 14, 58, teststringA45, test_A45
+execute 15, 58, teststringA46, test_A46
+execute 16, 58, teststringA47, test_A47
+test19end:
+
+testgroup 20
+execute  1, 66, teststringA80, test_A80
+execute  2, 66, teststringA81, test_A81
+execute  3, 66, teststringA82, test_A82
+execute  4, 66, teststringA83, test_A83
+execute  5, 58, teststringA84, test_A84
+execute  6, 58, teststringA85, test_A85
+execute  7, 58, teststringA86, test_A86
+execute  8, 58, teststringA87, test_A87
+test20end:

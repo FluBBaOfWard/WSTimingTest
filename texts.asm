@@ -190,7 +190,7 @@ teststringx97 : db "97 XCHG M:", 0
 teststringx98 : db "98 CBW   :", 0
 teststringx99 : db "99 CWD   :", 0
 teststringx9A : db "9A CALLF :", 0
-teststringx9B : db "9B POLL  :", 0
+teststringx9B : db "9B WAIT  :", 0
 teststringx9C : db "9C PUSH F:", 0
 teststringx9D : db "9D POP  F:", 0
 teststringx9E : db "9E ACC2F :", 0
@@ -318,3 +318,28 @@ teststringI48 : db "FF 0 I M:", 0
 teststringI49 : db "FF 1 D M:", 0
 teststringI4E : db "FF 6 P M:", 0
 
+teststringA00 : db "Adr EA00:", 0
+teststringA01 : db "Adr EA01:", 0
+teststringA02 : db "Adr EA02:", 0
+teststringA03 : db "Adr EA03:", 0
+teststringA04 : db "Adr EA04:", 0
+teststringA05 : db "Adr EA05:", 0
+teststringA06 : db "Adr EA06:", 0
+teststringA07 : db "Adr EA07:", 0
+teststringA40 : db "Adr EA40:", 0
+teststringA41 : db "Adr EA41:", 0
+teststringA42 : db "Adr EA42:", 0
+teststringA43 : db "Adr EA43:", 0
+teststringA44 : db "Adr EA44:", 0
+teststringA45 : db "Adr EA45:", 0
+teststringA46 : db "Adr EA46:", 0
+teststringA47 : db "Adr EA47:", 0
+
+teststringA80 : db "Adr EA80:", 0
+teststringA81 : db "Adr EA81:", 0
+teststringA82 : db "Adr EA82:", 0
+teststringA83 : db "Adr EA83:", 0
+teststringA84 : db "Adr EA84:", 0
+teststringA85 : db "Adr EA85:", 0
+teststringA86 : db "Adr EA86:", 0
+teststringA87 : db "Adr EA87:", 0
