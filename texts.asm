@@ -187,8 +187,9 @@ teststringx94 : db "94 XCHG M:", 0
 teststringx95 : db "95 XCHG M:", 0
 teststringx96 : db "96 XCHG M:", 0
 teststringx97 : db "97 XCHG M:", 0
-teststringx98 : db "98 SXT   :", 0
-teststringx99 : db "99 SXT   :", 0
+teststringx98 : db "98 CBW   :", 0
+teststringx99 : db "99 CWD   :", 0
+teststringx9A : db "9A CALLF :", 0
 teststringx9B : db "9B POLL  :", 0
 teststringx9C : db "9C PUSH F:", 0
 teststringx9D : db "9D POP  F:", 0
@@ -285,12 +286,12 @@ teststringxF0 : db "F0 LOCK :", 0
 teststringxF1 : db "F1 NONE :", 0
 teststringxF2 : db "F2 R NOP:", 0
 teststringxF3 : db "F3 R NOP:", 0
-teststringxF4 : db "F4 NONE :", 0
+teststringxF4 : db "F4 HLT  :", 0
 teststringxF5 : db "F5 CMC  :", 0
 teststringxF8 : db "F8 F C 0:", 0
 teststringxF9 : db "F9 F C 1:", 0
 teststringxFA : db "FA F I 0:", 0
-teststringxFB : db "FB NONE :", 0
+teststringxFB : db "FB F I 1:", 0
 teststringxFC : db "FC F D 0:", 0
 teststringxFD : db "FD F D 1:", 0
 

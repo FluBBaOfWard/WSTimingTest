@@ -6,159 +6,156 @@
 ;  Additions by Fredrik Ahlström on 2022-12-13.
 ;
 
-	ORG 0x0000
-	CPU 186
-	BITS 16
+   ORG 0x0000
+   CPU 186
+   BITS 16
 
 SECTION .data
-	%include "WonderSwan.inc"
+   %include "WonderSwan.inc"
 
-	MYSEGMENT equ 0xF000
-	TESTCOUNT equ 1000
-	backgroundMap equ WS_TILE_BANK - MAP_SIZE
-	spriteTable equ backgroundMap - SPR_TABLE_SIZE
+   MYSEGMENT equ 0xF000
+   TESTCOUNT equ 1000
+   backgroundMap equ WS_TILE_BANK - MAP_SIZE
+   spriteTable equ backgroundMap - SPR_TABLE_SIZE
 
 SECTION .text
-	;PADDING 15
+   ;PADDING 15
 
 initialize:
-	cli
-	cld
+   cli
+   cld
 
 ;-----------------------------------------------------------------------------
 ; initialize registers and RAM
 ;-----------------------------------------------------------------------------
-	mov ax, MYSEGMENT
-	mov ds, ax
-	xor ax, ax
-	mov es, ax
+   mov ax, MYSEGMENT
+   mov ds, ax
+   xor ax, ax
+   mov es, ax
 
-	; setup stack
-	mov bp, ax
-	mov ss, ax
-	mov sp, WS_STACK
+   ; setup stack
+   mov bp, ax
+   mov ss, ax
+   mov sp, WS_STACK
 
-	; clear Ram
-	mov di, 0x0100
-	mov cx, 0x7E80
-	rep stosw
+   ; clear Ram
+   mov di, 0x0100
+   mov cx, 0x7E80
+   rep stosw
 
-	out IO_SRAM_BANK,al
+   out IO_SRAM_BANK,al
 
 ;-----------------------------------------------------------------------------
 ; initialize video
 ;-----------------------------------------------------------------------------
-	;in al, IO_VIDEO_MODE
-	;or al, VMODE_16C_CHK | VMODE_CLEANINIT
-	;out IO_VIDEO_MODE, al
+   ;in al, IO_VIDEO_MODE
+   ;or al, VMODE_16C_CHK | VMODE_CLEANINIT
+   ;out IO_VIDEO_MODE, al
 
-	xor ax, ax
-	out IO_BG_X, al
-	out IO_BG_Y, al
-	out IO_FG_X, al
-	out IO_FG_Y, al
+   xor ax, ax
+   out IO_BG_X, al
+   out IO_BG_Y, al
+   out IO_FG_X, al
+   out IO_FG_Y, al
 
-	mov al, BG_MAP( backgroundMap )
-	out IO_FGBG_MAP, al
+   mov al, BG_MAP( backgroundMap )
+   out IO_FGBG_MAP, al
 
-	mov al, SPR_TABLE( spriteTable )
-	out IO_SPR_TABLE, al
+   mov al, SPR_TABLE( spriteTable )
+   out IO_SPR_TABLE, al
 
-	in al, IO_LCD_CTRL
-	or al, LCD_ON
-	out IO_LCD_CTRL, al
+   in al, IO_LCD_CTRL
+   or al, LCD_ON
+   out IO_LCD_CTRL, al
 
-	xor al, al
-	out IO_LCD_ICONS, al
+   xor al, al
+   out IO_LCD_ICONS, al
 
 ;-----------------------------------------------------------------------------
 ; initialize variables
 ;-----------------------------------------------------------------------------
-	mov byte [es:scrollCounter], 0
-	mov byte [es:workbyte], 0
-	mov word [es:workword], 0
-	mov byte [es:pageCounter], 0
+   mov byte [es:scrollCounter], 0
+   mov byte [es:workbyte], 0
+   mov word [es:workword], 0
+   mov byte [es:pageCounter], 0
 
 ;-----------------------------------------------------------------------------
 ; register our vblank interrupt handler
 ;-----------------------------------------------------------------------------
-	mov ax, INT_BASE
-	out IO_INT_BASE, al
+   mov ax, INT_BASE
+   out IO_INT_BASE, al
 
-	mov di, INTVEC_VBLANK_START
-	add di, ax
-	shl di, 2
-	mov word [es:di], vblankInterruptHandler
-	mov word [es:di + 2], MYSEGMENT
+   mov di, INTVEC_VBLANK_START
+   add di, ax
+   shl di, 2
+   mov word [es:di], vblankInterruptHandler
+   mov word [es:di + 2], MYSEGMENT
 
-	mov di, 0*4		; Division error vector
-	mov word [es:di], divisionErrorHandler
-	mov word [es:di + 2], MYSEGMENT
+   mov di, 0*4		; Division error vector
+   mov word [es:di], divisionErrorHandler
+   mov word [es:di + 2], MYSEGMENT
 
-	mov di, 3*4		; int 3 vector
-	mov word [es:di], int3Handler
-	mov word [es:di + 2], MYSEGMENT
+   mov di, 3*4		; int 3 vector
+   mov word [es:di], int3Handler
+   mov word [es:di + 2], MYSEGMENT
 
-	mov di, 4*4		; brkv vector
-	mov word [es:di], brkvHandler
-	mov word [es:di + 2], MYSEGMENT
+   mov di, 4*4		; brkv vector
+   mov word [es:di], brkvHandler
+   mov word [es:di + 2], MYSEGMENT
 
-	mov di, 5*4		; Bound error vector
-	mov word [es:di], boundErrorHandler
-	mov word [es:di + 2], MYSEGMENT
+   mov di, 5*4		; Bound error vector
+   mov word [es:di], boundErrorHandler
+   mov word [es:di + 2], MYSEGMENT
 
-	; clear HBL & Timer
-	xor ax, ax
-	out IOw_HBLANK_FREQ, ax
-	out IO_TIMER_CTRL, al
+   ; clear HBL & Timer
+   xor ax, ax
+   out IOw_HBLANK_FREQ, ax
+   out IO_TIMER_CTRL, al
 
-	; acknowledge all interrupts
-	dec al
-	out IO_INT_ACK, al
+   ; acknowledge all interrupts
+   dec al
+   out IO_INT_ACK, al
 
-	; enable VBL interrupt
-	;mov al, INT_VBLANK_START 
-	;out IO_INT_ENABLE, al
+   ; enable VBL interrupt
+   ;mov al, INT_VBLANK_START 
+   ;out IO_INT_ENABLE, al
    mov al, 0 
-	out IO_INT_ENABLE, al
-
-	; we have finished initializing, interrupts can now fire again
-	sti
+   out IO_INT_ENABLE, al
 
 ;-----------------------------------------------------------------------------
 ; copy background tile data (two tiles) to tile bank 1
 ;-----------------------------------------------------------------------------
 
-	mov si, BackgroundTileData
-	mov di, WS_TILE_BANK
-	mov cx, BackgroundTileDataEnd - BackgroundTileData
-	rep movsb
+   mov si, BackgroundTileData
+   mov di, WS_TILE_BANK
+   mov cx, BackgroundTileDataEnd - BackgroundTileData
+   rep movsb
 
 ;-----------------------------------------------------------------------------
 ;  palette
 ;-----------------------------------------------------------------------------
 
-	; setup the 8 colours supported by WonderSwan Mono
-	mov al, 00100000b
-	out 0x1C, al
-	mov al, 01100100b
-	out 0x1D, al
-	mov al, 10101000b
-	out 0x1E, al
-	mov al, 11111100b
-	out 0x1F, al
+   ; setup the 8 colours supported by WonderSwan Mono
+   mov al, 00100000b
+   out 0x1C, al
+   mov al, 01100100b
+   out 0x1D, al
+   mov al, 10101000b
+   out 0x1E, al
+   mov al, 11111100b
+   out 0x1F, al
 
-	; setup palette 0
-	mov al, 00001111b ; colours 0 and 1
-	out 0x20, al
-	mov al, 00000000b ; colours 2 and 3
-	out 0x21, al
+   ; setup palette 0
+   mov al, 00001111b ; colours 0 and 1
+   out 0x20, al
+   mov al, 00000000b ; colours 2 and 3
+   out 0x21, al
 
 ;-----------------------------------------------------------------------------
 
-	; turn on display
-	mov al, BG_ON
-	out IO_DISPLAY_CTRL, al
+   ; turn on display
+   mov al, BG_ON
+   out IO_DISPLAY_CTRL, al
 
    mov al, 50
    out IO_FG_WIN_X0, al
@@ -187,7 +184,7 @@ int3Handler:
 brkvHandler:
 boundErrorHandler:
 vblankInterruptHandler:
-	iret
+   iret
 
 
 waitLine:
@@ -200,9 +197,9 @@ waitLine:
 
 clearscreen:
    mov ax, BG_CHR( 0, 0, 0, 0, 0 ) ; BG_CHR(tile,pal,bank,hflip,vflip)
-	mov di, backgroundMap
-	mov cx, MAP_TWIDTH * MAP_THEIGHT
-	rep stosw
+   mov di, backgroundMap
+   mov cx, MAP_TWIDTH * MAP_THEIGHT
+   rep stosw
    ret
 
 ;-----------------------------------------------------------------------------
@@ -274,7 +271,7 @@ repeat_%2:
 %endmacro
 
 %macro dotest2 3 
-   mov cx, TESTCOUNT
+   mov cx,TESTCOUNT
 align 2
 repeat_%3:
    fill_prefetch
@@ -385,7 +382,7 @@ tests:
 
 %include "testcalls.asm"
 
-	jmp main_loop
+   jmp main_loop
 
 ;-----------------------------------------------------------------------------
 main_loop:
@@ -408,25 +405,25 @@ main_loop:
    call waitLine
 
    ; x buttons
-	mov al, KEYPAD_READ_ARROWS_H
-	out IO_KEYPAD, al
-	nop
-	nop
-	nop
-	nop
-	in al, IO_KEYPAD
+   mov al, KEYPAD_READ_ARROWS_H
+   out IO_KEYPAD, al
+   nop
+   nop
+   nop
+   nop
+   in al, IO_KEYPAD
 
-	test al, PAD_RIGHT
-	jnz x_right
+   test al, PAD_RIGHT
+   jnz x_right
 
-	test al, PAD_LEFT
-	jnz x_left
+   test al, PAD_LEFT
+   jnz x_left
 
-	test al, PAD_UP
-	jnz x_up
+   test al, PAD_UP
+   jnz x_up
 
-	test al, PAD_DOWN
-	jnz x_down
+   test al, PAD_DOWN
+   jnz x_down
 
    jmp main_loop
 
@@ -435,37 +432,37 @@ main_loop:
 
 x_up:
    dec byte [es:scrollCounter]
-	jmp tests
+   jmp tests
 x_down:
    inc byte [es:scrollCounter]
-	jmp tests
+   jmp tests
 x_left:
    dec byte [es:pageCounter]
-	jmp tests
+   jmp tests
 x_right:
    inc byte [es:pageCounter]
-	jmp tests
+   jmp tests
 
 ;-----------------------------------------------------------------------------
 ; constants area
 ;-----------------------------------------------------------------------------
 
-	align 2
+   align 2
 
-	BackgroundTileData: incbin "ascii.gfx"
-	BackgroundTileDataEnd:
-	boundData: dw 1234, 1236
-	author   : db "Written by Robert Peip, 2021"
+   BackgroundTileData: incbin "ascii.gfx"
+   BackgroundTileDataEnd:
+   boundData: dw 1234, 1236
+   author   : db "Written by Robert Peip, 2021"
    testinfo : db "1000 OPs advance CurLine by:"
 
 %include "texts.asm"
 
-	ROM_HEADER initialize, MYSEGMENT, RH_WS_MONO, RH_ROM_8MBITS, RH_NO_SRAM, RH_HORIZONTAL
+   ROM_HEADER initialize, MYSEGMENT, RH_WS_MONO, RH_ROM_8MBITS, RH_NO_SRAM, RH_HORIZONTAL
 
 SECTION .bss start=0x0100 ; Keep space for Int Vectors
-	scrollCounter: resb 1
-	workbyte: resb 1
-	workword: resw 2
+   scrollCounter: resb 1
+   workbyte: resb 1
+   workword: resw 2
    pageCounter: resb 1
    padding0: resb 1
-	scratchspace: resb 2048 ; Used for opcodes that write to memory.
+   scratchspace: resb 2048 ; Used for opcodes that write to memory.

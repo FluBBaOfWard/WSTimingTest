@@ -783,6 +783,20 @@ SIMPLETEST db 0x98, 98 ; sign extend byte
 SIMPLETEST db 0x99, 99 ; sign extend word
 SIMPLETEST db 0x9B, 9B ; POLL
 
+test_op9A:
+   mov cx, TESTCOUNT
+align 2
+repeat_op9A:
+   fill_prefetch
+   call MYSEGMENT:dest_op9A
+align 2
+dest_op9A:
+   pop ax
+   pop ax
+   dec cx
+   jnz repeat_op9A
+   ret
+
 test_op9C:
    dotest2 {pushf}, {add sp, 2}, op9C
    ret
@@ -1339,16 +1353,33 @@ test_opF3:
    dotest2 rep, nop, opF3
    ret
 
-NOTEST F4 ; halt
+test_opF4:
+   mov al, COMM_ENABLE | COMM_SPEED_38400
+   out IO_COMM_DIR, al
+   mov al, INT_SERIAL_SEND | INT_VBLANK_START
+   out IO_INT_ENABLE, al
+   dotest hlt, opF4
+   mov al, 0
+   out IO_COMM_DIR, al
+   out IO_INT_ENABLE, al
+   dec al
+   out IO_INT_ACK, al
+   ret
+
 SIMPLETEST cmc, F5
 SIMPLETEST clc, F8
 SIMPLETEST stc, F9
 SIMPLETEST cli, FA
-NOTEST FB ; cannot activate interrupts
+
+test_opFB:
+   dotest sti, opFB
+   cli
+   ret
+
 SIMPLETEST cld, FC   
 
 test_opFD:
-   dotest std, FD
+   dotest std, opFD
    cld
    ret
 

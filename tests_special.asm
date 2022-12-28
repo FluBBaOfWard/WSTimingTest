@@ -59,6 +59,18 @@ test_incbx2x:
    dotest2 inc bx, inc bx, incbx2x
    ret
 
+test_newjump:
+   mov cx,TESTCOUNT
+align 2
+repeat_newjump:
+   cbw
+   cbw
+   cbw
+   in al, dx
+   dec cx
+   jnz repeat_newjump
+   ret
+
 test_cli:
    dotest cli, cli
    ret
