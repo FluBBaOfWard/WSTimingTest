@@ -6,7 +6,7 @@ The test loop also takes 1 more cycle than it should, I'm not sure why this is y
 You can also not compare the result value between opcodes, the result value is for the whole test loop, not the individual opcode. Some opcodes require more glue code than other, please check the source code to see what is happening.
 The program test _all_ opcodes, even the undefined ones, on the WonderSwan these are almost allways one byte nops, including 0x0F.
 Pop SP (0x5C) doesn't add 2 to the poped value from the stack as some documentation says.
-Halt (0xF4) uses serial buffer empty interrupt, I also enable VBlank so that it can continue if serial interrupts are not suported.
+Halt (0xF4) test uses serial buffer empty interrupt, I also enable VBlank so that it can continue if serial interrupts are not suported.
 All opcode names are in Intel notation and not in NEC notation.
 
 ## How to use:

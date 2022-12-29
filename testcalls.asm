@@ -358,7 +358,12 @@ execute  1, 66, teststringI40, test_I40
 execute  2, 66, teststringI41, test_I41
 execute  3, 66, teststringI48, test_I48
 execute  4, 66, teststringI49, test_I49
-execute  5, 66, teststringI4E, test_I4E
+execute  5, 82, teststringI4A, test_I4A
+execute  6,117, teststringI4B, test_I4B
+execute  7, 78, teststringI4C, test_I4C
+execute  8, 93, teststringI4D, test_I4D
+execute  9, 66, teststringI4E, test_I4E
+execute 10, 58, teststringI4F, test_I4F
 test18end:
 
 testgroup 19

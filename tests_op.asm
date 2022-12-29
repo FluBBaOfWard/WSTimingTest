@@ -368,9 +368,10 @@ POPTEST  dx, 5A
 POPTEST  bx, 5B
 
 test_op5C:
+   mov bx,sp
    push sp
    dotest pop sp, op5C
-   add sp, 2
+   mov sp,bx
    ret
 
 POPTEST  bp, 5D
@@ -419,13 +420,13 @@ SIMPLETEST db 0x67, 67
 PUSHTEST 1234, 68
 
 test_op69:
-   dotest dd 0x04D2C069, op69 ; mul ax <= ax,1234
+   dotest {db 0x69, 0xC0, 0xD2, 0x04}, op69 ; mul ax <= ax,1234
    ret
 
 PUSHTEST 42, 6A
 
 test_op6B:
-   dotest2 db 0x6B, dw 0x2AC0, op6B ; mul ax <= ax, 42
+   dotest {db 0x6B, 0xC0, 0x2A}, op6B ; mul ax <= ax, 42
    ret
 
 test_op6C:
@@ -779,9 +780,8 @@ test_op97:
    dotest2 {xchg ax, di}, {mov di, ax}, op97
    ret
 
-SIMPLETEST db 0x98, 98 ; sign extend byte
-SIMPLETEST db 0x99, 99 ; sign extend word
-SIMPLETEST db 0x9B, 9B ; POLL
+SIMPLETEST cbw, 98 ; sign extend byte
+SIMPLETEST cwd, 99 ; sign extend word
 
 test_op9A:
    mov cx, TESTCOUNT
@@ -797,6 +797,8 @@ dest_op9A:
    jnz repeat_op9A
    ret
 
+SIMPLETEST wait, 9B ; wait
+
 test_op9C:
    dotest2 {pushf}, {add sp, 2}, op9C
    ret
@@ -807,8 +809,8 @@ test_op9D:
    popf
    ret
 
-SIMPLETEST db 0x9E, 9E ; acc to flags
-SIMPLETEST db 0x9F, 9F ; flags to acc
+SIMPLETEST sahf, 9E ; acc to flags
+SIMPLETEST lahf, 9F ; flags to acc
 
 ;#################################################################
 ;############ Group 0xA
@@ -1179,7 +1181,7 @@ test_opD3:
 SIMPLETEST aam, D4
 SIMPLETEST aad, D5
 
-SIMPLETEST db 0xD6, D6 ; SALC
+SIMPLETEST salc, D6 ; SALC
 SIMPLETEST xlatb, D7
 
 SIMPLETEST dw 0x00D8, D8
@@ -1268,27 +1270,26 @@ test_opE7:
 test_opE8:
    mov cx, TESTCOUNT
 align 2
-repeat_opE8:
+.loop:
    fill_prefetch
-   call dest_opE8
+   call .dest
 align 2
-dest_opE8:
+.dest:
    pop ax
    dec cx
-   jnz repeat_opE8
+   jnz .loop
    ret
 
 test_opE9:
    mov cx,TESTCOUNT
 align 2
-repeat_opE9:
+.loop:
    fill_prefetch
-;   jmp .dest
-   db 0xE9, 0x01, 0x00
+   jmp word .dest
 align 2
 .dest:
    dec cx
-   jnz repeat_opE9
+   jnz .loop
    ret
 
 test_opEA:
@@ -1480,8 +1481,71 @@ test_I49:
    dotest {dec word [workword]}, opI49
    ret
 
+i4A_addresses:
+   dw dest_I4A
+test_I4A:
+   mov cx, TESTCOUNT
+align 2
+repeat_I4A:
+   fill_prefetch
+   call [i4A_addresses]
+align 2
+dest_I4A:
+   pop ax
+   dec cx
+   jnz repeat_I4A
+   ret
+
+i4B_addresses:
+   dw dest_I4B, MYSEGMENT
+test_I4B:
+   mov cx, TESTCOUNT
+align 2
+repeat_I4B:
+   fill_prefetch
+   call far [i4B_addresses]
+align 2
+dest_I4B:
+   pop ax
+   pop ax
+   dec cx
+   jnz repeat_I4B
+   ret
+
+i4C_addresses:
+   dw dest_I4C
+test_I4C:
+   mov cx, TESTCOUNT
+align 2
+repeat_I4C:
+   fill_prefetch
+   jmp [i4C_addresses]
+align 2
+dest_I4C:
+   dec cx
+   jnz repeat_I4C
+   ret
+
+i4D_addresses:
+   dw dest_I4D, MYSEGMENT
+test_I4D:
+   mov cx, TESTCOUNT
+align 2
+repeat_I4D:
+   fill_prefetch
+   jmp far [i4D_addresses]
+align 2
+dest_I4D:
+   dec cx
+   jnz repeat_I4D
+   ret
+
 test_I4E:
-   dotest2 {push word [workword]}, {add sp, 2}, opI46
+   dotest2 {push word [workword]}, {add sp, 2}, opI4E
+   ret
+
+test_I4F:
+   dotest {db 0xff, 0xf8 }, opI4F
    ret
 
 ;#################################################################
@@ -1491,130 +1555,130 @@ test_I4E:
 test_A00:
    and bx,0xFFFE
    and si,0xFFFE
-   dotest {mov al, [bx + si]}, opA00
+   dotest {mov al, [bx + si]}, A00
    ret
 
 test_A01:
    and bx,0xFFFE
    and di,0xFFFE
-   dotest {mov al, [bx + di]}, opA01
+   dotest {mov al, [bx + di]}, A01
    ret
 
 test_A02:
    and bp,0xFFFE
    and si,0xFFFE
-   dotest {mov al, [bp + si]}, opA02
+   dotest {mov al, [bp + si]}, A02
    ret
 
 test_A03:
    and bp,0xFFFE
    and di,0xFFFE
-   dotest {mov al, [bp + di]}, opA03
+   dotest {mov al, [bp + di]}, A03
    ret
 
 test_A04:
    and si,0xFFFE
-   dotest {mov al, [si]}, opA04
+   dotest {mov al, [si]}, A04
    ret
 
 test_A05:
    and di,0xFFFE
-   dotest {mov al, [di]}, opA05
+   dotest {mov al, [di]}, A05
    ret
 
 test_A06:
-   dotest {db 0x8A, 0x06, 0x00, 0x00}, opA06
+   dotest {db 0x8A, 0x06, 0x00, 0x00}, A06
    ret
 
 test_A07:
    and bx,0xFFFE
-   dotest {mov al, [bx]}, opA07
+   dotest {mov al, [bx]}, A07
    ret
 
 test_A40:
    and bx,0xFFFE
    and si,0xFFFE
-   dotest {mov al, [bx + si + 2]}, opA40
+   dotest {mov al, [bx + si + 2]}, A40
    ret
 
 test_A41:
    and bx,0xFFFE
    and di,0xFFFE
-   dotest {mov al, [bx + di + 2]}, opA41
+   dotest {mov al, [bx + di + 2]}, A41
    ret
 
 test_A42:
    and bp,0xFFFE
    and si,0xFFFE
-   dotest {mov al, [bp + si + 2]}, opA42
+   dotest {mov al, [bp + si + 2]}, A42
    ret
 
 test_A43:
    and bp,0xFFFE
    and di,0xFFFE
-   dotest {mov al, [bp + di + 2]}, opA43
+   dotest {mov al, [bp + di + 2]}, A43
    ret
 
 test_A44:
    and si,0xFFFE
-   dotest {mov al, [si + 2]}, opA44
+   dotest {mov al, [si + 2]}, A44
    ret
 
 test_A45:
    and di,0xFFFE
-   dotest {mov al, [di + 2]}, opA45
+   dotest {mov al, [di + 2]}, A45
    ret
 
 test_A46:
    and bp,0xFFFE
-   dotest {mov al, [bp + 2]}, opA46
+   dotest {mov al, [bp + 2]}, A46
    ret
 
 test_A47:
    and bx,0xFFFE
-   dotest {mov al, [bx + 2]}, opA47
+   dotest {mov al, [bx + 2]}, A47
    ret
 
 test_A80:
    and bx,0xFFFE
    and si,0xFFFE
-   dotest {mov al, [bx + si + 1234]}, opA80
+   dotest {mov al, [bx + si + 1234]}, A80
    ret
 
 test_A81:
    and bx,0xFFFE
    and di,0xFFFE
-   dotest {mov al, [bx + di + 1234]}, opA81
+   dotest {mov al, [bx + di + 1234]}, A81
    ret
 
 test_A82:
    and bp,0xFFFE
    and si,0xFFFE
-   dotest {mov al, [bp + si + 1234]}, opA82
+   dotest {mov al, [bp + si + 1234]}, A82
    ret
 
 test_A83:
    and bp,0xFFFE
    and di,0xFFFE
-   dotest {mov al, [bp + di + 1234]}, opA83
+   dotest {mov al, [bp + di + 1234]}, A83
    ret
 
 test_A84:
    and si,0xFFFE
-   dotest {mov al, [si + 1234]}, opA84
+   dotest {mov al, [si + 1234]}, A84
    ret
 
 test_A85:
    and di,0xFFFE
-   dotest {mov al, [di + 1234]}, opA85
+   dotest {mov al, [di + 1234]}, A85
    ret
 
 test_A86:
    and bp,0xFFFE
-   dotest {mov al, [bp + 1234]}, opA86
+   dotest {mov al, [bp + 1234]}, A86
    ret
 
 test_A87:
    and bx,0xFFFE
-   dotest {mov al, [bx + 1234]}, opA87
+   dotest {mov al, [bx + 1234]}, A87
    ret

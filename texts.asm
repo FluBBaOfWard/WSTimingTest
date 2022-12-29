@@ -316,7 +316,12 @@ teststringI40 : db "FE 0 I M:", 0
 teststringI41 : db "FE 1 D M:", 0
 teststringI48 : db "FF 0 I M:", 0
 teststringI49 : db "FF 1 D M:", 0
+teststringI4A : db "FF 2 C M:", 0
+teststringI4B : db "FF 3 C M:", 0
+teststringI4C : db "FF 4 J M:", 0
+teststringI4D : db "FF 5 J M:", 0
 teststringI4E : db "FF 6 P M:", 0
+teststringI4F : db "FF 7 U R:", 0
 
 teststringA00 : db "Adr EA00:", 0
 teststringA01 : db "Adr EA01:", 0
