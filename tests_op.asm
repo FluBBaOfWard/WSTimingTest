@@ -1119,27 +1119,14 @@ test_opCD:
    dotest {int 4}, opCD
    ret
 
-test_opCE0:
+test_opCE:
    mov cx, TESTCOUNT
 align 2
-repeat_opCE0:
+repeat_opCE:
    fill_prefetch
    dec cx      ; No Overflow
    into
-   jnz repeat_opCE0
-   ret
-
-test_opCE1:
-   mov cx, TESTCOUNT
-align 2
-repeat_opCE1:
-   fill_prefetch
-   mov al, 64
-   add al, al ; Set oVerflow
-   nop
-   into
-   dec cx
-   jnz repeat_opCE1
+   jnz repeat_opCE
    ret
 
 test_opCF:
@@ -1420,7 +1407,7 @@ test_I36:
 
 test_I37:
    xor ah, ah
-   mov word [es:workword], 2
+   mov word [es:workword], 1
    dotest {idiv byte [es:workword]}, opI37
    ret
 
@@ -1447,7 +1434,6 @@ test_I3C:
 test_I3D:
    dotest {imul word [workword]}, opI3D
    ret
-
 
 test_I3E:
    xor dx, dx
@@ -1682,3 +1668,63 @@ test_A87:
    and bx,0xFFFE
    dotest {mov al, [bx + 1234]}, A87
    ret
+
+;#################################################################
+;############ Group Exceptions
+;#################################################################
+
+test_Ex62:
+	mov ax, MYSEGMENT
+	mov ds, ax
+   mov bx, boundData
+   mov dx, 1240
+   dotest {bound dx, [bx]}, ex62
+   ret
+
+test_ExCE:
+   mov cx, TESTCOUNT
+align 2
+repeat_ExCE:
+   fill_prefetch
+   mov al, 64
+   add al, al ; Set oVerflow
+   nop
+   into
+   dec cx
+   jnz repeat_ExCE
+   ret
+
+test_ExD4:
+   mov cx, TESTCOUNT
+align 2
+repeat_ExD4:
+   fill_prefetch
+   aam 0
+   dec cx
+   jnz repeat_ExD4
+   ret
+
+test_EI36:
+   xor ah, ah
+   mov word [es:workword], 0
+   dotest {div byte [es:workword]}, opEI36
+   ret
+
+test_EI37:
+   xor ah, ah
+   mov word [es:workword], 0
+   dotest {idiv byte [es:workword]}, opEI37
+   ret
+
+test_EI3E:
+   xor dx, dx
+   mov word [es:workword], 0
+   dotest {div word [es:workword]}, opEI3E
+   ret
+
+test_EI3F:
+   xor dx, dx
+   mov word [es:workword], 0
+   dotest {idiv word [es:workword]}, opEI3F
+   ret
+

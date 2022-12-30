@@ -244,16 +244,15 @@ teststringxCA : db "CA RETF16:", 0
 teststringxCB : db "CB RETF  :", 0
 teststringxCC : db "CC INT 3 :", 0
 teststringxCD : db "CD INT XX:", 0
-teststringxCE0: db "CE BRKV 0:", 0
-teststringxCE1: db "CE BRKV 1:", 0
+teststringxCE : db "CE BRKV  :", 0
 teststringxCF : db "CF IRET  :", 0
 
 teststringxD0 : db "D0 MEMIM2:", 0
 teststringxD1 : db "D1 MEMIM2:", 0
 teststringxD2 : db "D2 MEMIM2:", 0
 teststringxD3 : db "D3 MEMIM2:", 0
-teststringxD4 : db "D4 AAMUL :", 0
-teststringxD5 : db "D5 AADIV :", 0
+teststringxD4 : db "D4 AAM   :", 0
+teststringxD5 : db "D5 AAD   :", 0
 teststringxD6 : db "D6 SALC  :", 0
 teststringxD7 : db "D7 TRANSL:", 0
 teststringxD8 : db "D8 UNDEF :", 0
@@ -282,69 +281,77 @@ teststringxED : db "ED OPIN W:", 0
 teststringxEE : db "EE OPOU B:", 0
 teststringxEF : db "EF OPOU W:", 0
 
-teststringxF0 : db "F0 LOCK :", 0
-teststringxF1 : db "F1 NONE :", 0
-teststringxF2 : db "F2 R NOP:", 0
-teststringxF3 : db "F3 R NOP:", 0
-teststringxF4 : db "F4 HLT  :", 0
-teststringxF5 : db "F5 CMC  :", 0
-teststringxF8 : db "F8 F C 0:", 0
-teststringxF9 : db "F9 F C 1:", 0
-teststringxFA : db "FA F I 0:", 0
-teststringxFB : db "FB F I 1:", 0
-teststringxFC : db "FC F D 0:", 0
-teststringxFD : db "FD F D 1:", 0
+teststringxF0 : db "F0 LOCK  :", 0
+teststringxF1 : db "F1 NONE  :", 0
+teststringxF2 : db "F2 RepNOP:", 0
+teststringxF3 : db "F3 RepNOP:", 0
+teststringxF4 : db "F4 HLT   :", 0
+teststringxF5 : db "F5 CMC   :", 0
+teststringxF8 : db "F8 CLC   :", 0
+teststringxF9 : db "F9 STC   :", 0
+teststringxFA : db "FA CLI   :", 0
+teststringxFB : db "FB STI   :", 0
+teststringxFC : db "FC CLD   :", 0
+teststringxFD : db "FD STD   :", 0
 
-teststringI30 : db "F6 0 TST:", 0
-teststringI31 : db "F6 1 UND:", 0
-teststringI32 : db "F6 2 NOT:", 0
-teststringI33 : db "F6 3 NEG:", 0
-teststringI34 : db "F6 4 MUL:", 0
-teststringI35 : db "F6 5 MUL:", 0
-teststringI36 : db "F6 6 DIV:", 0
-teststringI37 : db "F6 7 DIV:", 0
-teststringI38 : db "F7 0 TST:", 0
-teststringI39 : db "F7 1 UND:", 0
-teststringI3A : db "F7 2 NOT:", 0
-teststringI3B : db "F7 3 NEG:", 0
-teststringI3C : db "F7 4 MUL:", 0
-teststringI3D : db "F7 5 MUL:", 0
-teststringI3E : db "F7 6 DIV:", 0
-teststringI3F : db "F7 7 DIV:", 0
+teststringI30 : db "F6 0 TEST:", 0
+teststringI31 : db "F6 1 UNDE:", 0
+teststringI32 : db "F6 2 NOT :", 0
+teststringI33 : db "F6 3 NEG :", 0
+teststringI34 : db "F6 4 MUL :", 0
+teststringI35 : db "F6 5 IMUL:", 0
+teststringI36 : db "F6 6 DIV :", 0
+teststringI37 : db "F6 7 IDIV:", 0
+teststringI38 : db "F7 0 TEST:", 0
+teststringI39 : db "F7 1 UNDE:", 0
+teststringI3A : db "F7 2 NOT :", 0
+teststringI3B : db "F7 3 NEG :", 0
+teststringI3C : db "F7 4 MUL :", 0
+teststringI3D : db "F7 5 IMUL:", 0
+teststringI3E : db "F7 6 DIV :", 0
+teststringI3F : db "F7 7 IDIV:", 0
 
-teststringI40 : db "FE 0 I M:", 0
-teststringI41 : db "FE 1 D M:", 0
-teststringI48 : db "FF 0 I M:", 0
-teststringI49 : db "FF 1 D M:", 0
-teststringI4A : db "FF 2 C M:", 0
-teststringI4B : db "FF 3 C M:", 0
-teststringI4C : db "FF 4 J M:", 0
-teststringI4D : db "FF 5 J M:", 0
-teststringI4E : db "FF 6 P M:", 0
-teststringI4F : db "FF 7 U R:", 0
+teststringI40 : db "FE 0 IncM:", 0
+teststringI41 : db "FE 1 DecM:", 0
+teststringI48 : db "FF 0 IncM:", 0
+teststringI49 : db "FF 1 DecM:", 0
+teststringI4A : db "FF 2 CalM:", 0
+teststringI4B : db "FF 3 CalM:", 0
+teststringI4C : db "FF 4 JmpM:", 0
+teststringI4D : db "FF 5 JmpM:", 0
+teststringI4E : db "FF 6 PusM:", 0
+teststringI4F : db "FF 7 UndR:", 0
 
-teststringA00 : db "Adr EA00:", 0
-teststringA01 : db "Adr EA01:", 0
-teststringA02 : db "Adr EA02:", 0
-teststringA03 : db "Adr EA03:", 0
-teststringA04 : db "Adr EA04:", 0
-teststringA05 : db "Adr EA05:", 0
-teststringA06 : db "Adr EA06:", 0
-teststringA07 : db "Adr EA07:", 0
-teststringA40 : db "Adr EA40:", 0
-teststringA41 : db "Adr EA41:", 0
-teststringA42 : db "Adr EA42:", 0
-teststringA43 : db "Adr EA43:", 0
-teststringA44 : db "Adr EA44:", 0
-teststringA45 : db "Adr EA45:", 0
-teststringA46 : db "Adr EA46:", 0
-teststringA47 : db "Adr EA47:", 0
+teststringA00 : db "Adr EA00 :", 0
+teststringA01 : db "Adr EA01 :", 0
+teststringA02 : db "Adr EA02 :", 0
+teststringA03 : db "Adr EA03 :", 0
+teststringA04 : db "Adr EA04 :", 0
+teststringA05 : db "Adr EA05 :", 0
+teststringA06 : db "Adr EA06 :", 0
+teststringA07 : db "Adr EA07 :", 0
+teststringA40 : db "Adr EA40 :", 0
+teststringA41 : db "Adr EA41 :", 0
+teststringA42 : db "Adr EA42 :", 0
+teststringA43 : db "Adr EA43 :", 0
+teststringA44 : db "Adr EA44 :", 0
+teststringA45 : db "Adr EA45 :", 0
+teststringA46 : db "Adr EA46 :", 0
+teststringA47 : db "Adr EA47 :", 0
 
-teststringA80 : db "Adr EA80:", 0
-teststringA81 : db "Adr EA81:", 0
-teststringA82 : db "Adr EA82:", 0
-teststringA83 : db "Adr EA83:", 0
-teststringA84 : db "Adr EA84:", 0
-teststringA85 : db "Adr EA85:", 0
-teststringA86 : db "Adr EA86:", 0
-teststringA87 : db "Adr EA87:", 0
+teststringA80 : db "Adr EA80 :", 0
+teststringA81 : db "Adr EA81 :", 0
+teststringA82 : db "Adr EA82 :", 0
+teststringA83 : db "Adr EA83 :", 0
+teststringA84 : db "Adr EA84 :", 0
+teststringA85 : db "Adr EA85 :", 0
+teststringA86 : db "Adr EA86 :", 0
+teststringA87 : db "Adr EA87 :", 0
+
+teststringEx62: db "62 BOUND :", 0
+teststringExCE: db "CE BRKV  :", 0
+teststringExD4: db "D4 AAM   :", 0
+teststringEI36: db "F6 6 DIV :", 0
+teststringEI37: db "F6 7 IDIV:", 0
+teststringEI3E: db "F7 6 DIV :", 0
+teststringEI3F: db "F7 7 IDIV:", 0

@@ -338,15 +338,16 @@ test_op%3:
    mov cx, 28
    sub bx,[es:scrollCounter]
    call printnumber
+   xor dx, dx
 
    ;set up timer test
-   mov al, 0
+   xor al, al
    out IO_TIMER_CTRL, al
-   mov ax, 300
+   mov ax, 350
    out IOw_HBLANK_FREQ, ax
 
    ;wait until line zero
-   mov bl,0
+   xor bl, bl
    call waitLine
 
    ; run test
@@ -354,7 +355,7 @@ test_op%3:
    out IO_TIMER_CTRL, al
    call %4
    in ax, IO_HBLANK_CNT1
-   mov dx, 300
+   mov dx, 350
    sub dx, ax
    mov ax, dx
 
@@ -376,7 +377,7 @@ tests:
    call clearscreen
 
    mov dx, titleinfo
-   mov bx, 0
+   xor bx, bx
    sub bx,[es:scrollCounter]
    call printstring
 

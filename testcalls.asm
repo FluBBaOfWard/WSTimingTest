@@ -276,9 +276,8 @@ execute 11, 90, teststringxCA, test_opCA
 execute 12, 97, teststringxCB, test_opCB
 execute 13,254, teststringxCC, test_opCC
 execute 14,257, teststringxCD, test_opCD
-execute 15, 78, teststringxCE0,test_opCE0
-execute 16,281, teststringxCE1,test_opCE1
-execute 17,113, teststringxCF, test_opCF
+execute 15, 78, teststringxCE, test_opCE
+execute 16,113, teststringxCF, test_opCF
 test13end:
 
 testgroup 14
@@ -395,3 +394,13 @@ execute  6, 58, teststringA85, test_A85
 execute  7, 58, teststringA86, test_A86
 execute  8, 58, teststringA87, test_A87
 test20end:
+
+testgroup 21
+execute 1,300, teststringEx62,test_Ex62
+execute 2,281, teststringExCE,test_ExCE
+execute 3,281, teststringExD4,test_ExD4
+execute 4,289, teststringEI36,test_EI36
+execute 5,300, teststringEI37,test_EI37
+execute 6,289, teststringEI3E,test_EI3E
+execute 7,300, teststringEI3F,test_EI3F
+test21end:
