@@ -355,3 +355,62 @@ teststringEI36: db "F6 6 DIV :", 0
 teststringEI37: db "F6 7 IDIV:", 0
 teststringEI3E: db "F7 6 DIV :", 0
 teststringEI3F: db "F7 7 IDIV:", 0
+
+teststringR6C0: db "RepINSB 0:", 0
+teststringR6C1: db "RepINSB 1:", 0
+teststringR6C : db "RepINSB  :", 0
+teststringR6D0: db "RepINSW 0:", 0
+teststringR6D1: db "RepINSW 1:", 0
+teststringR6D : db "RepINSW :", 0
+teststringR6E0: db "RepOUTSB0:", 0
+teststringR6E1: db "RepOUTSB1:", 0
+teststringR6E : db "RepOUTSB :", 0
+teststringR6F0: db "RepOUTSW0:", 0
+teststringR6F1: db "RepOUTSW1:", 0
+teststringR6F : db "RepOUTSW :", 0
+
+teststringRA40: db "RepMOVSB0:", 0
+teststringRA41: db "RepMOVSB1:", 0
+teststringRA4 : db "RepMOVSB :", 0
+teststringRA50: db "RepMOVSW0:", 0
+teststringRA51: db "RepMOVSW1:", 0
+teststringRA5 : db "RepMOVSW :", 0
+
+teststringRA60: db "RNZCMPSB0:", 0
+teststringRA61: db "RNZCMPSB1:", 0
+teststringRA6 : db "RNZCMPSB :", 0
+teststringQA60: db "RpZCMPSB0:", 0
+teststringQA61: db "RpZCMPSB1:", 0
+teststringQA6 : db "RpZCMPSB :", 0
+teststringRA70: db "RNZCMPSW0:", 0
+teststringRA71: db "RNZCMPSW1:", 0
+teststringRA7 : db "RNZCMPSW :", 0
+teststringQA70: db "RpZCMPSW0:", 0
+teststringQA71: db "RpZCMPSW1:", 0
+teststringQA7 : db "RpZCMPSW :", 0
+
+teststringRAA0: db "RepSTOSB0:", 0
+teststringRAA1: db "RepSTOSB1:", 0
+teststringRAA : db "RepSTOSB :", 0
+teststringRAB0: db "RepSTOSW0:", 0
+teststringRAB1: db "RepSTOSW1:", 0
+teststringRAB : db "RepSTOSW :", 0
+teststringRAC0: db "RepLODSB0:", 0
+teststringRAC1: db "RepLODSB1:", 0
+teststringRAC : db "RepLODSB :", 0
+teststringRAD0: db "RepLODSW0:", 0
+teststringRAD1: db "RepLODSW1:", 0
+teststringRAD : db "RepLODSW :", 0
+
+teststringRAE0: db "RNZSCASB0:", 0
+teststringRAE1: db "RNZSCASB1:", 0
+teststringRAE : db "RNZSCASB :", 0
+teststringQAE0: db "RpZSCASB0:", 0
+teststringQAE1: db "RpZSCASB1:", 0
+teststringQAE : db "RpZSCASB :", 0
+teststringRAF0: db "RNZSCASW0:", 0
+teststringRAF1: db "RNZSCASW1:", 0
+teststringRAF : db "RNZSCASW :", 0
+teststringQAF0: db "RpZSCASW0:", 0
+teststringQAF1: db "RpZSCASW1:", 0
+teststringQAF : db "RpZSCASW :", 0

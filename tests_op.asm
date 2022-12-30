@@ -72,7 +72,6 @@ test_op0E:
    dotest2 push cs, {add sp, 2}, op0E
    ret
 
-test_op0F:
    SIMPLETEST db 0x0f, 0F
 
 
@@ -180,9 +179,7 @@ test_op26:
    dotest {mov ax, [es:workword]}, op26
    ret
 
-test_op27:
-   dotest daa, op27
-   ret
+SIMPLETEST daa, 27
 
 test_op28:
    dotest {sub byte [workbyte], al}, op28
@@ -281,9 +278,7 @@ test_op3E:
    dotest {mov ax, [ds:workword]}, op3E
    ret
 
-test_op3F:
-   dotest aas, op3F
-   ret 
+SIMPLETEST aas, 3F
 
 ;#################################################################
 ;############ Group 0x4
@@ -292,7 +287,7 @@ test_op3F:
 SIMPLETEST inc ax, 40
 
 test_op41:
-   mov bx,TESTCOUNT
+   mov bx, TESTCOUNT
 align 2
 repeat_op41:
    fill_prefetch
@@ -301,13 +296,17 @@ repeat_op41:
    jnz repeat_op41
    ret
 
-SIMPLETEST inc dx, 42
+test_op42:
+   mov dx, 0x1000
+   dotest inc dx, op42
+   ret
+
 SIMPLETEST inc bx, 43
 
 test_op44:
-   mov bx,sp
+   mov bx, sp
    dotest inc sp, op44
-   mov sp,bx
+   mov sp, bx
    ret
 
 SIMPLETEST inc bp, 45
@@ -316,7 +315,7 @@ SIMPLETEST inc di, 47
 SIMPLETEST dec ax, 48
 
 test_op49:
-   mov bx,TESTCOUNT
+   mov bx, TESTCOUNT
 align 2
 repeat_op49:
    fill_prefetch
@@ -329,9 +328,9 @@ SIMPLETEST dec dx, 4A
 SIMPLETEST dec bx, 4B
 
 test_op4C:
-   mov bx,sp
+   mov bx, sp
    dotest inc sp, op4C
-   mov sp,bx
+   mov sp, bx
    ret
 
 SIMPLETEST dec bp, 4D
@@ -354,7 +353,7 @@ PUSHTEST di, 57
 POPTEST  ax, 58
 
 test_op59:
-   mov bx,TESTCOUNT
+   mov bx, TESTCOUNT
 align 2
 repeat_op59:
    fill_prefetch
@@ -368,10 +367,10 @@ POPTEST  dx, 5A
 POPTEST  bx, 5B
 
 test_op5C:
-   mov bx,sp
+   mov bx, sp
    push sp
    dotest pop sp, op5C
-   mov sp,bx
+   mov sp, bx
    ret
 
 POPTEST  bp, 5D
@@ -835,11 +834,8 @@ test_opA3:
 test_opA4:
    push si
    push di
-   push es
-   mov ax,0xF000 
-   mov es,ax
+   mov di, scratchspace
    dotest movsb, opA4
-   pop es
    pop di
    pop si
    ret
@@ -847,13 +843,9 @@ test_opA4:
 test_opA5:
    push si
    push di
-   push es
-   and si,0xFFFE
-   and di,0xFFFE
-   mov ax,0xF000
-   mov es,ax
+   and si, 0xFFFE
+   mov di, scratchspace
    dotest movsw, opA5
-   pop es
    pop di
    pop si
    ret
@@ -869,8 +861,8 @@ test_opA6:
 test_opA7:
    push si
    push di
-   and si,0xFFFE
-   and di,0xFFFE
+   and si, 0xFFFE
+   and di, 0xFFFE
    dotest cmpsw, opA7
    pop di
    pop si
@@ -887,8 +879,8 @@ test_opA9:
 test_opAA:
    push di
    push es
-   mov ax,0xF000
-   mov es,ax
+   mov ax, 0xF000
+   mov es, ax
    dotest stosb, opAA
    pop es
    pop di
@@ -897,9 +889,9 @@ test_opAA:
 test_opAB:
    push di
    push es
-   and di,0xFFFE
-   mov ax,0xF000
-   mov es,ax
+   and di, 0xFFFE
+   mov ax, 0xF000
+   mov es, ax
    dotest stosw, opAB
    pop es
    pop di
@@ -913,7 +905,7 @@ test_opAC:
 
 test_opAD:
    push si
-   and si,0xFFFE
+   and si, 0xFFFE
    dotest lodsw, opAD
    pop si
    ret
@@ -926,7 +918,7 @@ test_opAE:
 
 test_opAF:
    push di
-   and di,0xFFFE
+   and di, 0xFFFE
    dotest scasw, opAF
    pop di
    ret
@@ -1539,36 +1531,36 @@ test_I4F:
 ;#################################################################
 
 test_A00:
-   and bx,0xFFFE
-   and si,0xFFFE
+   and bx, 0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [bx + si]}, A00
    ret
 
 test_A01:
-   and bx,0xFFFE
-   and di,0xFFFE
+   and bx, 0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [bx + di]}, A01
    ret
 
 test_A02:
-   and bp,0xFFFE
-   and si,0xFFFE
+   and bp, 0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [bp + si]}, A02
    ret
 
 test_A03:
-   and bp,0xFFFE
-   and di,0xFFFE
+   and bp, 0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [bp + di]}, A03
    ret
 
 test_A04:
-   and si,0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [si]}, A04
    ret
 
 test_A05:
-   and di,0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [di]}, A05
    ret
 
@@ -1577,95 +1569,95 @@ test_A06:
    ret
 
 test_A07:
-   and bx,0xFFFE
+   and bx, 0xFFFE
    dotest {mov al, [bx]}, A07
    ret
 
 test_A40:
-   and bx,0xFFFE
-   and si,0xFFFE
+   and bx, 0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [bx + si + 2]}, A40
    ret
 
 test_A41:
-   and bx,0xFFFE
-   and di,0xFFFE
+   and bx, 0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [bx + di + 2]}, A41
    ret
 
 test_A42:
-   and bp,0xFFFE
-   and si,0xFFFE
+   and bp, 0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [bp + si + 2]}, A42
    ret
 
 test_A43:
-   and bp,0xFFFE
-   and di,0xFFFE
+   and bp, 0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [bp + di + 2]}, A43
    ret
 
 test_A44:
-   and si,0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [si + 2]}, A44
    ret
 
 test_A45:
-   and di,0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [di + 2]}, A45
    ret
 
 test_A46:
-   and bp,0xFFFE
+   and bp, 0xFFFE
    dotest {mov al, [bp + 2]}, A46
    ret
 
 test_A47:
-   and bx,0xFFFE
+   and bx, 0xFFFE
    dotest {mov al, [bx + 2]}, A47
    ret
 
 test_A80:
-   and bx,0xFFFE
-   and si,0xFFFE
+   and bx, 0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [bx + si + 1234]}, A80
    ret
 
 test_A81:
-   and bx,0xFFFE
-   and di,0xFFFE
+   and bx, 0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [bx + di + 1234]}, A81
    ret
 
 test_A82:
-   and bp,0xFFFE
-   and si,0xFFFE
+   and bp, 0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [bp + si + 1234]}, A82
    ret
 
 test_A83:
-   and bp,0xFFFE
-   and di,0xFFFE
+   and bp, 0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [bp + di + 1234]}, A83
    ret
 
 test_A84:
-   and si,0xFFFE
+   and si, 0xFFFE
    dotest {mov al, [si + 1234]}, A84
    ret
 
 test_A85:
-   and di,0xFFFE
+   and di, 0xFFFE
    dotest {mov al, [di + 1234]}, A85
    ret
 
 test_A86:
-   and bp,0xFFFE
+   and bp, 0xFFFE
    dotest {mov al, [bp + 1234]}, A86
    ret
 
 test_A87:
-   and bx,0xFFFE
+   and bx, 0xFFFE
    dotest {mov al, [bx + 1234]}, A87
    ret
 
@@ -1705,26 +1697,591 @@ repeat_ExD4:
    ret
 
 test_EI36:
-   xor ah, ah
    mov word [es:workword], 0
    dotest {div byte [es:workword]}, opEI36
    ret
 
 test_EI37:
-   xor ah, ah
    mov word [es:workword], 0
    dotest {idiv byte [es:workword]}, opEI37
    ret
 
 test_EI3E:
-   xor dx, dx
    mov word [es:workword], 0
    dotest {div word [es:workword]}, opEI3E
    ret
 
 test_EI3F:
-   xor dx, dx
    mov word [es:workword], 0
    dotest {idiv word [es:workword]}, opEI3F
    ret
 
+;#################################################################
+;############ Group Repeat
+;#################################################################
+
+test_R6C0:
+   mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep insb
+   dec bx
+   jnz .loop
+   ret
+
+test_R6C1:
+   mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep insb
+   dec bx
+   jnz .loop
+   ret
+
+test_R6C:
+   mov di, scratchspace
+   mov cx, TESTCOUNT
+   rep insb
+   ret
+
+test_R6D0:
+   mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep insw
+   dec bx
+   jnz .loop
+   ret
+
+test_R6D1:
+   mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep insw
+   dec bx
+   jnz .loop
+   ret
+
+test_R6D:
+   mov di, scratchspace
+   mov cx, TESTCOUNT
+   rep insw
+   ret
+
+test_R6E0:
+   mov dx, 44
+  	mov si, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep outsb
+   dec bx
+   jnz .loop
+   ret
+
+test_R6E1:
+   mov dx, 44
+  	mov si, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep outsb
+   dec bx
+   jnz .loop
+   ret
+
+test_R6E:
+   mov dx, 44
+  	mov si, scratchspace
+   mov cx, TESTCOUNT
+   rep outsb
+   ret
+
+test_R6F0:
+   mov dx, 44
+  	mov si, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep outsw
+   dec bx
+   jnz .loop
+   ret
+
+test_R6F1:
+   mov dx, 44
+  	mov si, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep outsw
+   dec bx
+   jnz .loop
+   ret
+
+test_R6F:
+   mov dx, 44
+  	mov si, scratchspace
+   mov cx, TESTCOUNT
+   rep outsw
+   ret
+
+test_RA40:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep movsb
+   dec bx
+   jnz .loop
+   ret
+
+test_RA41:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep movsb
+   dec bx
+   jnz .loop
+   ret
+
+test_RA4:
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   rep movsb
+   ret
+
+test_RA50:
+   and si, 0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep movsw
+   dec bx
+   jnz .loop
+   ret
+
+test_RA51:
+   and si, 0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep movsw
+   dec bx
+   jnz .loop
+   ret
+
+test_RA5:
+   and si, 0xFFFE
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   rep movsw
+   ret
+
+test_RA60:
+   mov si, 0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   repnz cmpsb
+   dec bx
+   jnz .loop
+   ret
+
+test_RA61:
+   and si, 0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   repnz cmpsb
+   dec bx
+   jnz .loop
+   ret
+
+test_RA6:
+  	mov si, 0xF700       ; Should be filled with FF
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   repnz cmpsb
+   ret
+
+test_QA60:
+   and si, 0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   repz cmpsb
+   dec bx
+   jnz .loop
+   ret
+
+test_QA61:
+   and si, 0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   repz cmpsb
+   dec bx
+   jnz .loop
+   ret
+
+test_QA6:
+  	mov si, 0
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   repz cmpsb
+   ret
+
+test_RA70:
+   and si, 0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   repnz cmpsw
+   dec bx
+   jnz .loop
+   ret
+
+test_RA71:
+   and si, 0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   repnz cmpsw
+   dec bx
+   jnz .loop
+   ret
+
+test_RA7:
+  	mov si, 0xF700       ; Should be filled with FF
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   repnz cmpsw
+   ret
+
+test_QA70:
+   and si,0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   repz cmpsw
+   dec bx
+   jnz .loop
+   ret
+
+test_QA71:
+   and si,0xFFFE
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   repz cmpsw
+   dec bx
+   jnz .loop
+   ret
+
+test_QA7:
+  	mov si, 0
+   and si,0xFFFE
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   repz cmpsw
+   ret
+
+test_RAA0:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep stosb
+   dec bx
+   jnz .loop
+   ret
+
+test_RAA1:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep stosb
+   dec bx
+   jnz .loop
+   ret
+
+test_RAA:
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   rep stosb
+   ret
+
+test_RAB0:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep stosw
+   dec bx
+   jnz .loop
+   ret
+
+test_RAB1:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep stosw
+   dec bx
+   jnz .loop
+   ret
+
+test_RAB:
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   rep stosw
+   ret
+
+test_RAC0:
+  	mov si, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep lodsb
+   dec bx
+   jnz .loop
+   ret
+
+test_RAC1:
+  	mov si, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep lodsb
+   dec bx
+   jnz .loop
+   ret
+
+test_RAC:
+  	mov si, scratchspace
+   mov cx, TESTCOUNT
+   rep lodsb
+   ret
+
+test_RAD0:
+  	mov si, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   rep lodsw
+   dec bx
+   jnz .loop
+   ret
+
+test_RAD1:
+  	mov si, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   rep lodsw
+   dec bx
+   jnz .loop
+   ret
+
+test_RAD:
+  	mov si, scratchspace
+   mov cx, TESTCOUNT
+   rep lodsw
+   ret
+
+test_RAE0:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   repnz scasb
+   dec bx
+   jnz .loop
+   ret
+
+test_RAE1:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   repnz scasb
+   dec bx
+   jnz .loop
+   ret
+
+test_RAE:
+   xor al, al
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   repnz scasb
+   ret
+
+test_QAE0:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   repz scasb
+   dec bx
+   jnz .loop
+   ret
+
+test_QAE1:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   repz scasb
+   dec bx
+   jnz .loop
+   ret
+
+test_QAE:
+   mov al, 0x12
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   repz scasb
+   ret
+
+test_RAF0:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   repnz scasw
+   dec bx
+   jnz .loop
+   ret
+
+test_RAF1:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   repnz scasw
+   dec bx
+   jnz .loop
+   ret
+
+test_RAF:
+   xor al, al
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   repnz scasw
+   ret
+
+test_QAF0:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 0
+   repz scasw
+   dec bx
+   jnz .loop
+   ret
+
+test_QAF1:
+  	mov di, scratchspace
+   mov bx, TESTCOUNT
+align 2
+.loop:
+   fill_prefetch
+   mov cx, 1
+   repz scasw
+   dec bx
+   jnz .loop
+   ret
+
+test_QAF:
+   mov ax, 0x1212
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   repz scasw
+   ret

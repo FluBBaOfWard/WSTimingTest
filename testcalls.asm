@@ -396,11 +396,88 @@ execute  8, 58, teststringA87, test_A87
 test20end:
 
 testgroup 21
-execute 1,300, teststringEx62,test_Ex62
-execute 2,281, teststringExCE,test_ExCE
-execute 3,281, teststringExD4,test_ExD4
-execute 4,289, teststringEI36,test_EI36
-execute 5,300, teststringEI37,test_EI37
-execute 6,289, teststringEI3E,test_EI3E
-execute 7,300, teststringEI3F,test_EI3F
+execute  1,300, teststringEx62,test_Ex62
+execute  2,281, teststringExCE,test_ExCE
+execute  3,281, teststringExD4,test_ExD4
+execute  4,289, teststringEI36,test_EI36
+execute  5,300, teststringEI37,test_EI37
+execute  6,289, teststringEI3E,test_EI3E
+execute  7,300, teststringEI3F,test_EI3F
 test21end:
+
+testgroup 22
+execute  1, 78, teststringR6C0,test_R6C0
+execute  2,101, teststringR6C1,test_R6C1
+execute  3, 23, teststringR6C, test_R6C
+execute  4, 78, teststringR6D0,test_R6D0
+execute  5,101, teststringR6D1,test_R6D1
+execute  6, 23, teststringR6D, test_R6D
+execute  7, 78, teststringR6E0,test_R6E0
+execute  8,101, teststringR6E1,test_R6E1
+execute  9, 23, teststringR6E, test_R6E
+execute 10, 78, teststringR6F0,test_R6F0
+execute 11,101, teststringR6F1,test_R6F1
+execute 12, 23, teststringR6F, test_R6F
+test22end:
+
+testgroup 23
+execute  1, 78, teststringRA40,test_RA40
+execute  2,105, teststringRA41,test_RA41
+execute  3, 27, teststringRA4, test_RA4
+execute  4, 78, teststringRA50,test_RA50
+execute  5,105, teststringRA51,test_RA51
+execute  6, 27, teststringRA5, test_RA5
+test23end:
+
+testgroup 24
+  	mov si, 0
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   rep movsw            ; Copy data from rom
+execute  1, 78, teststringRA60,test_RA60
+execute  2,117, teststringRA61,test_RA61
+execute  3, 39, teststringRA6, test_RA6
+execute  4, 78, teststringQA60,test_QA60
+execute  5,117, teststringQA61,test_QA61
+execute  6, 39, teststringQA6, test_QA6
+execute  7, 78, teststringRA70,test_RA70
+execute  8,117, teststringRA71,test_RA71
+execute  9, 39, teststringRA7, test_RA7
+execute 10, 78, teststringQA70,test_QA70
+execute 11,117, teststringQA71,test_QA71
+execute 12, 39, teststringQA7, test_QA7
+test24end:
+
+testgroup 25
+execute  1, 78, teststringRAA0,test_RAA0
+execute  2,101, teststringRAA1,test_RAA1
+execute  3, 23, teststringRAA, test_RAA
+execute  4, 78, teststringRAB0,test_RAB0
+execute  5,101, teststringRAB1,test_RAB1
+execute  6, 23, teststringRAB, test_RAB
+execute  7, 78, teststringRAC0,test_RAC0
+execute  8,101, teststringRAC1,test_RAC1
+execute  9, 23, teststringRAC, test_RAC
+execute 10, 78, teststringRAD0,test_RAD0
+execute 11,101, teststringRAD1,test_RAD1
+execute 12, 23, teststringRAD, test_RAD
+test25end:
+
+testgroup 26
+   mov ax, 0x1212
+  	mov di, scratchspace
+   mov cx, TESTCOUNT
+   rep stosw            ; Set all words to 0x1212
+execute  1, 78, teststringRAE0,test_RAE0
+execute  2,113, teststringRAE1,test_RAE1
+execute  3, 35, teststringRAE, test_RAE
+execute  4, 78, teststringQAE0,test_QAE0
+execute  5,113, teststringQAE1,test_QAE1
+execute  6, 35, teststringQAE, test_QAE
+execute  7, 78, teststringRAF0,test_RAF0
+execute  8,113, teststringRAF1,test_RAF1
+execute  9, 35, teststringRAF, test_RAF
+execute 10, 78, teststringQAF0,test_QAF0
+execute 11,113, teststringQAF1,test_QAF1
+execute 12, 35, teststringQAF, test_QAF
+test26end:
