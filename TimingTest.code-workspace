@@ -8,6 +8,9 @@
 		"files.exclude": {
 			"*.ws": true,
 			"*.zip": true
+		},
+		"terminal.integrated.env.osx": {
+			"PATH": "$PATH:/opt/nasm"
 		}
 	}
 }
