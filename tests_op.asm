@@ -455,7 +455,6 @@ test_op6F:
 ;#################################################################
 
 test_op70:
-   mov cx, TESTCOUNT
 align 2
 repeat_op70:
    fill_prefetch
@@ -471,7 +470,6 @@ dest_op70:
 test_op71:
    mov al, 32
    add al, al ; Clear oVerflow
-   mov cx, TESTCOUNT
 align 2
 repeat_op71:
    fill_prefetch
@@ -483,7 +481,6 @@ dest_op71:
    ret
 
 test_op72:
-   mov cx, TESTCOUNT
 align 2
 repeat_op72:
    fill_prefetch
@@ -496,7 +493,6 @@ dest_op72:
    ret
 
 test_op73:
-   mov cx, TESTCOUNT
 align 2
 repeat_op73:
    fill_prefetch
@@ -509,7 +505,6 @@ dest_op73:
    ret
 
 test_op74:
-   mov cx, TESTCOUNT
 align 2
 repeat_op74:
    fill_prefetch
@@ -522,7 +517,6 @@ dest_op74:
    ret
 
 test_op75:
-   mov cx, TESTCOUNT
    cmp cx, 0 ; Clear Zero
 align 2
 repeat_op75:
@@ -535,7 +529,6 @@ dest_op75:
    ret
 
 test_op76:
-   mov cx, TESTCOUNT
 align 2
 repeat_op76:
    fill_prefetch
@@ -549,7 +542,6 @@ dest_op76:
    ret
 
 test_op77:
-   mov cx, TESTCOUNT
 align 2
 repeat_op77:
    fill_prefetch
@@ -563,7 +555,6 @@ dest_op77:
    ret
 
 test_op78:
-   mov cx, TESTCOUNT
 align 2
 repeat_op78:
    fill_prefetch
@@ -577,7 +568,6 @@ dest_op78:
    ret
 
 test_op79:
-   mov cx, TESTCOUNT
 align 2
 repeat_op79:
    fill_prefetch
@@ -591,7 +581,6 @@ dest_op79:
    ret
 
 test_op7A:
-   mov cx, TESTCOUNT
 align 2
 repeat_op7A:
    fill_prefetch
@@ -605,7 +594,6 @@ dest_op7A:
 
 test_op7B:
    mov bl, 0
-   mov cx, TESTCOUNT
 align 2
 repeat_op7B:
    fill_prefetch
@@ -618,7 +606,6 @@ dest_op7B:
    ret
 
 test_op7C:
-   mov cx, TESTCOUNT
 align 2
 repeat_op7C:
    fill_prefetch
@@ -632,7 +619,6 @@ dest_op7C:
    ret
 
 test_op7D:
-   mov cx, TESTCOUNT
 align 2
 repeat_op7D:
    fill_prefetch
@@ -646,7 +632,6 @@ dest_op7D:
    ret
 
 test_op7E:
-   mov cx, TESTCOUNT
 align 2
 repeat_op7E:
    fill_prefetch
@@ -660,7 +645,6 @@ dest_op7E:
    ret
 
 test_op7F:
-   mov cx, TESTCOUNT
 align 2
 repeat_op7F:
    fill_prefetch
@@ -783,7 +767,6 @@ SIMPLETEST cbw, 98 ; sign extend byte
 SIMPLETEST cwd, 99 ; sign extend word
 
 test_op9A:
-   mov cx, TESTCOUNT
 align 2
 repeat_op9A:
    fill_prefetch
@@ -977,9 +960,7 @@ test_opBC:
    ret
 
 test_opBD:
-   push bp
    dotest {mov bp, 1234}, opBD
-   pop bp
    ret
 
 test_opBE:
@@ -1009,7 +990,6 @@ test_opC1:
 test_opC2:
    mov ax, dest_opC2
    push ax
-   mov cx, TESTCOUNT
 align 2
 repeat_opC2:
    fill_prefetch
@@ -1023,7 +1003,6 @@ dest_opC2:
 
 test_opC3:
    mov bx, dest_opC3
-   mov cx, TESTCOUNT
 align 2
 repeat_opC3:
    fill_prefetch
@@ -1070,7 +1049,6 @@ test_opCA:
    mov ax, dest_opCA
    push cs
    push ax
-   mov cx, TESTCOUNT
 align 2
 repeat_opCA:
    fill_prefetch
@@ -1084,7 +1062,6 @@ dest_opCA:
 
 test_opCB:
    mov bx, dest_opCB
-   mov cx, TESTCOUNT
 align 2
 repeat_opCB:
    fill_prefetch
@@ -1098,7 +1075,6 @@ dest_opCB:
    ret
 
 test_opCC:
-   mov cx, TESTCOUNT
 align 2
 repeat_opCC:
    fill_prefetch
@@ -1112,7 +1088,6 @@ test_opCD:
    ret
 
 test_opCE:
-   mov cx, TESTCOUNT
 align 2
 repeat_opCE:
    fill_prefetch
@@ -1123,7 +1098,6 @@ repeat_opCE:
 
 test_opCF:
    mov bx, dest_opCF
-   mov cx, TESTCOUNT
 align 2
 repeat_opCF:
    fill_prefetch
@@ -1178,7 +1152,6 @@ SIMPLETEST dw 0x00DF, DF
 ;#################################################################
 
 test_opE0:
-   mov cx, TESTCOUNT
 align 2
 repeat_opE0:
    fill_prefetch
@@ -1191,7 +1164,6 @@ dest_opE0:
    ret
 
 test_opE1:
-   mov cx, TESTCOUNT
 align 2
 repeat_opE1:
    fill_prefetch
@@ -1205,7 +1177,6 @@ dest_opE1:
    ret
 
 test_opE2:
-   mov cx, TESTCOUNT
 align 2
 repeat_opE2:
    fill_prefetch
@@ -1247,7 +1218,6 @@ test_opE7:
    ret
 
 test_opE8:
-   mov cx, TESTCOUNT
 align 2
 .loop:
    fill_prefetch
@@ -1462,7 +1432,6 @@ test_I49:
 i4A_addresses:
    dw dest_I4A
 test_I4A:
-   mov cx, TESTCOUNT
 align 2
 repeat_I4A:
    fill_prefetch
@@ -1477,7 +1446,6 @@ dest_I4A:
 i4B_addresses:
    dw dest_I4B, MYSEGMENT
 test_I4B:
-   mov cx, TESTCOUNT
 align 2
 repeat_I4B:
    fill_prefetch
@@ -1493,7 +1461,6 @@ dest_I4B:
 i4C_addresses:
    dw dest_I4C
 test_I4C:
-   mov cx, TESTCOUNT
 align 2
 repeat_I4C:
    fill_prefetch
@@ -1507,7 +1474,6 @@ dest_I4C:
 i4D_addresses:
    dw dest_I4D, MYSEGMENT
 test_I4D:
-   mov cx, TESTCOUNT
 align 2
 repeat_I4D:
    fill_prefetch
@@ -1674,7 +1640,6 @@ test_Ex62:
    ret
 
 test_ExCE:
-   mov cx, TESTCOUNT
 align 2
 repeat_ExCE:
    fill_prefetch
@@ -1687,7 +1652,6 @@ repeat_ExCE:
    ret
 
 test_ExD4:
-   mov cx, TESTCOUNT
 align 2
 repeat_ExD4:
    fill_prefetch
@@ -1746,7 +1710,6 @@ align 2
 
 test_R6C:
    mov di, scratchspace
-   mov cx, TESTCOUNT
    rep insb
    ret
 
@@ -1776,13 +1739,12 @@ align 2
 
 test_R6D:
    mov di, scratchspace
-   mov cx, TESTCOUNT
    rep insw
    ret
 
 test_R6E0:
    mov dx, 44
-  	mov si, scratchspace
+   mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1795,7 +1757,7 @@ align 2
 
 test_R6E1:
    mov dx, 44
-  	mov si, scratchspace
+   mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1808,14 +1770,13 @@ align 2
 
 test_R6E:
    mov dx, 44
-  	mov si, scratchspace
-   mov cx, TESTCOUNT
+   mov si, scratchspace
    rep outsb
    ret
 
 test_R6F0:
    mov dx, 44
-  	mov si, scratchspace
+   mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1828,7 +1789,7 @@ align 2
 
 test_R6F1:
    mov dx, 44
-  	mov si, scratchspace
+   mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1841,13 +1802,12 @@ align 2
 
 test_R6F:
    mov dx, 44
-  	mov si, scratchspace
-   mov cx, TESTCOUNT
+   mov si, scratchspace
    rep outsw
    ret
 
 test_RA40:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1859,7 +1819,7 @@ align 2
    ret
 
 test_RA41:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1871,14 +1831,13 @@ align 2
    ret
 
 test_RA4:
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    rep movsb
    ret
 
 test_RA50:
    and si, 0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1891,7 +1850,7 @@ align 2
 
 test_RA51:
    and si, 0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1904,14 +1863,13 @@ align 2
 
 test_RA5:
    and si, 0xFFFE
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    rep movsw
    ret
 
 test_RA60:
    mov si, 0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1924,7 +1882,7 @@ align 2
 
 test_RA61:
    and si, 0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1937,14 +1895,13 @@ align 2
 
 test_RA6:
   	mov si, 0xF700       ; Should be filled with FF
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    repnz cmpsb
    ret
 
 test_QA60:
    and si, 0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1957,7 +1914,7 @@ align 2
 
 test_QA61:
    and si, 0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1970,14 +1927,13 @@ align 2
 
 test_QA6:
   	mov si, 0
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    repz cmpsb
    ret
 
 test_RA70:
    and si, 0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -1990,7 +1946,7 @@ align 2
 
 test_RA71:
    and si, 0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2003,14 +1959,13 @@ align 2
 
 test_RA7:
   	mov si, 0xF700       ; Should be filled with FF
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    repnz cmpsw
    ret
 
 test_QA70:
    and si,0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2023,7 +1978,7 @@ align 2
 
 test_QA71:
    and si,0xFFFE
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2037,13 +1992,12 @@ align 2
 test_QA7:
   	mov si, 0
    and si,0xFFFE
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    repz cmpsw
    ret
 
 test_RAA0:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2055,7 +2009,7 @@ align 2
    ret
 
 test_RAA1:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2067,13 +2021,12 @@ align 2
    ret
 
 test_RAA:
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    rep stosb
    ret
 
 test_RAB0:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2085,7 +2038,7 @@ align 2
    ret
 
 test_RAB1:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2097,13 +2050,12 @@ align 2
    ret
 
 test_RAB:
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    rep stosw
    ret
 
 test_RAC0:
-  	mov si, scratchspace
+   mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2115,7 +2067,7 @@ align 2
    ret
 
 test_RAC1:
-  	mov si, scratchspace
+   mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2127,13 +2079,12 @@ align 2
    ret
 
 test_RAC:
-  	mov si, scratchspace
-   mov cx, TESTCOUNT
+   mov si, scratchspace
    rep lodsb
    ret
 
 test_RAD0:
-  	mov si, scratchspace
+   mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2145,7 +2096,7 @@ align 2
    ret
 
 test_RAD1:
-  	mov si, scratchspace
+   mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2157,13 +2108,12 @@ align 2
    ret
 
 test_RAD:
-  	mov si, scratchspace
-   mov cx, TESTCOUNT
+   mov si, scratchspace
    rep lodsw
    ret
 
 test_RAE0:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2175,7 +2125,7 @@ align 2
    ret
 
 test_RAE1:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2188,13 +2138,12 @@ align 2
 
 test_RAE:
    xor al, al
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    repnz scasb
    ret
 
 test_QAE0:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2206,7 +2155,7 @@ align 2
    ret
 
 test_QAE1:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2219,13 +2168,12 @@ align 2
 
 test_QAE:
    mov al, 0x12
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    repz scasb
    ret
 
 test_RAF0:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2237,7 +2185,7 @@ align 2
    ret
 
 test_RAF1:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2250,13 +2198,12 @@ align 2
 
 test_RAF:
    xor al, al
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    repnz scasw
    ret
 
 test_QAF0:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2268,7 +2215,7 @@ align 2
    ret
 
 test_QAF1:
-  	mov di, scratchspace
+   mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
 .loop:
@@ -2281,7 +2228,6 @@ align 2
 
 test_QAF:
    mov ax, 0x1212
-  	mov di, scratchspace
-   mov cx, TESTCOUNT
+   mov di, scratchspace
    repz scasw
    ret

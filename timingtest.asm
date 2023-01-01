@@ -31,7 +31,7 @@ initialize:
    mov ax, MYSEGMENT
    mov ds, ax
    xor ax, ax
-   mov es, ax
+	mov es, ax			; Set ES segment to 0x0000 (RAM).
 
    ; setup stack
    mov bp, ax
@@ -40,7 +40,7 @@ initialize:
 
    ; clear Ram
    mov di, 0x0100
-   mov cx, 0x7E80
+	mov cx, 0x1E80
    rep stosw
 
    out IO_SRAM_BANK,al
@@ -260,8 +260,7 @@ divrepeat:
    in al, dx
 %endmacro
 
-%macro dotest 2 
-   mov cx, TESTCOUNT
+%macro dotest 2
 align 2
 repeat_%2:
    fill_prefetch
@@ -270,8 +269,7 @@ repeat_%2:
    jnz repeat_%2
 %endmacro
 
-%macro dotest2 3 
-   mov cx, TESTCOUNT
+%macro dotest2 3
 align 2
 repeat_%3:
    fill_prefetch
@@ -324,17 +322,18 @@ test_op%3:
 ; Test procedure
 ;-----------------------------------------------------------------------------
 
-%macro execute 4  ; line offset, timing, testname, testfunction
-
+runtest:
+   mov bp, sp
+   add bp, 2
    ; print test name
-   mov dx, %3   
-   mov bx, %1
+   mov dx, [bp + 4] ;  %3
+   mov bx, [bp]     ;  %1
    sub bx,[es:scrollCounter]
    call printstring
 
    ; print correct value
-   mov ax, %2
-   mov bx, %1
+   mov ax, [bp + 2] ;  %2
+   mov bx, [bp]     ;  %1
    mov cx, 28
    sub bx,[es:scrollCounter]
    call printnumber
@@ -351,25 +350,38 @@ test_op%3:
    call waitLine
 
    ; run test
+   push bp
+   mov cx, TESTCOUNT
    mov al, HBLANK_TIMER_ON
    out IO_TIMER_CTRL, al
-   call %4
+   call [bp + 6]    ;  %4
    in ax, IO_HBLANK_CNT1
    mov dx, 350
    sub dx, ax
    mov ax, dx
+   pop bp
 
    ; print ok/fail
-   mov bx, %1
-   mov cx, %2
+   mov bx, [bp]     ;  %1
+   mov cx, [bp + 2] ;  %2
    sub bx,[es:scrollCounter]
    call okfail 
 
    ; print result
-   mov bx, %1
+   mov bx, [bp]     ;  %1
    mov cx, 40
    sub bx,[es:scrollCounter]
    call printnumber
+   ret
+
+%macro execute 4  ; line offset, timing, testname, testfunction
+
+   push %4
+   push %3
+   push %2
+   push %1
+   call runtest
+   add sp, 8
 
 %endmacro
 
