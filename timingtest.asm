@@ -281,7 +281,7 @@ repeat_%3:
 
 %macro SIMPLETEST 2
 test_op%2:
-   dotest %1, op_%2
+   dotest {%1}, op%2
    ret
 %endmacro
 

@@ -10,29 +10,17 @@
 ;############ Group 0x0
 ;#################################################################
 
-test_op00:
-   dotest {add byte [workbyte], al}, op00
-   ret
+SIMPLETEST {add byte [workbyte], al}, 00
 
-test_op01:
-   dotest {add word [workword], ax}, op01
-   ret
+SIMPLETEST {add word [workword], ax}, 01
 
-test_op02:
-   dotest {add byte al, [workbyte]}, op02
-   ret
+SIMPLETEST {add byte al, [workbyte]}, 02
 
-test_op03:
-   dotest {add word ax, [workword]}, op03
-   ret
+SIMPLETEST {add word ax, [workword]}, 03
 
-test_op04:
-   dotest {add al, 40}, op04
-   ret
+SIMPLETEST {add al, 40}, 04
 
-test_op05:
-   dotest {add ax, 1234}, op05
-   ret
+SIMPLETEST {add ax, 1234}, 05
 
 test_op06:
    dotest2 push es, {add sp, 2}, op06
@@ -44,64 +32,40 @@ test_op07:
    pop es
    ret
 
-test_op08:
-   dotest {or byte [workbyte], al}, op08
-   ret
+SIMPLETEST {or byte [workbyte], al}, 08
 
-test_op09:
-   dotest {or word [workword], ax}, op09
-   ret
+SIMPLETEST {or word [workword], ax}, 09
 
-test_op0A:
-   dotest {or byte al, [workbyte]}, op0A
-   ret
+SIMPLETEST {or byte al, [workbyte]}, 0A
 
-test_op0B:
-   dotest {or word ax, [workword]}, op0B
-   ret
+SIMPLETEST {or word ax, [workword]}, 0B
 
-test_op0C:
-   dotest {or al, 40}, op0C
-   ret
+SIMPLETEST {or al, 40}, 0C
 
-test_op0D:
-   dotest {or ax, 1234}, op0D
-   ret
+SIMPLETEST {or ax, 1234}, 0D
 
 test_op0E:
    dotest2 push cs, {add sp, 2}, op0E
    ret
 
-   SIMPLETEST db 0x0f, 0F
+SIMPLETEST db 0x0f, 0F
 
 
 ;#################################################################
 ;############ Group 0x1
 ;#################################################################
 
-test_op10:
-   dotest {adc byte [workbyte], al}, op10
-   ret
+SIMPLETEST {adc byte [workbyte], al}, 10
 
-test_op11:
-   dotest {adc word [workword], ax}, op11
-   ret
+SIMPLETEST {adc word [workword], ax}, 11
 
-test_op12:
-   dotest {adc byte al, [workbyte]}, op12
-   ret
+SIMPLETEST {adc byte al, [workbyte]}, 12
 
-test_op13:
-   dotest {adc word ax, [workword]}, op13
-   ret
+SIMPLETEST {adc word ax, [workword]}, 13
 
-test_op14:
-   dotest {adc al, 40}, op14
-   ret
+SIMPLETEST {adc al, 40}, 14
 
-test_op15:
-   dotest {adc ax, 1234}, op15
-   ret
+SIMPLETEST {adc ax, 1234}, 15
 
 test_op16:
    dotest2 push ss, {add sp, 2}, op16
@@ -113,29 +77,17 @@ test_op17:
    pop ss
    ret
 
-test_op18:
-   dotest {sbb byte [workbyte], al}, op18
-   ret
+SIMPLETEST {sbb byte [workbyte], al}, 18
 
-test_op19:
-   dotest {sbb word [workword], ax}, op19
-   ret
+SIMPLETEST {sbb word [workword], ax}, 19
 
-test_op1A:
-   dotest {sbb byte al, [workbyte]}, op1A
-   ret
+SIMPLETEST {sbb byte al, [workbyte]}, 1A
 
-test_op1B:
-   dotest {sbb word ax, [workword]}, op1B
-   ret
+SIMPLETEST {sbb word ax, [workword]}, 1B
 
-test_op1C:
-   dotest {sbb al, 40}, op1C
-   ret
+SIMPLETEST {sbb al, 40}, 1C
 
-test_op1D:
-   dotest {sbb ax, 1234}, op1D
-   ret
+SIMPLETEST {sbb ax, 1234}, 1D
 
 test_op1E:
    dotest2 push ds, {add sp, 2}, op1E
@@ -151,132 +103,72 @@ test_op1F:
 ;############ Group 0x2
 ;#################################################################
 
-test_op20:
-   dotest {and byte [workbyte], al}, op20
-   ret
+SIMPLETEST {and byte [workbyte], al}, 20
 
-test_op21:
-   dotest {and word [workword], ax}, op21
-   ret
+SIMPLETEST {and word [workword], ax}, 21
 
-test_op22:
-   dotest {and byte al, [workbyte]}, op22
-   ret
+SIMPLETEST {and byte al, [workbyte]}, 22
 
-test_op23:
-   dotest {and word ax, [workword]}, op23
-   ret
+SIMPLETEST {and word ax, [workword]}, 23
 
-test_op24:
-   dotest {and al, 40}, op24
-   ret
+SIMPLETEST {and al, 40}, 24
 
-test_op25:
-   dotest {and ax, 1234}, op25
-   ret
+SIMPLETEST {and ax, 1234}, 25
 
-test_op26:
-   dotest {mov ax, [es:workword]}, op26
-   ret
+SIMPLETEST {mov ax, [es:workword]}, 26
 
 SIMPLETEST daa, 27
 
-test_op28:
-   dotest {sub byte [workbyte], al}, op28
-   ret
+SIMPLETEST {sub byte [workbyte], al}, 28
 
-test_op29:
-   dotest {sub word [workword], ax}, op29
-   ret
+SIMPLETEST {sub word [workword], ax}, 29
 
-test_op2A:
-   dotest {sub byte al, [workbyte]}, op2A
-   ret
+SIMPLETEST {sub byte al, [workbyte]}, 2A
 
-test_op2B:
-   dotest {sub word ax, [workword]}, op2B
-   ret
+SIMPLETEST {sub word ax, [workword]}, 2B
 
-test_op2C:
-   dotest {sub al, 40}, op2C
-   ret
+SIMPLETEST {sub al, 40}, 2C
 
-test_op2D:
-   dotest {sub ax, 1234}, op2D
-   ret
+SIMPLETEST {sub ax, 1234}, 2D
 
-test_op2E:
-   dotest {mov ax, [cs:workword]}, op2E
-   ret
+SIMPLETEST {mov ax, [cs:workword]}, 2E
 
-test_op2F:
-   dotest das, op2F
-   ret 
+SIMPLETEST das, 2F
 
 
 ;#################################################################
 ;############ Group 0x3
 ;#################################################################
 
-test_op30:
-   dotest {xor byte [workbyte], al}, op30
-   ret
+SIMPLETEST {xor byte [workbyte], al}, 30
 
-test_op31:
-   dotest {xor word [workword], ax}, op31
-   ret
+SIMPLETEST {xor word [workword], ax}, 31
 
-test_op32:
-   dotest {xor byte al, [workbyte]}, op32
-   ret
+SIMPLETEST {xor byte al, [workbyte]}, 32
 
-test_op33:
-   dotest {xor word ax, [workword]}, op33
-   ret
+SIMPLETEST {xor word ax, [workword]}, 33
 
-test_op34:
-   dotest {xor al, 40}, op34
-   ret
+SIMPLETEST {xor al, 40}, 34
 
-test_op35:
-   dotest {xor ax, 1234}, op35
-   ret
+SIMPLETEST {xor ax, 1234}, 35
 
-test_op36:
-   dotest {mov ax, [ss:workword]}, op36
-   ret
+SIMPLETEST {mov ax, [ss:workword]}, 36
 
-test_op37:
-   dotest aaa, op37
-   ret
+SIMPLETEST aaa, 37
 
-test_op38:
-   dotest {cmp byte [workbyte], al}, op38
-   ret
+SIMPLETEST {cmp byte [workbyte], al}, 38
 
-test_op39:
-   dotest {cmp word [workword], ax}, op39
-   ret
+SIMPLETEST {cmp word [workword], ax}, 39
 
-test_op3A:
-   dotest {cmp byte al, [workbyte]}, op3A
-   ret
+SIMPLETEST {cmp byte al, [workbyte]}, 3A
 
-test_op3B:
-   dotest {cmp word ax, [workword]}, op3B
-   ret
+SIMPLETEST {cmp word ax, [workword]}, 3B
 
-test_op3C:
-   dotest {cmp al, 40}, op3C
-   ret
+SIMPLETEST {cmp al, 40}, 3C
 
-test_op3D:
-   dotest {cmp ax, 1234}, op3D
-   ret
+SIMPLETEST {cmp ax, 1234}, 3D
 
-test_op3E:
-   dotest {mov ax, [ds:workword]}, op3E
-   ret
+SIMPLETEST {mov ax, [ds:workword]}, 3E
 
 SIMPLETEST aas, 3F
 
@@ -329,7 +221,7 @@ SIMPLETEST dec bx, 4B
 
 test_op4C:
    mov bx, sp
-   dotest inc sp, op4C
+   dotest dec sp, op4C
    mov sp, bx
    ret
 
@@ -661,61 +553,35 @@ dest_op7F:
 ;############ Group 0x8
 ;#################################################################
 
-test_op80:
-   dotest {add byte [workword], 42}, op80
-   ret
+SIMPLETEST {add byte [workword], 42}, 80
 
-test_op81:
-   dotest {add word [workword], 1234}, op81
-   ret
+SIMPLETEST {add word [workword], 1234}, 81
 
 test_op82:
    dotest2 db 0x82, dd 0xD6000206, op82 ; add byte [workword], -42
    ret
 
-test_op83:
-   dotest {add word [workword], -42}, op83
-   ret
+SIMPLETEST {add word [workword], -42}, 83
 
-test_op84:
-   dotest {test byte al,[workword]}, op84
-   ret
+SIMPLETEST {test byte al,[workword]}, 84
 
-test_op85:
-   dotest {test word ax,[workword]}, op85
-   ret
+SIMPLETEST {test word ax,[workword]}, 85
 
-test_op86:
-   dotest {xchg byte al,[workword]}, op86
-   ret
+SIMPLETEST {xchg byte al,[workword]}, 86
 
-test_op87:
-   dotest {xchg word ax,[workword]}, op87
-   ret
+SIMPLETEST {xchg word ax,[workword]}, 87
 
-test_op88:
-   dotest {mov byte [workword],bl}, op88
-   ret
+SIMPLETEST {mov byte [workword],bl}, 88
 
-test_op89:
-   dotest {mov word [workword],bx}, op89
-   ret
+SIMPLETEST {mov word [workword],bx}, 89
 
-test_op8A:
-   dotest {mov byte bl,[workword]}, op8A
-   ret
+SIMPLETEST {mov byte bl,[workword]}, 8A
 
-test_op8B:
-   dotest {mov word bx,[workword]}, op8B
-   ret
+SIMPLETEST {mov word bx,[workword]}, 8B
 
-test_op8C:
-   dotest {mov ax, ss}, op8C
-   ret
+SIMPLETEST {mov ax, ss}, 8C
 
-test_op8D:
-   dotest {lea ax, [workword]}, op8D
-   ret
+SIMPLETEST {lea ax, [workword]}, 8D
 
 test_op8E:
    push es
@@ -739,13 +605,9 @@ test_op91:
    dotest2 {xchg ax, cx}, {mov cx, ax}, op91
    ret
 
-test_op92:
-   dotest {xchg ax, dx}, op92
-   ret
+SIMPLETEST {xchg ax, dx}, 92
 
-test_op93:
-   dotest {xchg ax, bx}, op93
-   ret
+SIMPLETEST {xchg ax, bx}, 93
 
 test_op94:
    dotest2 {xchg ax, sp}, {mov sp, ax}, op94
@@ -798,21 +660,13 @@ SIMPLETEST lahf, 9F ; flags to acc
 ;############ Group 0xA
 ;#################################################################
 
-test_opA0:
-   dotest {mov al, [workword]}, opA0
-   ret
+SIMPLETEST {mov al, [workword]}, A0
 
-test_opA1:
-   dotest {mov ax, [workword]}, opA1
-   ret
+SIMPLETEST {mov ax, [workword]}, A1
 
-test_opA2:
-   dotest {mov byte [workword], al}, opA2
-   ret
+SIMPLETEST {mov byte [workword], al}, A2
 
-test_opA3:
-   dotest {mov word [workword], ax}, opA3
-   ret
+SIMPLETEST {mov word [workword], ax}, A3
 
 test_opA4:
    push si
@@ -851,13 +705,9 @@ test_opA7:
    pop si
    ret
 
-test_opA8:
-   dotest {test al, 42}, opA8
-   ret
+SIMPLETEST {test al, 42}, A8
 
-test_opA9:
-   dotest {test ax, 1234}, opA9
-   ret
+SIMPLETEST {test ax, 1234}, A9
 
 test_opAA:
    push di
@@ -959,9 +809,7 @@ test_opBC:
    mov sp,bx
    ret
 
-test_opBD:
-   dotest {mov bp, 1234}, opBD
-   ret
+SIMPLETEST {mov bp, 1234}, BD
 
 test_opBE:
    push si
@@ -979,13 +827,9 @@ test_opBF:
 ;############ Group 0xC
 ;#################################################################
 
-test_opC0:
-   dotest {ror byte [workword], 2}, opC0
-   ret
+SIMPLETEST {ror byte [workword], 2}, C0
 
-test_opC1:
-   dotest {ror word [workword], 2}, opC1
-   ret
+SIMPLETEST {ror word [workword], 2}, C1
 
 test_opC2:
    mov ax, dest_opC2
@@ -1026,17 +870,11 @@ test_opC5:
    pop ds
    ret
 
-test_opC6:
-   dotest {mov byte [workword], 42}, opC6
-   ret
+SIMPLETEST {mov byte [workword], 42}, C6
 
-test_opC7:
-   dotest {mov word [workword], 1234}, opC7
-   ret
+SIMPLETEST {mov word [workword], 1234}, C7
 
-test_opC8:
-   dotest {enter -2, 0}, opC8
-   ret
+SIMPLETEST {enter -2, 0}, C8
 
 test_opC9:
    mov bp, sp
@@ -1083,9 +921,7 @@ repeat_opCC:
    jnz repeat_opCC
    ret
 
-test_opCD:
-   dotest {int 4}, opCD
-   ret
+SIMPLETEST {int 4}, CD
 
 test_opCE:
 align 2
@@ -1115,21 +951,10 @@ dest_opCF:
 ;############ Group 0xD
 ;#################################################################
 
-test_opD0:
-   dotest {ror byte [workword], 1}, opD0
-   ret
-
-test_opD1:
-   dotest {ror word [workword], 1}, opD1
-   ret
-
-test_opD2:
-   dotest {ror byte [workword], cl}, opD2
-   ret
-
-test_opD3:
-   dotest {ror word [workword], cl}, opD3
-   ret
+SIMPLETEST {ror byte [workword], 1}, D0
+SIMPLETEST {ror word [workword], 1}, D1
+SIMPLETEST {ror byte [workword], cl}, D2
+SIMPLETEST {ror word [workword], cl}, D3
 
 SIMPLETEST aam, D4
 SIMPLETEST aad, D5
@@ -1201,21 +1026,13 @@ dest_opE3:
    jnz repeat_opE3
    ret
 
-test_opE4:
-   dotest {in al, 0}, opE4
-   ret
+SIMPLETEST {in al, 0}, E4
 
-test_opE5:
-   dotest {in ax, 0}, opE5
-   ret
+SIMPLETEST {in ax, 0}, E5
 
-test_opE6:
-   dotest {out 44, al}, opE6
-   ret
+SIMPLETEST {out 44, al}, E6
 
-test_opE7:
-   dotest {out 44, ax}, opE7
-   ret
+SIMPLETEST {out 44, ax}, E7
 
 test_opE8:
 align 2

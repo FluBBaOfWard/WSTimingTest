@@ -7,6 +7,19 @@
             "label": "build",
             "type": "shell",
             "command": "${workspaceFolder}/build.sh"
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "dependsOn": [
+                "build"
+            ],
+            "isBackground": true,
+            "command": "C:/Ares/Ares.exe ${workspaceFolder}/${workspaceFolderBasename}.ws",
+            "osx": {
+                "command": "/Applications/Ares.app/Contents/MacOS/Ares ${workspaceFolder}/${workspaceFolderBasename}.ws"
+            },
+            "problemMatcher": []
         }
     ]
 }
