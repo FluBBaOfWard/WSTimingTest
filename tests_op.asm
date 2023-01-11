@@ -1302,7 +1302,7 @@ dest_I4D:
    ret
 
 test_I4E:
-   dotest2 {push word [workword]}, {add sp, 2}, opI4E
+   dotest2 push word [workword], {add sp, 2}, opI4E
    ret
 
 test_I4F:
@@ -1444,6 +1444,68 @@ test_A87:
    dotest {mov al, [bx + 1234]}, A87
    ret
 
+test_EA11:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest {adc [bx + si], ax}, EA11
+   ret
+
+test_EA69:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest {imul ax, [bx + si], 1234}, EA69
+   ret
+
+test_EA89:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest {mov [bx + si], ax}, EA89
+   ret
+
+test_EA8D:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest {lea ax, [bx + si]}, EA8D
+   ret
+
+test_EA8F:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest2 pop word [bx + si], {sub sp, 2}, EA8F
+   ret
+
+test_EAC4:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   push es
+   dotest {les ax, [bx + si]}, EAC4
+   pop es
+   ret
+
+test_EAC5:
+   mov bx, mySegmentPtr
+   sub bx, 0x100
+   mov si, 0x100
+   push ds
+   dotest {lds ax, [bx + si]}, EAC5
+   pop ds
+   ret
+
+test_EAFF:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest2 push word [bx + si], {add sp, 2}, EAFF
+   ret
+
+test_EAC52:
+   mov bx, 0x0300
+   mov si, 0x4760
+   push ds
+   dotest {lds ax, [bx + si]}, EAC52
+   pop ds
+   ret
+
+
 ;#################################################################
 ;############ Group Exceptions
 ;#################################################################
@@ -1461,40 +1523,59 @@ align 2
 repeat_ExCE:
    fill_prefetch
    mov al, 64
-   add al, al ; Set oVerflow
-   nop
+   add al, al  ; Set oVerflow
+   nop         ; To align return address from exception
    into
    dec cx
    jnz repeat_ExCE
    ret
 
 test_ExD4:
-align 2
-repeat_ExD4:
-   fill_prefetch
-   aam 0
-   dec cx
-   jnz repeat_ExD4
+   dotest aam 0, ExD4
    ret
 
 test_EI36:
    mov word [es:workword], 0
-   dotest {div byte [es:workword]}, opEI36
+align 2
+repeat_EI36:
+   fill_prefetch
+   nop         ; To align return address from exception
+   div byte [es:workword]
+   dec cx
+   jnz repeat_EI36
    ret
 
 test_EI37:
    mov word [es:workword], 0
-   dotest {idiv byte [es:workword]}, opEI37
+align 2
+repeat_EI37:
+   fill_prefetch
+   nop         ; To align return address from exception
+   idiv byte [es:workword]
+   dec cx
+   jnz repeat_EI37
    ret
 
 test_EI3E:
    mov word [es:workword], 0
-   dotest {div word [es:workword]}, opEI3E
+align 2
+repeat_EI3E:
+   fill_prefetch
+   nop         ; To align return address from exception
+   div word [es:workword]
+   dec cx
+   jnz repeat_EI3E
    ret
 
 test_EI3F:
    mov word [es:workword], 0
-   dotest {idiv word [es:workword]}, opEI3F
+align 2
+repeat_EI3F:
+   fill_prefetch
+   nop         ; To align return address from exception
+   idiv word [es:workword]
+   dec cx
+   jnz repeat_EI3F
    ret
 
 ;#################################################################
@@ -2048,3 +2129,38 @@ test_QAF:
    mov di, scratchspace
    repz scasw
    ret
+
+;#################################################################
+;############ Group misc, wrong adr mode
+;#################################################################
+
+test_Z62:
+   dotest {db 0x62, 0xC0}, Z62
+   ret
+
+test_Z8C:
+   dotest {db 0x8C, 0xE0}, Z8C
+   ret
+
+test_Z8D:
+   dotest {db 0x8D, 0xC0}, Z8D
+   ret
+
+test_Z8E:
+   push es
+   dotest {db 0x8E, 0xE0}, Z8E
+   pop es
+   ret
+
+test_ZC4:
+   push es
+   dotest {db 0xC4, 0xC0}, ZC4
+   pop es
+   ret
+
+test_ZC5:
+   push ds
+   dotest {db 0xC5, 0xC0}, ZC5
+   pop ds
+   ret
+

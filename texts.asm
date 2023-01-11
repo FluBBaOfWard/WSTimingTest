@@ -347,6 +347,15 @@ teststringA84 : db "Adr EA84 :", 0
 teststringA85 : db "Adr EA85 :", 0
 teststringA86 : db "Adr EA86 :", 0
 teststringA87 : db "Adr EA87 :", 0
+teststringEA11: db "ADC[2r],r:", 0
+teststringEA69: db "MUL [r+r]:", 0
+teststringEA89: db "MOV[2r],r:", 0
+teststringEA8D: db "LEA [r+r]:", 0
+teststringEA8F: db "POP [r+r]:", 0
+teststringEAC4: db "LES [r+r]:", 0
+teststringEAC5: db "LDS [r+r]:", 0
+teststringEAFF: db "PUSH[r+r]:", 0
+teststringEA8A: db "MOVr,[2r]:", 0
 
 teststringEx62: db "62 BOUND :", 0
 teststringExCE: db "CE BRKV  :", 0
@@ -414,3 +423,14 @@ teststringRAF : db "RNZSCASW :", 0
 teststringQAF0: db "RpZSCASW0:", 0
 teststringQAF1: db "RpZSCASW1:", 0
 teststringQAF : db "RpZSCASW :", 0
+
+teststringZ62:  db "62 C0    :", 0
+teststringZ8C:  db "8C E0    :", 0
+teststringZ8D:  db "8D C0    :", 0
+teststringZ8E:  db "8E E0    :", 0
+teststringZC4:  db "C4 C0    :", 0
+teststringZC5:  db "C5 C0    :", 0
+teststringZ69:  db "MUL [r+r]:", 0
+teststringZ8D2: db "LEA [r+r]:", 0
+teststringZC42: db "LES [r+r]:", 0
+teststringZC52: db "LDS [r+r]:", 0

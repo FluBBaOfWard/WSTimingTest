@@ -393,6 +393,15 @@ execute  5, 58, teststringA84, test_A84
 execute  6, 58, teststringA85, test_A85
 execute  7, 58, teststringA86, test_A86
 execute  8, 58, teststringA87, test_A87
+execute  9, 74, teststringEA11, test_EA11
+execute 10, 78, teststringEA69, test_EA69
+execute 11, 66, teststringEA89, test_EA89
+execute 12, 62, teststringEA8D, test_EA8D
+execute 13, 74, teststringEA8F, test_EA8F
+execute 14, 82, teststringEAC4, test_EAC4
+execute 15, 82, teststringEAC5, test_EAC5
+execute 16, 74, teststringEAFF, test_EAFF
+execute 17, 86, teststringEAC5, test_EAC52
 test20end:
 
 testgroup 21
@@ -481,3 +490,12 @@ execute 10, 78, teststringQAF0,test_QAF0
 execute 11,113, teststringQAF1,test_QAF1
 execute 12, 35, teststringQAF, test_QAF
 test26end:
+
+testgroup 27
+execute  1,117, teststringZ62, test_Z62
+execute  2, 58, teststringZ8C, test_Z8C
+execute  3, 58, teststringZ8D, test_Z8D
+execute  4, 62, teststringZ8E, test_Z8E
+execute  5, 86, teststringZC4, test_ZC4
+execute  6, 86, teststringZC5, test_ZC5
+test27end:

@@ -174,11 +174,13 @@ initialize:
    jmp tests
 
 ;-----------------------------------------------------------------------------
-; our vblank interupt handler
+; our vblank interrupt handler
 ; it is called automatically whenever the vblank interrupt occurs, 
 ; that is, every time the screen is fully drawn
 ;-----------------------------------------------------------------------------
 align 2
+trapHandler:
+nmiHandler:
 divisionErrorHandler:
 int3Handler:
 brkvHandler:
@@ -464,6 +466,7 @@ x_right:
 
    BackgroundTileData: incbin "ascii.gfx"
    BackgroundTileDataEnd:
+   mySegmentPtr: dw MYSEGMENT
    boundData: dw 1234, 1236
    author   : db "Written by Robert Peip, 2021"
    testinfo : db "1000 OPs advance CurLine by:"
