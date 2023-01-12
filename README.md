@@ -8,24 +8,40 @@ The program test _all_ opcodes, even the undefined ones, on the WonderSwan these
 Halt (0xF4) test uses serial buffer empty interrupt, I also enable VBlank so that it can continue if serial interrupts are not suported.
 All opcode names are in Intel notation and not in NEC notation.
 
-## How to use:
-	Use X4 (Left) & X2 (Right) to switch between pages.
-	The result values are number of scanlines to run the test loop for each test, the tests are run 1000 times right now which means that the number of clock cycles x 4 almost should be the test result. Some result values can differ by 1 during certain circumstances this is not an error but happens on HW as well.
-	I have run the test on my Pink WonderSwan Color to get the results.
+## How to use
 
-## Credits:
-	First version by Robert Peip. https://github.com/RobertPeip
-	Additions and corrections by Fredrik Ahlström.
+Use X4 (Left) & X2 (Right) to switch between pages.
+The result values are number of scanlines to run the test loop for each test, the tests are run 1000 times right now which means that the number of clock cycles x 4 almost should be the test result. Some result values can differ by 1 during certain circumstances this is not an error but happens on HW as well.
+I have run the test on my Pink WonderSwan Color to get the results.
 
-	Thanks to:
-	Ed Mandy (Flavor) for WonderSwan info & flashcart. https://www.flashmasta.com
-	Koyote for WonderSwan info.
-	Alex Marshall (trap15) for WonderSwan info. http://daifukkat.su/docs/wsman/
-	Guy Perfect for WonderSwan info http://perfectkiosk.net/stsws.html
-	asie for info and inspiration.
-	Godzil for boot rom stubs. https://github.com/Godzil/NewOswan
-	lidnariq for RTC info.
+## Cycle counting according to NEC
+
+The normal cycle count is achieved when:
+
+1. Instruction decoding is completed. (I guess this is that the prefetch is filled).
+2. No wait state occurs during memory access or I/O access. (On the WS you can set the ROM to 3 wait states).
+3. There is no bus hold request.
+4. Word data is allocated to even addresses. (Word access to odd address adds 1 cycle)
+5. Registers required for calculating effective addresses (BX, BP, SP, SI, DI, etc.) do not change at immediately preceding instruction.
+6. There is only 1 register required for calculating effective addresses. (All tested instructions adds 2 cycles except LEA, LDS & LES which only adds 1 cycle).
+7. The branching destination of a branch instruction is an even address. (Branching to odd address adds 1 cycle)
+
+## Credits
+
+```text
+First version by Robert Peip. https://github.com/RobertPeip
+Additions and corrections by Fredrik Ahlström.
+
+Thanks to:
+Ed Mandy (Flavor) for WonderSwan info & flashcart. https://www.flashmasta.com
+Koyote for WonderSwan info.
+Alex Marshall (trap15) for WonderSwan info. http://daifukkat.su/docs/wsman/
+Guy Perfect for WonderSwan info http://perfectkiosk.net/stsws.html
+asie for info and inspiration.
+Godzil for boot rom stubs. https://github.com/Godzil/NewOswan
+lidnariq for RTC info.
+```
 
 Twitter @TheRealFluBBa
 
-https://www.github.com/FluBBaOfWard
+<https://www.github.com/FluBBaOfWard>

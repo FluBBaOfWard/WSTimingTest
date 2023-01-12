@@ -401,6 +401,7 @@ execute 13, 74, teststringEA8F, test_EA8F
 execute 14, 82, teststringEAC4, test_EAC4
 execute 15, 82, teststringEAC5, test_EAC5
 execute 16, 74, teststringEAFF, test_EAFF
+;execute 17, 86, teststringEAC4, test_EAC42
 execute 17, 86, teststringEAC5, test_EAC52
 test20end:
 

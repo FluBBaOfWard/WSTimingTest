@@ -1497,6 +1497,18 @@ test_EAFF:
    dotest2 push word [bx + si], {add sp, 2}, EAFF
    ret
 
+test_EAC42:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   push ds
+   push es
+   mov ax, 0xFFFF
+   mov ds, ax
+   dotest {les ax, [bx + si]}, EAC42
+   pop es
+   pop ds
+   ret
+
 test_EAC52:
    mov bx, 0x0300
    mov si, 0x4760
