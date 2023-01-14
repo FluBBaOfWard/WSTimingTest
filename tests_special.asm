@@ -7,7 +7,6 @@
 ;
 
 test_jumponly:
-   mov cx,TESTCOUNT
 align 2
 repeat_jumponly:
    fill_prefetch
@@ -18,7 +17,6 @@ repeat_jumponly:
 ;-----------------------------------------------------------------------------
 
 test_jumponlyUnaligned:
-   mov cx,TESTCOUNT
 align 2
    nop
 repeat_jumponlyUnaligned:
@@ -30,7 +28,6 @@ repeat_jumponlyUnaligned:
 ;-----------------------------------------------------------------------------
 
 test_looponly:
-   mov cx,TESTCOUNT
 align 2
 repeat_looponly:
    fill_prefetch
@@ -114,7 +111,6 @@ test_movaxmemes:
    ret
 
 test_tripplejump:
-   mov cx,TESTCOUNT
    cmp cx,0
 align 2
 repeat_tripplejump:

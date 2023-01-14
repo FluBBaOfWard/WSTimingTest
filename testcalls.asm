@@ -16,6 +16,7 @@ testgroup 0
 execute  1, 54, teststring1  , test_jumponly
 execute  2, 58, teststring2  , test_jumponlyUnaligned
 execute  3, 54, teststring3  , test_looponly
+;execute  3, 54, teststring3  , test_newjump
 execute  4, 58, teststring4  , test_nop
 execute  5, 62, teststring5  , test_nop2x
 execute  6, 58, teststring6  , test_incbl

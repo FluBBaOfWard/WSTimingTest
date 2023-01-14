@@ -1047,7 +1047,6 @@ align 2
    ret
 
 test_opE9:
-   mov cx,TESTCOUNT
 align 2
 .loop:
    fill_prefetch
@@ -1059,7 +1058,6 @@ align 2
    ret
 
 test_opEA:
-   mov cx,TESTCOUNT
 align 2
 .loop:
    fill_prefetch
@@ -1071,7 +1069,6 @@ align 2
    ret
 
 test_opEB:
-   mov cx,TESTCOUNT
 align 2
 .loop:
    fill_prefetch
