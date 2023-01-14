@@ -80,7 +80,7 @@ initialize:
    mov byte [es:pageCounter], 0
 
 ;-----------------------------------------------------------------------------
-; register our vblank interrupt handler
+; register our interrupt handlers
 ;-----------------------------------------------------------------------------
    mov ax, INT_BASE
    out IO_INT_BASE, al
@@ -91,15 +91,29 @@ initialize:
    mov word [es:di], vblankInterruptHandler
    mov word [es:di + 2], MYSEGMENT
 
+   mov di, INTVEC_SERIAL_SEND
+   add di, ax
+   shl di, 2
+   mov word [es:di], serialTxInterruptHandler
+   mov word [es:di + 2], MYSEGMENT
+
    mov di, 0*4		; Division error vector
    mov word [es:di], divisionErrorHandler
    mov word [es:di + 2], MYSEGMENT
 
-   mov di, 3*4		; int 3 vector
+   mov di, 1*4		; Trap/Brk vector
+   mov word [es:di], trapHandler
+   mov word [es:di + 2], MYSEGMENT
+
+   mov di, 2*4		; NMI vector
+   mov word [es:di], nmiHandler
+   mov word [es:di + 2], MYSEGMENT
+
+   mov di, 3*4		; Int 3 vector
    mov word [es:di], int3Handler
    mov word [es:di + 2], MYSEGMENT
 
-   mov di, 4*4		; brkv vector
+   mov di, 4*4		; BrkV vector
    mov word [es:di], brkvHandler
    mov word [es:di + 2], MYSEGMENT
 
@@ -188,6 +202,14 @@ boundErrorHandler:
 vblankInterruptHandler:
    iret
 
+align 2
+serialTxInterruptHandler:
+   add sp, 4
+   pop ax         ; flags
+   and ah, 0xFD   ; Clear Interrupt
+   push ax
+   sub sp, 4
+   iret
 
 waitLine:
    in al, IO_CUR_LINE
@@ -255,7 +277,7 @@ divrepeat:
 ; common test macros
 ;-----------------------------------------------------------------------------
 
-%macro fill_prefetch 0 
+%macro fill_prefetch 0
    nop
    nop
    nop
@@ -341,7 +363,7 @@ runtest:
    call printnumber
    xor dx, dx
 
-   ;set up timer test
+   ; set up timer test
    xor al, al
    out IO_TIMER_CTRL, al
    mov ax, 350

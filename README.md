@@ -23,7 +23,7 @@ The normal cycle count is achieved when:
 3. There is no bus hold request.
 4. Word data is allocated to even addresses. (Word access to odd address adds 1 cycle)
 5. Registers required for calculating effective addresses (BX, BP, SP, SI, DI, etc.) do not change at immediately preceding instruction.
-6. There is only 1 register required for calculating effective addresses. (All tested instructions adds 2 cycles except LEA, LDS & LES which only adds 1 cycle).
+6. There is only 1 register required for calculating effective addresses. (All tested instructions adds 2 cycles except LEA, LDS, LES & POP Word which only adds 1 cycle).
 7. The branching destination of a branch instruction is an even address. (Branching to odd address adds 1 cycle)
 
 ## Credits

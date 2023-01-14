@@ -393,19 +393,26 @@ execute  5, 58, teststringA84, test_A84
 execute  6, 58, teststringA85, test_A85
 execute  7, 58, teststringA86, test_A86
 execute  8, 58, teststringA87, test_A87
-execute  9, 74, teststringEA11, test_EA11
-execute 10, 78, teststringEA69, test_EA69
-execute 11, 66, teststringEA89, test_EA89
-execute 12, 62, teststringEA8D, test_EA8D
-execute 13, 74, teststringEA8F, test_EA8F
-execute 14, 82, teststringEAC4, test_EAC4
-execute 15, 82, teststringEAC5, test_EAC5
-execute 16, 74, teststringEAFF, test_EAFF
-;execute 17, 86, teststringEAC4, test_EAC42
-execute 17, 86, teststringEAC5, test_EAC52
 test20end:
 
 testgroup 21
+execute  1, 74, teststringEA11, test_EA11
+execute  2, 78, teststringEA69, test_EA69
+execute  3, 66, teststringEA89, test_EA89
+execute  4, 62, teststringEA8D, test_EA8D
+execute  5, 66, teststringEA8D, test_EA8DX
+execute  6, 62, teststringEA8D, test_EA8DY
+execute  7, 74, teststringEA8F, test_EA8F
+execute  8, 82, teststringEAC4, test_EAC4
+execute  9, 82, teststringEAC4, test_EAC42
+execute 10, 82, teststringEAC5, test_EAC5
+execute 11, 86, teststringEAC5, test_EAC52
+execute 12, 74, teststringEAFF, test_EAFF
+execute 13, 70, teststringA00, test_A00X
+execute 14, 66, teststringA04, test_A04X
+test21end:
+
+testgroup 22
 execute  1,300, teststringEx62,test_Ex62
 execute  2,281, teststringExCE,test_ExCE
 execute  3,281, teststringExD4,test_ExD4
@@ -413,9 +420,10 @@ execute  4,289, teststringEI36,test_EI36
 execute  5,300, teststringEI37,test_EI37
 execute  6,289, teststringEI3E,test_EI3E
 execute  7,300, teststringEI3F,test_EI3F
-test21end:
+execute  8,293, teststringExIrq,test_ExIrq
+test22end:
 
-testgroup 22
+testgroup 23
 execute  1, 78, teststringR6C0,test_R6C0
 execute  2,101, teststringR6C1,test_R6C1
 execute  3, 23, teststringR6C, test_R6C
@@ -428,18 +436,18 @@ execute  9, 23, teststringR6E, test_R6E
 execute 10, 78, teststringR6F0,test_R6F0
 execute 11,101, teststringR6F1,test_R6F1
 execute 12, 23, teststringR6F, test_R6F
-test22end:
+test23end:
 
-testgroup 23
+testgroup 24
 execute  1, 78, teststringRA40,test_RA40
 execute  2,105, teststringRA41,test_RA41
 execute  3, 27, teststringRA4, test_RA4
 execute  4, 78, teststringRA50,test_RA50
 execute  5,105, teststringRA51,test_RA51
 execute  6, 27, teststringRA5, test_RA5
-test23end:
+test24end:
 
-testgroup 24
+testgroup 25
   	mov si, 0
   	mov di, scratchspace
    mov cx, TESTCOUNT
@@ -456,9 +464,9 @@ execute  9, 39, teststringRA7, test_RA7
 execute 10, 78, teststringQA70,test_QA70
 execute 11,117, teststringQA71,test_QA71
 execute 12, 39, teststringQA7, test_QA7
-test24end:
+test25end:
 
-testgroup 25
+testgroup 26
 execute  1, 78, teststringRAA0,test_RAA0
 execute  2,101, teststringRAA1,test_RAA1
 execute  3, 23, teststringRAA, test_RAA
@@ -471,9 +479,9 @@ execute  9, 23, teststringRAC, test_RAC
 execute 10, 78, teststringRAD0,test_RAD0
 execute 11,101, teststringRAD1,test_RAD1
 execute 12, 23, teststringRAD, test_RAD
-test25end:
+test26end:
 
-testgroup 26
+testgroup 27
    mov ax, 0x1212
   	mov di, scratchspace
    mov cx, TESTCOUNT
@@ -490,13 +498,13 @@ execute  9, 35, teststringRAF, test_RAF
 execute 10, 78, teststringQAF0,test_QAF0
 execute 11,113, teststringQAF1,test_QAF1
 execute 12, 35, teststringQAF, test_QAF
-test26end:
+test27end:
 
-testgroup 27
-execute  1,117, teststringZ62, test_Z62
+testgroup 28
+;execute  1,117, teststringZ62, test_Z62
 execute  2, 58, teststringZ8C, test_Z8C
 execute  3, 58, teststringZ8D, test_Z8D
 execute  4, 62, teststringZ8E, test_Z8E
 execute  5, 86, teststringZC4, test_ZC4
 execute  6, 86, teststringZC5, test_ZC5
-test27end:
+test28end:

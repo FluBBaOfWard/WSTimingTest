@@ -485,7 +485,7 @@ dest_op7A:
    ret
 
 test_op7B:
-   mov bl, 0
+   xor bl, bl
 align 2
 repeat_op7B:
    fill_prefetch
@@ -1014,7 +1014,7 @@ dest_opE2:
    ret
 
 test_opE3:
-   mov cx, 0
+   xor cx, cx
    mov bx, TESTCOUNT
 align 2
 repeat_opE3:
@@ -1126,7 +1126,7 @@ test_opF4:
    mov al, INT_SERIAL_SEND | INT_VBLANK_START
    out IO_INT_ENABLE, al
    dotest hlt, opF4
-   mov al, 0
+   xor al, al
    out IO_COMM_DIR, al
    out IO_INT_ENABLE, al
    dec al
@@ -1468,6 +1468,18 @@ test_EA8D:
    dotest {lea ax, [bx + si]}, EA8D
    ret
 
+test_EA8DX:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest2 {add bx, 2}, {lea ax, [bx + si]}, EA8DX
+   ret
+
+test_EA8DY:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest2 {add si, 2}, {lea ax, [si]}, EA8DY
+   ret
+
 test_EA8F:
    and bx, 0xFFFE
    and si, 0xFFFE
@@ -1482,21 +1494,6 @@ test_EAC4:
    pop es
    ret
 
-test_EAC5:
-   mov bx, mySegmentPtr
-   sub bx, 0x100
-   mov si, 0x100
-   push ds
-   dotest {lds ax, [bx + si]}, EAC5
-   pop ds
-   ret
-
-test_EAFF:
-   and bx, 0xFFFE
-   and si, 0xFFFE
-   dotest2 push word [bx + si], {add sp, 2}, EAFF
-   ret
-
 test_EAC42:
    and bx, 0xFFFE
    and si, 0xFFFE
@@ -1509,12 +1506,38 @@ test_EAC42:
    pop ds
    ret
 
+test_EAC5:
+   mov bx, mySegmentPtr
+   sub bx, 0x100
+   mov si, 0x100
+   push ds
+   dotest {lds ax, [bx + si]}, EAC5
+   pop ds
+   ret
+
 test_EAC52:
    mov bx, 0x0300
    mov si, 0x4760
    push ds
    dotest {lds ax, [bx + si]}, EAC52
    pop ds
+   ret
+
+test_EAFF:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest2 push word [bx + si], {add sp, 2}, EAFF
+   ret
+
+test_A00X:
+   and bx, 0xFFFE
+   and si, 0xFFFE
+   dotest2 {add bx, 2}, {mov al, [bx + si]}, A00X
+   ret
+
+test_A04X:
+   and si, 0xFFFE
+   dotest2 {add si, 2}, {mov al, [si]}, A04X
    ret
 
 
@@ -1588,6 +1611,29 @@ repeat_EI3F:
    idiv word [es:workword]
    dec cx
    jnz repeat_EI3F
+   ret
+
+test_ExIrq:
+   mov al, COMM_ENABLE | COMM_SPEED_38400
+   out IO_COMM_DIR, al
+   mov al, INT_SERIAL_SEND
+   out IO_INT_ENABLE, al
+
+align 2
+.loop:
+   fill_prefetch
+   nop
+   sti
+   mov al, 0
+   dec cx
+   jnz .loop
+
+   cli
+   xor al, al
+   out IO_COMM_DIR, al
+   out IO_INT_ENABLE, al
+   dec al
+   out IO_INT_ACK, al
    ret
 
 ;#################################################################
