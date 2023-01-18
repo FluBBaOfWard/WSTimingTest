@@ -432,6 +432,7 @@ teststringZ8D:  db "8D C0    :", 0
 teststringZ8E:  db "8E E0    :", 0
 teststringZC4:  db "C4 C0    :", 0
 teststringZC5:  db "C5 C0    :", 0
+teststringLL0 : db "Long Loop ", 0
 teststringZ69:  db "MUL [r+r]:", 0
 teststringZ8D2: db "LEA [r+r]:", 0
 teststringZC42: db "LES [r+r]:", 0

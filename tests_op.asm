@@ -2190,7 +2190,13 @@ test_QAF:
 ;#################################################################
 
 test_Z62:
-   dotest {db 0x62, 0xC0}, Z62
+	mov ax, MYSEGMENT
+	mov ds, ax
+   mov dx, 1235
+   mov bx, boundData
+   mov di, 0x0000
+   ; 0xD7 = dx, [ds:bx + di]
+   dotest {db 0x62, 0xD7}, Z62
    ret
 
 test_Z8C:
@@ -2219,3 +2225,16 @@ test_ZC5:
    pop ds
    ret
 
+test_longloop:
+   cmp cx,0
+align 2
+repeat_longloop:
+   fill_prefetch
+   cli
+   cli
+   cli
+   nop
+   nop
+   dec cx
+   jnz repeat_longloop
+   ret

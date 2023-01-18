@@ -502,10 +502,11 @@ execute 12, 35, teststringQAF, test_QAF
 test27end:
 
 testgroup 28
-;execute  1,117, teststringZ62, test_Z62
+execute  1,109, teststringZ62, test_Z62
 execute  2, 58, teststringZ8C, test_Z8C
 execute  3, 58, teststringZ8D, test_Z8D
 execute  4, 62, teststringZ8E, test_Z8E
 execute  5, 86, teststringZC4, test_ZC4
 execute  6, 86, teststringZC5, test_ZC5
+execute  7,109, teststringLL0, test_longloop
 test28end:
