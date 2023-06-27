@@ -1,0 +1,3 @@
+TimingTest Todo
+
+Test different instructions as destination from JMP.

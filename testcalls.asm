@@ -506,7 +506,10 @@ execute  1,109, teststringZ62, test_Z62
 execute  2, 58, teststringZ8C, test_Z8C
 execute  3, 58, teststringZ8D, test_Z8D
 execute  4, 62, teststringZ8E, test_Z8E
-execute  5, 86, teststringZC4, test_ZC4
-execute  6, 86, teststringZC5, test_ZC5
-execute  7,109, teststringLL0, test_longloop
+execute  5, 62, teststringZ8F, test_Z8F
+execute  6, 86, teststringZC4, test_ZC4
+execute  7, 86, teststringZC5, test_ZC5
+execute  8,109, teststringLL0, test_longloop
+execute  9, 31, teststringSL0, test_shortloop
+execute 10, 19, teststringSL1, test_shortestloop
 test28end:

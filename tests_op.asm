@@ -2193,8 +2193,8 @@ test_Z62:
 	mov ax, MYSEGMENT
 	mov ds, ax
    mov dx, 1235
-   mov bx, boundData
-   mov di, 0x0000
+   mov bx, boundData-0x7777
+   mov di, 0x7777
    ; 0xD7 = dx, [ds:bx + di]
    dotest {db 0x62, 0xD7}, Z62
    ret
@@ -2213,6 +2213,12 @@ test_Z8E:
    pop es
    ret
 
+test_Z8F:
+   push ax
+   dotest2 {db 0x8F, 0xC0}, {sub sp, 2}, Z8F
+   pop ax
+   ret
+
 test_ZC4:
    push es
    dotest {db 0xC4, 0xC0}, ZC4
@@ -2226,7 +2232,6 @@ test_ZC5:
    ret
 
 test_longloop:
-   cmp cx,0
 align 2
 repeat_longloop:
    fill_prefetch
@@ -2237,4 +2242,20 @@ repeat_longloop:
    nop
    dec cx
    jnz repeat_longloop
+   ret
+
+test_shortloop:
+align 2
+repeat_shortloop:
+   dec cx
+   nop
+   nop
+   jnz repeat_shortloop
+   ret
+
+test_shortestloop:
+align 2
+repeat_shortestloop:
+   dec cx
+   jnz repeat_shortestloop
    ret
