@@ -37,23 +37,23 @@ repeat_looponly:
 ;-----------------------------------------------------------------------------
 
 test_nop:
-   dotest nop, nop
+   dotest nop
    ret
 
 test_nop2x:
-   dotest2 nop, nop, nop2x
+   dotest2 nop, nop
    ret
 
 test_incbl:
-   dotest inc bl, incbl
+   dotest inc bl
    ret
 
 test_incbx:
-   dotest inc bx, incbx
+   dotest inc bx
    ret
 
 test_incbx2x:
-   dotest2 inc bx, inc bx, incbx2x
+   dotest2 inc bx, inc bx
    ret
 
 test_newjump:
@@ -69,45 +69,45 @@ repeat_newjump:
    ret
 
 test_cli:
-   dotest cli, cli
+   dotest cli
    ret
 
 test_in_al:
-   dotest {in al, 0}, in_al
+   dotest {in al, 0}
    ret
 
 test_in_aldx:
-   dotest {in al, dx}, in_al_dx
+   dotest {in al, dx}
    ret
 
 test_sp_add2:
    mov [es:workword], sp
-   dotest {add sp, 2}, sp_add2
+   dotest {add sp, 2}
    mov sp, [es:workword]
    ret
 
 test_sp_sub2:
    mov [es:workword], sp
-   dotest {sub sp, 2}, sp_sub2
+   dotest {sub sp, 2}
    mov sp, [es:workword]
    ret
 
 test_push:
-   dotest2 push ax, {add sp, 2}, push
+   dotest2 push ax, {add sp, 2}
    ret
 
 test_pop:
    push ax
-   dotest2 pop ax, {sub sp, 2}, pop
+   dotest2 pop ax, {sub sp, 2}
    pop ax
    ret
 
 test_movaxmem:
-   dotest {mov ax, [workword]}, movaxmem
+   dotest {mov ax, [workword]}
    ret
 
 test_movaxmemes:
-   dotest {mov ax, [es:workword]}, movaxmemes
+   dotest {mov ax, [es:workword]}
    ret
 
 test_tripplejump:

@@ -1,4 +1,4 @@
-# WonderSwan TimingTest V0.3.0 (20230118)
+# WonderSwan TimingTest V0.4.0 (20230909)
 
 This is a program to test the timing of the CPU in a Bandai WonderSwan.
 These results are not an absolute definition of how long an opcode takes, the cpu has an instruction pipeline which is flushed when branching, it takes 1 extra clock when branching to an odd address, it also seems to take more cycles depending on what the destination instruction is. I have tried to make the tests of jump/branch/call avoid these situations but I'm not sure I did it correctly everywhere.
@@ -42,6 +42,6 @@ Godzil for boot rom stubs. https://github.com/Godzil/NewOswan
 lidnariq for RTC info.
 ```
 
-Twitter @TheRealFluBBa
+Twitter/X @TheRealFluBBa
 
 <https://www.github.com/FluBBaOfWard>

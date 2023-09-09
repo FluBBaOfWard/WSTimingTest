@@ -407,7 +407,7 @@ execute  7, 74, teststringEA8F, test_EA8F
 execute  8, 82, teststringEAC4, test_EAC4
 execute  9, 82, teststringEAC4, test_EAC42
 execute 10, 82, teststringEAC5, test_EAC5
-execute 11, 86, teststringEAC5, test_EAC52
+execute 11, 82, teststringEAC5, test_EAC52
 execute 12, 74, teststringEAFF, test_EAFF
 execute 13, 70, teststringA00, test_A00X
 execute 14, 66, teststringA04, test_A04X
@@ -422,6 +422,7 @@ execute  5,300, teststringEI37,test_EI37
 execute  6,289, teststringEI3E,test_EI3E
 execute  7,300, teststringEI3F,test_EI3F
 execute  8,293, teststringExIrq,test_ExIrq
+execute  9,261, teststringTrap,test_Trap
 test22end:
 
 testgroup 23

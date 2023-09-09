@@ -1,3 +1,4 @@
 TimingTest Todo
 
+Check which port is used in the fill_prefetch macro for "in al, dx"
 Test different instructions as destination from JMP.

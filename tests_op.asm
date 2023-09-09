@@ -23,12 +23,12 @@ SIMPLETEST {add al, 40}, 04
 SIMPLETEST {add ax, 1234}, 05
 
 test_op06:
-   dotest2 push es, {add sp, 2}, op06
+   dotest2 push es, {add sp, 2}
    ret
 
 test_op07:
    push es
-   dotest2 pop es, {sub sp, 2}, op07
+   dotest2 pop es, {sub sp, 2}
    pop es
    ret
 
@@ -45,7 +45,7 @@ SIMPLETEST {or al, 40}, 0C
 SIMPLETEST {or ax, 1234}, 0D
 
 test_op0E:
-   dotest2 push cs, {add sp, 2}, op0E
+   dotest2 push cs, {add sp, 2}
    ret
 
 SIMPLETEST db 0x0f, 0F
@@ -68,12 +68,12 @@ SIMPLETEST {adc al, 40}, 14
 SIMPLETEST {adc ax, 1234}, 15
 
 test_op16:
-   dotest2 push ss, {add sp, 2}, op16
+   dotest2 push ss, {add sp, 2}
    ret
 
 test_op17:
    push ss
-   dotest2 pop ss, {sub sp, 2}, op17
+   dotest2 pop ss, {sub sp, 2}
    pop ss
    ret
 
@@ -90,12 +90,12 @@ SIMPLETEST {sbb al, 40}, 1C
 SIMPLETEST {sbb ax, 1234}, 1D
 
 test_op1E:
-   dotest2 push ds, {add sp, 2}, op1E
+   dotest2 push ds, {add sp, 2}
    ret
 
 test_op1F:
    push ds
-   dotest2 pop ds, {sub sp, 2}, op1F
+   dotest2 pop ds, {sub sp, 2}
    pop ds
    ret  
 
@@ -181,23 +181,23 @@ SIMPLETEST inc ax, 40
 test_op41:
    mov bx, TESTCOUNT
 align 2
-repeat_op41:
+.loop:
    fill_prefetch
    inc cx
    dec bx
-   jnz repeat_op41
+   jnz .loop
    ret
 
 test_op42:
    mov dx, 0x1000
-   dotest inc dx, op42
+   dotest inc dx
    ret
 
 SIMPLETEST inc bx, 43
 
 test_op44:
    mov bx, sp
-   dotest inc sp, op44
+   dotest inc sp
    mov sp, bx
    ret
 
@@ -209,11 +209,11 @@ SIMPLETEST dec ax, 48
 test_op49:
    mov bx, TESTCOUNT
 align 2
-repeat_op49:
+.loop:
    fill_prefetch
    dec cx
    dec bx
-   jnz repeat_op49
+   jnz .loop
    ret
 
 SIMPLETEST dec dx, 4A
@@ -221,7 +221,7 @@ SIMPLETEST dec bx, 4B
 
 test_op4C:
    mov bx, sp
-   dotest dec sp, op4C
+   dotest dec sp
    mov sp, bx
    ret
 
@@ -247,12 +247,12 @@ POPTEST  ax, 58
 test_op59:
    mov bx, TESTCOUNT
 align 2
-repeat_op59:
+.loop:
    fill_prefetch
    pop cx
    sub sp, 2
    dec bx
-   jnz repeat_op59
+   jnz .loop
    ret
 
 POPTEST  dx, 5A
@@ -261,7 +261,7 @@ POPTEST  bx, 5B
 test_op5C:
    mov bx, sp
    push sp
-   dotest pop sp, op5C
+   dotest pop sp
    mov sp, bx
    ret
 
@@ -274,20 +274,20 @@ POPTEST  di, 5F
 ;#################################################################
 
 test_op60:
-   dotest2 pusha, {add sp, 16}, op60
+   dotest2 pusha, {add sp, 16}
    ret
 
 test_op61:
    mov cx,TESTCOUNT
 align 2
-repeat_op61:
+.loop:
    fill_prefetch
    push cx
    popa
    sub sp, 16
    pop cx 
    dec cx
-   jnz repeat_op61
+   jnz .loop
    ret
 
 test_op62:
@@ -295,7 +295,7 @@ test_op62:
 	mov ds, ax
    mov bx, boundData
    mov dx, 1235
-   dotest {bound dx, [bx]}, op62
+   dotest {bound dx, [bx]}
    ret
 
 SIMPLETEST db 0x63, 63
@@ -311,35 +311,35 @@ SIMPLETEST db 0x67, 67
 PUSHTEST 1234, 68
 
 test_op69:
-   dotest {db 0x69, 0xC0, 0xD2, 0x04}, op69 ; mul ax <= ax,1234
+   dotest {db 0x69, 0xC0, 0xD2, 0x04} ; mul ax <= ax,1234
    ret
 
 PUSHTEST 42, 6A
 
 test_op6B:
-   dotest {db 0x6B, 0xC0, 0x2A}, op6B ; mul ax <= ax, 42
+   dotest {db 0x6B, 0xC0, 0x2A} ; mul ax <= ax, 42
    ret
 
 test_op6C:
    mov di, scratchspace
-   dotest insb, op6C
+   dotest insb
    ret
 
 test_op6D:
    mov di, scratchspace
-   dotest insw, op6D
+   dotest insw
    ret
 
 test_op6E:
    mov dx, 44
   	mov si, scratchspace
-   dotest outsb, op6E
+   dotest outsb
    ret
 
 test_op6F:
    mov dx, 44
    mov si, scratchspace
-   dotest outsw, op6F
+   dotest outsw
    ret
 
 ;#################################################################
@@ -558,7 +558,7 @@ SIMPLETEST {add byte [workword], 42}, 80
 SIMPLETEST {add word [workword], 1234}, 81
 
 test_op82:
-   dotest2 db 0x82, dd 0xD6000206, op82 ; add byte [workword], -42
+   dotest2 db 0x82, dd 0xD6000206 ; add byte [workword], -42
    ret
 
 SIMPLETEST {add word [workword], -42}, 83
@@ -585,13 +585,13 @@ SIMPLETEST {lea ax, [workword]}, 8D
 
 test_op8E:
    push es
-   dotest {mov es, [workword]}, op8E
+   dotest {mov es, [workword]}
    pop es
    ret
 
 test_op8F:
    push ax
-   dotest2 pop word [workword], {sub sp, 2}, op8F
+   dotest2 pop word [workword], {sub sp, 2}
    pop ax
    ret
 
@@ -602,7 +602,7 @@ test_op8F:
 SIMPLETEST nop, 90
 
 test_op91:
-   dotest2 {xchg ax, cx}, {mov cx, ax}, op91
+   dotest2 {xchg ax, cx}, {mov cx, ax}
    ret
 
 SIMPLETEST {xchg ax, dx}, 92
@@ -610,19 +610,19 @@ SIMPLETEST {xchg ax, dx}, 92
 SIMPLETEST {xchg ax, bx}, 93
 
 test_op94:
-   dotest2 {xchg ax, sp}, {mov sp, ax}, op94
+   dotest2 {xchg ax, sp}, {mov sp, ax}
    ret
 
 test_op95:
-   dotest2 {xchg ax, bp}, {mov bp, ax}, op95
+   dotest2 {xchg ax, bp}, {mov bp, ax}
    ret
 
 test_op96:
-   dotest2 {xchg ax, si}, {mov si, ax}, op96
+   dotest2 {xchg ax, si}, {mov si, ax}
    ret
 
 test_op97:
-   dotest2 {xchg ax, di}, {mov di, ax}, op97
+   dotest2 {xchg ax, di}, {mov di, ax}
    ret
 
 SIMPLETEST cbw, 98 ; sign extend byte
@@ -644,12 +644,12 @@ dest_op9A:
 SIMPLETEST wait, 9B ; wait
 
 test_op9C:
-   dotest2 {pushf}, {add sp, 2}, op9C
+   dotest2 {pushf}, {add sp, 2}
    ret
 
 test_op9D:
    pushf
-   dotest2 {popf}, {sub sp, 2}, op9D
+   dotest2 {popf}, {sub sp, 2}
    popf
    ret
 
@@ -672,7 +672,7 @@ test_opA4:
    push si
    push di
    mov di, scratchspace
-   dotest movsb, opA4
+   dotest movsb
    pop di
    pop si
    ret
@@ -682,7 +682,7 @@ test_opA5:
    push di
    and si, 0xFFFE
    mov di, scratchspace
-   dotest movsw, opA5
+   dotest movsw
    pop di
    pop si
    ret
@@ -690,7 +690,7 @@ test_opA5:
 test_opA6:
    push si
    push di
-   dotest cmpsb, opA6
+   dotest cmpsb
    pop di
    pop si
    ret
@@ -700,7 +700,7 @@ test_opA7:
    push di
    and si, 0xFFFE
    and di, 0xFFFE
-   dotest cmpsw, opA7
+   dotest cmpsw
    pop di
    pop si
    ret
@@ -714,7 +714,7 @@ test_opAA:
    push es
    mov ax, 0xF000
    mov es, ax
-   dotest stosb, opAA
+   dotest stosb
    pop es
    pop di
    ret
@@ -725,34 +725,34 @@ test_opAB:
    and di, 0xFFFE
    mov ax, 0xF000
    mov es, ax
-   dotest stosw, opAB
+   dotest stosw
    pop es
    pop di
    ret
 
 test_opAC:
    push si
-   dotest lodsb, opAC
+   dotest lodsb
    pop si
    ret
 
 test_opAD:
    push si
    and si, 0xFFFE
-   dotest lodsw, opAD
+   dotest lodsw
    pop si
    ret
 
 test_opAE:
    push di
-   dotest scasb, opAE
+   dotest scasb
    pop di
    ret
 
 test_opAF:
    push di
    and di, 0xFFFE
-   dotest scasw, opAF
+   dotest scasw
    pop di
    ret
 
@@ -765,11 +765,11 @@ LOADIMMIDIATE al,   42, B0
 test_opB1:
    mov bx, TESTCOUNT
 align 2
-repeat_opB1:
+.loop:
    fill_prefetch
    mov cl, 42
    dec bx
-   jnz repeat_opB1
+   jnz .loop
    ret
 
 LOADIMMIDIATE dl,   42, B2
@@ -779,11 +779,11 @@ LOADIMMIDIATE ah,   42, B4
 test_opB5:
    mov bx, TESTCOUNT
 align 2
-repeat_opB5:
+.loop:
    fill_prefetch
    mov ch, 42
    dec bx
-   jnz repeat_opB5
+   jnz .loop
    ret
 
 LOADIMMIDIATE dh,   42, B6
@@ -793,11 +793,11 @@ LOADIMMIDIATE ax, 1234, B8
 test_opB9:
    mov bx, TESTCOUNT
 align 2
-repeat_opB9:
+.loop:
    fill_prefetch
    mov cx, 1234
    dec bx
-   jnz repeat_opB9
+   jnz .loop
    ret
 
 LOADIMMIDIATE dx, 1234, BA
@@ -805,7 +805,7 @@ LOADIMMIDIATE bx, 1234, BB
 
 test_opBC:
    mov bx,sp
-   dotest {mov sp, 1234}, opBC
+   dotest {mov sp, 1234}
    mov sp,bx
    ret
 
@@ -813,13 +813,13 @@ SIMPLETEST {mov bp, 1234}, BD
 
 test_opBE:
    push si
-   dotest {mov si, 1234}, opBE
+   dotest {mov si, 1234}
    pop si
    ret
 
 test_opBF:
    push di
-   dotest {mov di, 1234}, opBF
+   dotest {mov di, 1234}
    pop di
    ret
 
@@ -860,13 +860,13 @@ dest_opC3:
 
 test_opC4:
    push es
-   dotest {les ax, [workword]}, opC4
+   dotest {les ax, [workword]}
    pop es
    ret
 
 test_opC5:
    push ds
-   dotest {lds ax, [workword]}, opC5
+   dotest {lds ax, [workword]}
    pop ds
    ret
 
@@ -880,7 +880,7 @@ test_opC9:
    mov bp, sp
    sub bp, 2
    push bp
-   dotest leave, opC9
+   dotest leave
    ret
 
 test_opCA:
@@ -914,22 +914,22 @@ dest_opCB:
 
 test_opCC:
 align 2
-repeat_opCC:
+.loop:
    fill_prefetch
    dec cx
    int3
-   jnz repeat_opCC
+   jnz .loop
    ret
 
 SIMPLETEST {int 4}, CD
 
 test_opCE:
 align 2
-repeat_opCE:
+.loop:
    fill_prefetch
    dec cx      ; No Overflow
    into
-   jnz repeat_opCE
+   jnz .loop
    ret
 
 test_opCF:
@@ -1081,40 +1081,40 @@ align 2
 
 test_opEC:
    mov dx, 0
-   dotest {in al, dx}, opEC
+   dotest {in al, dx}
    ret
 
 test_opED:
    mov dx, 0
-   dotest {in ax, dx}, opED
+   dotest {in ax, dx}
    ret
 
 test_opEE:
    mov dx, 44
-   dotest {out dx, al}, opEE
+   dotest {out dx, al}
    ret
 
 test_opEF:
    mov dx, 44
-   dotest {out dx, ax}, opEF
-   ret  
+   dotest {out dx, ax}
+   ret
 
 ;#################################################################
 ;############ Group 0xF
 ;#################################################################
 
 test_opF0:
-   dotest2 lock, nop, opF0
+   dotest2 lock, nop
    ret
 
 NOTEST F1 ; crash
 
 test_opF2:
-   dotest2 repne, nop, opF2
+   dotest2 repne, nop
    ret
 
 test_opF3:
-   dotest2 rep, nop, opF3
+   dotest2 rep, nop
    ret
 
 test_opF4:
@@ -1122,7 +1122,7 @@ test_opF4:
    out IO_COMM_DIR, al
    mov al, INT_SERIAL_SEND | INT_VBLANK_START
    out IO_INT_ENABLE, al
-   dotest hlt, opF4
+   dotest hlt
    xor al, al
    out IO_COMM_DIR, al
    out IO_INT_ENABLE, al
@@ -1136,14 +1136,14 @@ SIMPLETEST stc, F9
 SIMPLETEST cli, FA
 
 test_opFB:
-   dotest sti, opFB
+   dotest sti
    cli
    ret
 
 SIMPLETEST cld, FC   
 
 test_opFD:
-   dotest std, opFD
+   dotest std
    cld
    ret
 
@@ -1152,75 +1152,75 @@ test_opFD:
 ;#################################################################
 
 test_I30:
-   dotest {test byte [workword], 42}, opI30
+   dotest {test byte [workword], 42}
    ret
 
 test_I31:
-   dotest {db 0xf6, 0xC8 }, opI31
+   dotest {db 0xf6, 0xC8 }
    ret
 
 test_I32:
-   dotest {not byte [workword]}, opI32
+   dotest {not byte [workword]}
    ret
 
 test_I33:
-   dotest {neg byte [workword]}, opI33
+   dotest {neg byte [workword]}
    ret
 
 test_I34:
-   dotest {mul byte [workword]}, opI34
+   dotest {mul byte [workword]}
    ret
 
 test_I35:
-   dotest {imul byte [workword]}, opI35
+   dotest {imul byte [workword]}
    ret
 
 test_I36:
    xor ah, ah
    mov word [es:workword], 1
-   dotest {div byte [es:workword]}, opI36
+   dotest {div byte [es:workword]}
    ret
 
 test_I37:
    xor ah, ah
    mov word [es:workword], 1
-   dotest {idiv byte [es:workword]}, opI37
+   dotest {idiv byte [es:workword]}
    ret
 
 test_I38:
-   dotest {test word [workword], 42}, opI38
+   dotest {test word [workword], 42}
    ret
 
 test_I39:
-   dotest {db 0xf7, 0xC8 }, opI39
+   dotest {db 0xf7, 0xC8 }
    ret
 
 test_I3A:
-   dotest {not word [workword]}, opI3A
+   dotest {not word [workword]}
    ret
 
 test_I3B:
-   dotest {neg word [workword]}, opI3B
+   dotest {neg word [workword]}
    ret
 
 test_I3C:
-   dotest {mul word [workword]}, opI3C
+   dotest {mul word [workword]}
    ret
 
 test_I3D:
-   dotest {imul word [workword]}, opI3D
+   dotest {imul word [workword]}
    ret
 
 test_I3E:
    xor dx, dx
    mov word [es:workword], 1
-   dotest {div word [es:workword]}, opI3E
+   dotest {div word [es:workword]}
    ret
 
 test_I3F:
    xor dx, dx
    mov word [es:workword], 1
-   dotest {idiv word [es:workword]}, opI3F
+   dotest {idiv word [es:workword]}
    ret
 
 ;#################################################################
@@ -1228,19 +1228,19 @@ test_I3F:
 ;#################################################################
 
 test_I40:
-   dotest {inc byte [workword]}, opI40
+   dotest {inc byte [workword]}
    ret
 
 test_I41:
-   dotest {dec byte [workword]}, opI41
+   dotest {dec byte [workword]}
    ret
 
 test_I48:
-   dotest {inc word [workword]}, opI48
+   dotest {inc word [workword]}
    ret
 
 test_I49:
-   dotest {dec word [workword]}, opI49
+   dotest {dec word [workword]}
    ret
 
 i4A_addresses:
@@ -1299,11 +1299,11 @@ dest_I4D:
    ret
 
 test_I4E:
-   dotest2 push word [workword], {add sp, 2}, opI4E
+   dotest2 push word [workword], {add sp, 2}
    ret
 
 test_I4F:
-   dotest {db 0xff, 0xf8 }, opI4F
+   dotest {db 0xff, 0xf8 }
    ret
 
 ;#################################################################
@@ -1313,181 +1313,181 @@ test_I4F:
 test_A00:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest {mov al, [bx + si]}, A00
+   dotest {mov al, [bx + si]}
    ret
 
 test_A01:
    and bx, 0xFFFE
    and di, 0xFFFE
-   dotest {mov al, [bx + di]}, A01
+   dotest {mov al, [bx + di]}
    ret
 
 test_A02:
    and bp, 0xFFFE
    and si, 0xFFFE
-   dotest {mov al, [bp + si]}, A02
+   dotest {mov al, [bp + si]}
    ret
 
 test_A03:
    and bp, 0xFFFE
    and di, 0xFFFE
-   dotest {mov al, [bp + di]}, A03
+   dotest {mov al, [bp + di]}
    ret
 
 test_A04:
    and si, 0xFFFE
-   dotest {mov al, [si]}, A04
+   dotest {mov al, [si]}
    ret
 
 test_A05:
    and di, 0xFFFE
-   dotest {mov al, [di]}, A05
+   dotest {mov al, [di]}
    ret
 
 test_A06:
-   dotest {db 0x8A, 0x06, 0x00, 0x00}, A06
+   dotest {db 0x8A, 0x06, 0x00, 0x00}
    ret
 
 test_A07:
    and bx, 0xFFFE
-   dotest {mov al, [bx]}, A07
+   dotest {mov al, [bx]}
    ret
 
 test_A40:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest {mov al, [bx + si + 2]}, A40
+   dotest {mov al, [bx + si + 2]}
    ret
 
 test_A41:
    and bx, 0xFFFE
    and di, 0xFFFE
-   dotest {mov al, [bx + di + 2]}, A41
+   dotest {mov al, [bx + di + 2]}
    ret
 
 test_A42:
    and bp, 0xFFFE
    and si, 0xFFFE
-   dotest {mov al, [bp + si + 2]}, A42
+   dotest {mov al, [bp + si + 2]}
    ret
 
 test_A43:
    and bp, 0xFFFE
    and di, 0xFFFE
-   dotest {mov al, [bp + di + 2]}, A43
+   dotest {mov al, [bp + di + 2]}
    ret
 
 test_A44:
    and si, 0xFFFE
-   dotest {mov al, [si + 2]}, A44
+   dotest {mov al, [si + 2]}
    ret
 
 test_A45:
    and di, 0xFFFE
-   dotest {mov al, [di + 2]}, A45
+   dotest {mov al, [di + 2]}
    ret
 
 test_A46:
    and bp, 0xFFFE
-   dotest {mov al, [bp + 2]}, A46
+   dotest {mov al, [bp + 2]}
    ret
 
 test_A47:
    and bx, 0xFFFE
-   dotest {mov al, [bx + 2]}, A47
+   dotest {mov al, [bx + 2]}
    ret
 
 test_A80:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest {mov al, [bx + si + 1234]}, A80
+   dotest {mov al, [bx + si + 1234]}
    ret
 
 test_A81:
    and bx, 0xFFFE
    and di, 0xFFFE
-   dotest {mov al, [bx + di + 1234]}, A81
+   dotest {mov al, [bx + di + 1234]}
    ret
 
 test_A82:
    and bp, 0xFFFE
    and si, 0xFFFE
-   dotest {mov al, [bp + si + 1234]}, A82
+   dotest {mov al, [bp + si + 1234]}
    ret
 
 test_A83:
    and bp, 0xFFFE
    and di, 0xFFFE
-   dotest {mov al, [bp + di + 1234]}, A83
+   dotest {mov al, [bp + di + 1234]}
    ret
 
 test_A84:
    and si, 0xFFFE
-   dotest {mov al, [si + 1234]}, A84
+   dotest {mov al, [si + 1234]}
    ret
 
 test_A85:
    and di, 0xFFFE
-   dotest {mov al, [di + 1234]}, A85
+   dotest {mov al, [di + 1234]}
    ret
 
 test_A86:
    and bp, 0xFFFE
-   dotest {mov al, [bp + 1234]}, A86
+   dotest {mov al, [bp + 1234]}
    ret
 
 test_A87:
    and bx, 0xFFFE
-   dotest {mov al, [bx + 1234]}, A87
+   dotest {mov al, [bx + 1234]}
    ret
 
 test_EA11:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest {adc [bx + si], ax}, EA11
+   dotest {adc [bx + si], ax}
    ret
 
 test_EA69:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest {imul ax, [bx + si], 1234}, EA69
+   dotest {imul ax, [bx + si], 1234}
    ret
 
 test_EA89:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest {mov [bx + si], ax}, EA89
+   dotest {mov [bx + si], ax}
    ret
 
 test_EA8D:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest {lea ax, [bx + si]}, EA8D
+   dotest {lea ax, [bx + si]}
    ret
 
 test_EA8DX:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest2 {add bx, 2}, {lea ax, [bx + si]}, EA8DX
+   dotest2 {add bx, 2}, {lea ax, [bx + si]}
    ret
 
 test_EA8DY:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest2 {add si, 2}, {lea ax, [si]}, EA8DY
+   dotest2 {add si, 2}, {lea ax, [si]}
    ret
 
 test_EA8F:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest2 pop word [bx + si], {sub sp, 2}, EA8F
+   dotest2 pop word [bx + si], {sub sp, 2}
    ret
 
 test_EAC4:
    and bx, 0xFFFE
    and si, 0xFFFE
    push es
-   dotest {les ax, [bx + si]}, EAC4
+   dotest {les ax, [bx + si]}
    pop es
    ret
 
@@ -1498,7 +1498,7 @@ test_EAC42:
    push es
    mov ax, 0xFFFF
    mov ds, ax
-   dotest {les ax, [bx + si]}, EAC42
+   dotest {les ax, [bx + si]}
    pop es
    pop ds
    ret
@@ -1508,7 +1508,7 @@ test_EAC5:
    sub bx, 0x100
    mov si, 0x100
    push ds
-   dotest {lds ax, [bx + si]}, EAC5
+   dotest {lds ax, [bx + si]}
    pop ds
    ret
 
@@ -1516,25 +1516,25 @@ test_EAC52:
    mov bx, 0x0300
    mov si, 0x4760
    push ds
-   dotest {lds ax, [bx + si]}, EAC52
+   dotest {lds ax, [bx + si]}
    pop ds
    ret
 
 test_EAFF:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest2 push word [bx + si], {add sp, 2}, EAFF
+   dotest2 push word [bx + si], {add sp, 2}
    ret
 
 test_A00X:
    and bx, 0xFFFE
    and si, 0xFFFE
-   dotest2 {add bx, 2}, {mov al, [bx + si]}, A00X
+   dotest2 {add bx, 2}, {mov al, [bx + si]}
    ret
 
 test_A04X:
    and si, 0xFFFE
-   dotest2 {add si, 2}, {mov al, [si]}, A04X
+   dotest2 {add si, 2}, {mov al, [si]}
    ret
 
 
@@ -1547,67 +1547,67 @@ test_Ex62:
 	mov ds, ax
    mov bx, boundData
    mov dx, 1240
-   dotest {bound dx, [bx]}, ex62
+   dotest {bound dx, [bx]}
    ret
 
 test_ExCE:
 align 2
-repeat_ExCE:
+.loop:
    fill_prefetch
    mov al, 64
    add al, al  ; Set oVerflow
    nop         ; To align return address from exception
    into
    dec cx
-   jnz repeat_ExCE
+   jnz .loop
    ret
 
 test_ExD4:
-   dotest aam 0, ExD4
+   dotest aam 0
    ret
 
 test_EI36:
    mov word [es:workword], 0
 align 2
-repeat_EI36:
+.loop:
    fill_prefetch
    nop         ; To align return address from exception
    div byte [es:workword]
    dec cx
-   jnz repeat_EI36
+   jnz .loop
    ret
 
 test_EI37:
    mov word [es:workword], 0
 align 2
-repeat_EI37:
+.loop:
    fill_prefetch
    nop         ; To align return address from exception
    idiv byte [es:workword]
    dec cx
-   jnz repeat_EI37
+   jnz .loop
    ret
 
 test_EI3E:
    mov word [es:workword], 0
 align 2
-repeat_EI3E:
+.loop:
    fill_prefetch
    nop         ; To align return address from exception
    div word [es:workword]
    dec cx
-   jnz repeat_EI3E
+   jnz .loop
    ret
 
 test_EI3F:
    mov word [es:workword], 0
 align 2
-repeat_EI3F:
+.loop:
    fill_prefetch
    nop         ; To align return address from exception
    idiv word [es:workword]
    dec cx
-   jnz repeat_EI3F
+   jnz .loop
    ret
 
 test_ExIrq:
@@ -1631,6 +1631,21 @@ align 2
    out IO_INT_ENABLE, al
    dec al
    out IO_INT_ACK, al
+   ret
+
+test_Trap:
+   pushf
+   pop bx
+   or bh, 1    ; Set Trap
+align 2
+.loop:
+   fill_prefetch
+   push bx
+   nop         ; Alignment
+   popf        ; Pop trap flag
+   dec cx      ; Trap will happen after this instruction
+   jnz .loop
+
    ret
 
 ;#################################################################
@@ -2196,44 +2211,44 @@ test_Z62:
    mov bx, boundData-0x7777
    mov di, 0x7777
    ; 0xD7 = dx, [ds:bx + di]
-   dotest {db 0x62, 0xD7}, Z62
+   dotest {db 0x62, 0xD7}
    ret
 
 test_Z8C:
-   dotest {db 0x8C, 0xE0}, Z8C
+   dotest {db 0x8C, 0xE0}
    ret
 
 test_Z8D:
-   dotest {db 0x8D, 0xC0}, Z8D
+   dotest {db 0x8D, 0xC0}
    ret
 
 test_Z8E:
    push es
-   dotest {db 0x8E, 0xE0}, Z8E
+   dotest {db 0x8E, 0xE0}
    pop es
    ret
 
 test_Z8F:
    push ax
-   dotest2 {db 0x8F, 0xC0}, {sub sp, 2}, Z8F
+   dotest2 {db 0x8F, 0xC0}, {sub sp, 2}
    pop ax
    ret
 
 test_ZC4:
    push es
-   dotest {db 0xC4, 0xC0}, ZC4
+   dotest {db 0xC4, 0xC0}
    pop es
    ret
 
 test_ZC5:
    push ds
-   dotest {db 0xC5, 0xC0}, ZC5
+   dotest {db 0xC5, 0xC0}
    pop ds
    ret
 
 test_longloop:
 align 2
-repeat_longloop:
+.loop:
    fill_prefetch
    cli
    cli
@@ -2241,21 +2256,21 @@ repeat_longloop:
    nop
    nop
    dec cx
-   jnz repeat_longloop
+   jnz .loop
    ret
 
 test_shortloop:
 align 2
-repeat_shortloop:
+.loop:
    dec cx
    nop
    nop
-   jnz repeat_shortloop
+   jnz .loop
    ret
 
 test_shortestloop:
 align 2
-repeat_shortestloop:
+.loop:
    dec cx
-   jnz repeat_shortestloop
+   jnz .loop
    ret

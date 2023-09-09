@@ -366,6 +366,7 @@ teststringEI37: db "F6 7 IDIV:", 0
 teststringEI3E: db "F7 6 DIV :", 0
 teststringEI3F: db "F7 7 IDIV:", 0
 teststringExIrq: db "IRQ      :", 0
+teststringTrap: db "Break/Trap:", 0
 
 teststringR6C0: db "RepINSB 0:", 0
 teststringR6C1: db "RepINSB 1:", 0

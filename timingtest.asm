@@ -194,6 +194,13 @@ initialize:
 ;-----------------------------------------------------------------------------
 align 2
 trapHandler:
+   add sp, 4
+   pop ax         ; flags
+   and ah, 0xFE   ; Clear Trap
+   push ax
+   sub sp, 4
+   iret
+align 2
 nmiHandler:
 divisionErrorHandler:
 int3Handler:
@@ -284,28 +291,28 @@ divrepeat:
    in al, dx
 %endmacro
 
-%macro dotest 2
+%macro dotest 1
 align 2
-repeat_%2:
+.repeat:
    fill_prefetch
    %1
    dec cx
-   jnz repeat_%2
+   jnz .repeat
 %endmacro
 
-%macro dotest2 3
+%macro dotest2 2
 align 2
-repeat_%3:
+.repeat:
    fill_prefetch
    %1
    %2
    dec cx
-   jnz repeat_%3
+   jnz .repeat
 %endmacro
 
 %macro SIMPLETEST 2
 test_op%2:
-   dotest {%1}, op%2
+   dotest {%1}
    ret
 %endmacro
 
@@ -320,21 +327,21 @@ test_op%1:
 
 %macro PUSHTEST 2
 test_op%2:
-   dotest2 push %1, {add sp, 2}, op%2
+   dotest2 push %1, {add sp, 2}
    ret
 %endmacro
 
 %macro POPTEST 2
 test_op%2:
    push %1
-   dotest2 pop %1, {sub sp, 2}, op%2
+   dotest2 pop %1, {sub sp, 2}
    pop %1
    ret
 %endmacro
 
 %macro LOADIMMIDIATE 3
 test_op%3:
-   dotest {mov %1, %2}, op%3
+   dotest {mov %1, %2}
    ret
 %endmacro
 
