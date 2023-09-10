@@ -181,11 +181,11 @@ SIMPLETEST inc ax, 40
 test_op41:
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    inc cx
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_op42:
@@ -209,11 +209,11 @@ SIMPLETEST dec ax, 48
 test_op49:
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    dec cx
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 SIMPLETEST dec dx, 4A
@@ -247,12 +247,12 @@ POPTEST  ax, 58
 test_op59:
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    pop cx
    sub sp, 2
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 POPTEST  dx, 5A
@@ -280,14 +280,14 @@ test_op60:
 test_op61:
    mov cx,TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    push cx
    popa
    sub sp, 16
    pop cx 
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_op62:
@@ -765,11 +765,11 @@ LOADIMMIDIATE al,   42, B0
 test_opB1:
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cl, 42
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 LOADIMMIDIATE dl,   42, B2
@@ -779,11 +779,11 @@ LOADIMMIDIATE ah,   42, B4
 test_opB5:
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov ch, 42
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 LOADIMMIDIATE dh,   42, B6
@@ -793,11 +793,11 @@ LOADIMMIDIATE ax, 1234, B8
 test_opB9:
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1234
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 LOADIMMIDIATE dx, 1234, BA
@@ -914,22 +914,22 @@ dest_opCB:
 
 test_opCC:
 align 2
-.loop:
+.repeat:
    fill_prefetch
    dec cx
    int3
-   jnz .loop
+   jnz .repeat
    ret
 
 SIMPLETEST {int 4}, CD
 
 test_opCE:
 align 2
-.loop:
+.repeat:
    fill_prefetch
    dec cx      ; No Overflow
    into
-   jnz .loop
+   jnz .repeat
    ret
 
 test_opCF:
@@ -1036,47 +1036,47 @@ SIMPLETEST {out 44, ax}, E7
 
 test_opE8:
 align 2
-.loop:
+.repeat:
    fill_prefetch
    call .dest
 align 2
 .dest:
    pop ax
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_opE9:
 align 2
-.loop:
+.repeat:
    fill_prefetch
    jmp word .dest
 align 2
 .dest:
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_opEA:
 align 2
-.loop:
+.repeat:
    fill_prefetch
    jmp MYSEGMENT:.dest
 align 2
 .dest:
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_opEB:
 align 2
-.loop:
+.repeat:
    fill_prefetch
    jmp short .dest
 align 2
 .dest:
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_opEC:
@@ -1552,14 +1552,14 @@ test_Ex62:
 
 test_ExCE:
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov al, 64
    add al, al  ; Set oVerflow
    nop         ; To align return address from exception
    into
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_ExD4:
@@ -1569,45 +1569,45 @@ test_ExD4:
 test_EI36:
    mov word [es:workword], 0
 align 2
-.loop:
+.repeat:
    fill_prefetch
    nop         ; To align return address from exception
    div byte [es:workword]
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_EI37:
    mov word [es:workword], 0
 align 2
-.loop:
+.repeat:
    fill_prefetch
    nop         ; To align return address from exception
    idiv byte [es:workword]
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_EI3E:
    mov word [es:workword], 0
 align 2
-.loop:
+.repeat:
    fill_prefetch
    nop         ; To align return address from exception
    div word [es:workword]
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_EI3F:
    mov word [es:workword], 0
 align 2
-.loop:
+.repeat:
    fill_prefetch
    nop         ; To align return address from exception
    idiv word [es:workword]
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_ExIrq:
@@ -1617,13 +1617,13 @@ test_ExIrq:
    out IO_INT_ENABLE, al
 
 align 2
-.loop:
+.repeat:
    fill_prefetch
    nop
    sti
    mov al, 0
    dec cx
-   jnz .loop
+   jnz .repeat
 
    cli
    xor al, al
@@ -1638,13 +1638,13 @@ test_Trap:
    pop bx
    or bh, 1    ; Set Trap
 align 2
-.loop:
+.repeat:
    fill_prefetch
    push bx
    nop         ; Alignment
    popf        ; Pop trap flag
    dec cx      ; Trap will happen after this instruction
-   jnz .loop
+   jnz .repeat
 
    ret
 
@@ -1656,24 +1656,24 @@ test_R6C0:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep insb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_R6C1:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep insb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_R6C:
@@ -1685,24 +1685,24 @@ test_R6D0:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep insw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_R6D1:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep insw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_R6D:
@@ -1715,12 +1715,12 @@ test_R6E0:
    mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep outsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_R6E1:
@@ -1728,12 +1728,12 @@ test_R6E1:
    mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep outsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_R6E:
@@ -1747,12 +1747,12 @@ test_R6F0:
    mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep outsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_R6F1:
@@ -1760,12 +1760,12 @@ test_R6F1:
    mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep outsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_R6F:
@@ -1778,24 +1778,24 @@ test_RA40:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep movsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RA41:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep movsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RA4:
@@ -1808,12 +1808,12 @@ test_RA50:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep movsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RA51:
@@ -1821,12 +1821,12 @@ test_RA51:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep movsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RA5:
@@ -1840,12 +1840,12 @@ test_RA60:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    repnz cmpsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RA61:
@@ -1853,12 +1853,12 @@ test_RA61:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    repnz cmpsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RA6:
@@ -1872,12 +1872,12 @@ test_QA60:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    repz cmpsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_QA61:
@@ -1885,12 +1885,12 @@ test_QA61:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    repz cmpsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_QA6:
@@ -1904,12 +1904,12 @@ test_RA70:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    repnz cmpsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RA71:
@@ -1917,12 +1917,12 @@ test_RA71:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    repnz cmpsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RA7:
@@ -1936,12 +1936,12 @@ test_QA70:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    repz cmpsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_QA71:
@@ -1949,12 +1949,12 @@ test_QA71:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    repz cmpsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_QA7:
@@ -1968,24 +1968,24 @@ test_RAA0:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep stosb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAA1:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep stosb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAA:
@@ -1997,24 +1997,24 @@ test_RAB0:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep stosw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAB1:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep stosw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAB:
@@ -2026,24 +2026,24 @@ test_RAC0:
    mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep lodsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAC1:
    mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep lodsb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAC:
@@ -2055,24 +2055,24 @@ test_RAD0:
    mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    rep lodsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAD1:
    mov si, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    rep lodsw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAD:
@@ -2084,24 +2084,24 @@ test_RAE0:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    repnz scasb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAE1:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    repnz scasb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAE:
@@ -2114,24 +2114,24 @@ test_QAE0:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    repz scasb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_QAE1:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    repz scasb
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_QAE:
@@ -2144,24 +2144,24 @@ test_RAF0:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    repnz scasw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAF1:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    repnz scasw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_RAF:
@@ -2174,24 +2174,24 @@ test_QAF0:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 0
    repz scasw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_QAF1:
    mov di, scratchspace
    mov bx, TESTCOUNT
 align 2
-.loop:
+.repeat:
    fill_prefetch
    mov cx, 1
    repz scasw
    dec bx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_QAF:
@@ -2248,7 +2248,7 @@ test_ZC5:
 
 test_longloop:
 align 2
-.loop:
+.repeat:
    fill_prefetch
    cli
    cli
@@ -2256,21 +2256,21 @@ align 2
    nop
    nop
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
 
 test_shortloop:
 align 2
-.loop:
+.repeat:
    dec cx
    nop
    nop
-   jnz .loop
+   jnz .repeat
    ret
 
 test_shortestloop:
 align 2
-.loop:
+.repeat:
    dec cx
-   jnz .loop
+   jnz .repeat
    ret
